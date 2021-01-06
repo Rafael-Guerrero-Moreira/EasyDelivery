@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/fragmenStore"
+    android:icon="@drawable/ic_store"
+    android:title="Tienda"
+    ></item>
+    <item
+        android:id="@+id/fragmenCategory"
+        android:icon="@drawable/ic_category"
+        android:title="Categoria"
+        ></item>
+    <item
+        android:id="@+id/fragmenSearch"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Buscar"
+        ></item>
+    <item
+        android:id="@+id/fragmenUser"
+        android:icon="@drawable/ic_user"
+        android:title="Primero"
+        ></item>
+</menu>
