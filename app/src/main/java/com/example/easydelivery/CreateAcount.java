@@ -2,7 +2,9 @@ package com.example.easydelivery;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,6 +35,8 @@ public class CreateAcount extends AppCompatActivity {
     EditText TextName;
     EditText TexLastName;
     EditText TextUser;
+    EditText TexConfirmpass;
+    Boolean ConfimPass = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,26 +46,45 @@ public class CreateAcount extends AppCompatActivity {
         TextName = (EditText) findViewById(R.id.txtname);
         TexLastName = (EditText) findViewById(R.id.txtlastname);
         TextUser = (EditText) findViewById(R.id.txtuser);
+        TexConfirmpass = (EditText) findViewById(R.id.txtconfirmpass);
+//validacion de contrasenia
+        TexConfirmpass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(TextPassword.getText().toString().equals(s.toString()))ConfimPass = true;
+                else ConfimPass = false;
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         InicializarFirebase ();
+
     }
 
     private void registrarUsuario(){
 
         //Obtenemos el email y la contraseña desde las cajas de texto
-        String email = TextEmail.getText().toString().trim();
-        String password  = TextPassword.getText().toString().trim();
-
-        //Verificamos que las cajas de texto no esten vacías
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Se debe ingresar un email",Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Falta ingresar la contraseña",Toast.LENGTH_LONG).show();
-            return;
-        }
+        String email = TextEmail.getText().toString();
+        String password  = TextPassword.getText().toString();
+        String name = TextName.getText().toString();
+        String lastname  = TexLastName.getText().toString();
+        String user  = TextUser.getText().toString();
+        String resultado =ValidarCampos(email,password,name,lastname,user);
         //creating a new user
+        if(!TextUtils.isEmpty(resultado))
+        {
+            Toast.makeText(com.example.easydelivery.CreateAcount.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
+            return;
+        }
         mAuth.createUserWithEmailAndPassword(email, password)
          .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                    @Override
@@ -98,6 +121,31 @@ public class CreateAcount extends AppCompatActivity {
 
         databaseReference.child("Users").child(p.getIduser()).setValue(p);
     }
+    public String ValidarCampos(String email, String password,String name,String apellido,String usuario)
+    {
+        String mensage;
+        //Verificamos que las cajas de texto no esten vacías
+        if(TextUtils.isEmpty(name)){
+            return "Nombre";
+        }
+        if(TextUtils.isEmpty(apellido)){
+            return "Apellido";
+        }
+        if(TextUtils.isEmpty(usuario)){
+            return "Usuario";
+        }
+        if(TextUtils.isEmpty(email)){
+            return "Email";
+        }
+        if(TextUtils.isEmpty(password)){
+            return "Contraseña";
+        }
+        if (!ConfimPass){
+            return "Las contraseñas no coinciden";
+        }
+
+        return "";
+    }
     private void InicializarFirebase (){
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -105,4 +153,6 @@ public class CreateAcount extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
        mAuth = FirebaseAuth.getInstance();
     }
+
+
 }
