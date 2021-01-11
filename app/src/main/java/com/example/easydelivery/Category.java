@@ -2,9 +2,6 @@ package com.example.easydelivery;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,21 +10,17 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
-
-
-  //  FragmentUser fragmentUser = new FragmentUser();
+public class Category extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        BottomNavigationView navigation = findViewById(R.id.BottonNavigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        setContentView(R.layout.activity_category);
+        BottomNavigationView bottomNavigationView;
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.BottonNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.fragmenCategory);
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @SuppressLint("NonConstantResourceId")
         @Override
@@ -35,21 +28,21 @@ public class MainActivity extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.fragmenStore:
-                     intent = new Intent(MainActivity.this, Store.class);
+                    intent = new Intent(Category.this, Store.class);
                     startActivity(intent);
                     return true;
 
                 case R.id.fragmenCategory:
-                     intent = new Intent(MainActivity.this, Category.class);
+                    intent = new Intent(Category.this, Category.class);
                     startActivity(intent);
                     return true;
 
                 case R.id.fragmenSearch:
-                     intent = new Intent(MainActivity.this, Search.class);
+                    intent = new Intent(Category.this, Search.class);
                     startActivity(intent);
                     return true;
                 case R.id.fragmenUser:
-                     intent = new Intent(MainActivity.this, SettingUser.class);
+                    intent = new Intent(Category.this, SettingUser.class);
                     startActivity(intent);
                     return true;
             }
@@ -58,6 +51,5 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-
 
 }

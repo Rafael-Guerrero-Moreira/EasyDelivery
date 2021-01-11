@@ -2,7 +2,9 @@ package com.example.easydelivery;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -10,18 +12,42 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.easydelivery.model.Person;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.annotations.NotNull;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import com.example.easydelivery.ado.InternalFile;
+
 
 public class login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     EditText TextEmail ;
     EditText TextPassword;
+    private List<Person> listPerson = new ArrayList<Person>();
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +55,7 @@ public class login extends AppCompatActivity {
         TextEmail = (EditText) findViewById(R.id.txtuserlogin);
         TextPassword = (EditText) findViewById(R.id.txtpasslogin);
         InicializarFirebase();
+
     }
     public void Register(View view)
     {
@@ -46,7 +73,6 @@ public class login extends AppCompatActivity {
             Toast.makeText(this, "Se debe ingresar un email", Toast.LENGTH_LONG).show();
             return;
         }
-
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
             return ;
@@ -58,8 +84,15 @@ public class login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
-                            int pos = email.indexOf("@");
-                            String user = email.substring(0, pos);
+                            //Abrimos un nuevo fichero y doc si existe se sobre escribe en el
+                            InternalFile filei = new InternalFile();
+                            filei.createFile("data","datausers");
+                            //funcion llenarJson llena el json con un nuevo token y el usuario para llenar el fichero
+                            try {
+                                llenarJson();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             Toast.makeText(login.this, "Bienvenido: " + TextEmail.getText(), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent( login.this, MainActivity.class);
                             startActivity(intent);
@@ -75,5 +108,54 @@ public class login extends AppCompatActivity {
     private void InicializarFirebase (){
         // firebaseDatabase.setPersistenceEnabled(true);
         mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        // firebaseDatabase.setPersistenceEnabled(true);
+        databaseReference = firebaseDatabase.getReference();
     }
+    public JSONObject llenarJson() throws JSONException {
+
+        JSONObject object = new JSONObject();
+        //LLenamso el objeto Json
+        object.put("User",TextEmail.getText());
+        Log.d("PUT",object.getString("User"));
+        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                    Person p = objSnaptshot.getValue(Person.class);
+                    try {
+                        // se pregunta por el usuario en la bd esto por el email
+                        if (object.getString("User").equals(p.getEmail())) {
+                            //se asigna el nuevo token
+                            Log.d("Token entra", p.getToken());
+                            p.setToken(UUID.randomUUID().toString());
+                            Log.d("Token sale", p.getToken());
+                            InternalFile filei = new InternalFile();
+                            object.put("Token",p.getToken());
+                            Log.d("Put",p.getToken());
+                            databaseReference.child("Users").child(p.getIduser()).setValue(p);
+                            filei.writerFile("data","datausers",object);
+                            break;
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        return object;
+    }
+
+
+
 }

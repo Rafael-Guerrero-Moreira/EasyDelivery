@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.easydelivery">
-<uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
@@ -9,9 +12,14 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyDeliver">
-        <activity android:name=".CreateAcount"></activity>
+        <activity android:name=".Search"></activity>
+        <activity android:name=".Category" />
+        <activity android:name=".Store" />
+        <activity android:name=".SettingUser" />
+        <activity android:name=".login" />
+        <activity android:name=".CreateAcount" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".login">
+        <activity android:name=".VerifyToken">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

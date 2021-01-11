@@ -5,6 +5,7 @@ public class Person {
 private String lastname;
 private String user;
 private String iduser;
+private String token;
 
     public Person() {
     }
@@ -42,6 +43,14 @@ private String iduser;
     }
 
     private String email;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getIduser() {
         return iduser;
