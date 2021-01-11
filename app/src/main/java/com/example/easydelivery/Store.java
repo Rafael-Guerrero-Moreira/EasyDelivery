@@ -31,12 +31,10 @@ public class Store extends AppCompatActivity {
                     intent = new Intent(Store.this, Store.class);
                     startActivity(intent);
                     return true;
-
                 case R.id.fragmenCategory:
                     intent = new Intent(Store.this, Category.class);
                     startActivity(intent);
                     return true;
-
                 case R.id.fragmenSearch:
                     intent = new Intent(Store.this, Search.class);
                     startActivity(intent);

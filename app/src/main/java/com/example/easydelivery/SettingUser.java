@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.easydelivery.ado.InternalFile;
 import com.example.easydelivery.model.Person;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,10 +28,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.UUID;
+import com.example.easydelivery.ado.InternalFile;
 
 public class SettingUser extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +44,14 @@ public class SettingUser extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.fragmenUser);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         InicializarFirebase ();
+
     }
     private void InicializarFirebase (){
         // firebaseDatabase.setPersistenceEnabled(true);
         firebaseDatabase = FirebaseDatabase.getInstance();
         // firebaseDatabase.setPersistenceEnabled(true);
         databaseReference = firebaseDatabase.getReference();
+        mAuth = FirebaseAuth.getInstance();
     }
 
     public void CloseSession(View view)
@@ -89,6 +97,26 @@ public class SettingUser extends AppCompatActivity {
         Intent intent = new Intent(this, VerifyToken.class);
         startActivity(intent);
     }
+    public void Changepassword(View view) throws IOException, JSONException {
+        InternalFile file = new InternalFile();
+        JSONObject jsonObject = file.readerFile("data","datausers");
+        mAuth.setLanguageCode("es");
+        mAuth.sendPasswordResetEmail(jsonObject.getString("User")).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+              if(task.isSuccessful())
+              {
+                  Toast.makeText(SettingUser.this, "Se a enviado un corro a su usuario: ", Toast.LENGTH_LONG).show();
+              }
+              else
+              {
+                  Toast.makeText(SettingUser.this, "Error al enviar el correo: ", Toast.LENGTH_LONG).show();
+
+              }
+            }
+        });
+    }
+
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @SuppressLint("NonConstantResourceId")
         @Override
