@@ -61,7 +61,11 @@ public class login extends AppCompatActivity {
     {
         Intent intent = new Intent(this, com.example.easydelivery.CreateAcount.class);
         startActivity(intent);
-
+    }
+    public void ChangePass(View view)
+    {
+        Intent intent = new Intent(this, com.example.easydelivery.ChangePassword.class);
+        startActivity(intent);
     }
 
     public void loguearUsuario(View view) {

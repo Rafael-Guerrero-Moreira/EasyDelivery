@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyDeliver">
-        <activity android:name=".Search"></activity>
+        <activity android:name=".ChangePassword"></activity>
+        <activity android:name=".Search" />
         <activity android:name=".Category" />
         <activity android:name=".Store" />
         <activity android:name=".SettingUser" />

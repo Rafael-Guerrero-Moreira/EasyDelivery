@@ -105,14 +105,9 @@ public class SettingUser extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
               if(task.isSuccessful())
-              {
-                  Toast.makeText(SettingUser.this, "Se a enviado un corro a su usuario: ", Toast.LENGTH_LONG).show();
-              }
+              { Toast.makeText(SettingUser.this, "Se a enviado un corro a su usuario: ", Toast.LENGTH_LONG).show(); }
               else
-              {
-                  Toast.makeText(SettingUser.this, "Error al enviar el correo: ", Toast.LENGTH_LONG).show();
-
-              }
+              { Toast.makeText(SettingUser.this, "Error al enviar el correo: ", Toast.LENGTH_LONG).show(); }
             }
         });
     }
