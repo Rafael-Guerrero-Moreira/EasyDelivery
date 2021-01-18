@@ -37,20 +37,24 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.fragmenStore:
                      intent = new Intent(MainActivity.this, Store.class);
                     startActivity(intent);
+                    finish();
                     return true;
 
                 case R.id.fragmenCategory:
                      intent = new Intent(MainActivity.this, Category.class);
                     startActivity(intent);
+                    finish();
                     return true;
 
                 case R.id.fragmenSearch:
                      intent = new Intent(MainActivity.this, Search.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 case R.id.fragmenUser:
                      intent = new Intent(MainActivity.this, SettingUser.class);
                     startActivity(intent);
+                    finish();
                     return true;
             }
 

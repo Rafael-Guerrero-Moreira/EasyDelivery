@@ -183,6 +183,7 @@ public class CreateAcount extends AppCompatActivity {
 
         Intent intent = new Intent( com.example.easydelivery.CreateAcount.this, MainActivity.class);
         startActivity(intent);
+        finish();
 
     }
 

@@ -121,20 +121,24 @@ public class SettingUser extends AppCompatActivity {
                 case R.id.fragmenStore:
                     intent = new Intent(SettingUser.this, Store.class);
                     startActivity(intent);
+                    finish();
                     return true;
 
                 case R.id.fragmenCategory:
                     intent = new Intent(SettingUser.this, Category.class);
                     startActivity(intent);
+                    finish();
                     return true;
 
                 case R.id.fragmenSearch:
                     intent = new Intent(SettingUser.this, Search.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 case R.id.fragmenUser:
                     intent = new Intent(SettingUser.this, SettingUser.class);
                     startActivity(intent);
+                    finish();
                     return true;
             }
 

@@ -75,10 +75,12 @@ public class VerifyToken extends AppCompatActivity {
                     }
                     Intent intent = new Intent( VerifyToken.this, MainActivity.class);
                 startActivity(intent);
+                    finish();
                 }
                 else{
                     Intent intent = new Intent( VerifyToken.this, login.class);
                     startActivity(intent);
+                    finish();
                 }
             }
             @Override

@@ -30,20 +30,24 @@ public class Category extends AppCompatActivity {
                 case R.id.fragmenStore:
                     intent = new Intent(Category.this, Store.class);
                     startActivity(intent);
+                    finish();
                     return true;
 
                 case R.id.fragmenCategory:
                     intent = new Intent(Category.this, Category.class);
                     startActivity(intent);
+                    finish();
                     return true;
 
                 case R.id.fragmenSearch:
                     intent = new Intent(Category.this, Search.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 case R.id.fragmenUser:
                     intent = new Intent(Category.this, SettingUser.class);
                     startActivity(intent);
+                    finish();
                     return true;
             }
 

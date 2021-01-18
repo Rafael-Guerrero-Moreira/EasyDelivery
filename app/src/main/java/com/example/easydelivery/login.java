@@ -100,6 +100,7 @@ public class login extends AppCompatActivity {
                             Toast.makeText(login.this, "Bienvenido: " + TextEmail.getText(), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent( login.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                            Toast.makeText(login.this, "Usuario o comtrasenia Invalida", Toast.LENGTH_LONG).show();
 

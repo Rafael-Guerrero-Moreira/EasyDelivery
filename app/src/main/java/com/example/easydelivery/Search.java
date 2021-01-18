@@ -30,20 +30,24 @@ public class Search extends AppCompatActivity {
                 case R.id.fragmenStore:
                     intent = new Intent(Search.this, Store.class);
                     startActivity(intent);
+                    finish();
                     return true;
 
                 case R.id.fragmenCategory:
                     intent = new Intent(Search.this, Category.class);
                     startActivity(intent);
+                    finish();
                     return true;
 
                 case R.id.fragmenSearch:
                     intent = new Intent(Search.this, Search.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 case R.id.fragmenUser:
                     intent = new Intent(Search.this, SettingUser.class);
                     startActivity(intent);
+                    finish();
                     return true;
             }
 

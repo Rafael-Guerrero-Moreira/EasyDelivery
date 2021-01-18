@@ -30,18 +30,22 @@ public class Store extends AppCompatActivity {
                 case R.id.fragmenStore:
                     intent = new Intent(Store.this, Store.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 case R.id.fragmenCategory:
                     intent = new Intent(Store.this, Category.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 case R.id.fragmenSearch:
                     intent = new Intent(Store.this, Search.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 case R.id.fragmenUser:
                     intent = new Intent(Store.this, SettingUser.class);
                     startActivity(intent);
+                    finish();
                     return true;
             }
 
