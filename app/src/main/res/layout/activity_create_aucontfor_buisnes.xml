@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".module.CreateAcount">
+    tools:context=".module.CreateAucontforBuisnes">
     <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="80sp"
@@ -44,11 +44,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="146dp"
-        android:hint="Nombres">
+        android:layout_marginTop="104dp"
+        android:hint="Nombres Propietario">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtname"
+            android:id="@+id/txtnameprop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName" />
@@ -62,11 +62,29 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="235dp"
-        android:hint="Apellidos">
+        android:layout_marginTop="185dp"
+        android:hint="Razon Social">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtlastname"
+            android:id="@+id/txtbuisnesname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_email"
+        android:layout_width="238dp"
+        android:layout_height="68dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="357dp"
+        android:hint="RUC o CI">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtident"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName" />
@@ -80,11 +98,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="326dp"
+        android:layout_marginTop="274dp"
         android:hint="Correo">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtemail"
+            android:id="@+id/txtemailbuisnees"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
@@ -99,11 +117,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="411dp"
+        android:layout_marginTop="431dp"
         android:hint="Contraseña">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtpass"
+            android:id="@+id/txtpassbuisnes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -120,11 +138,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="491dp"
+        android:layout_marginTop="516dp"
         android:hint="Confirma contraseña">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtconfirmpass"
+            android:id="@+id/txtconfirmpassbuisnes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -134,20 +152,21 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btnIniciarSec"
+        android:id="@+id/btncrateacontbuisnes"
         android:layout_width="162dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="121dp"
+        android:layout_marginBottom="21dp"
         android:layout_x="100dp"
         android:layout_y="443dp"
         android:background="@drawable/bordes_redondos"
-        android:onClick="CreateUsers"
+        android:onClick="registrarUsuariob"
         android:text="Crear"
         android:textColor="@color/white"
 
         />
-
 
 </RelativeLayout>

@@ -12,13 +12,16 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyDeliver">
-        <activity android:name=".ChangePassword"></activity>
-        <activity android:name=".Search" />
-        <activity android:name=".Category" />
-        <activity android:name=".Store" />
-        <activity android:name=".SettingUser" />
+        <activity android:name=".module.CrateAcountDelivery"></activity>
+        <activity android:name=".module.CreateAucontforBuisnes" />
+        <activity android:name=".UserType" />
+        <activity android:name=".ChangePassword" />
+        <activity android:name=".menu.Search" />
+        <activity android:name=".menu.Category" />
+        <activity android:name=".menu.Store" />
+        <activity android:name=".menu.SettingUser" />
         <activity android:name=".login" />
-        <activity android:name=".CreateAcount" />
+        <activity android:name=".module.CreateAcount" />
         <activity android:name=".MainActivity" />
         <activity android:name=".VerifyToken">
             <intent-filter>

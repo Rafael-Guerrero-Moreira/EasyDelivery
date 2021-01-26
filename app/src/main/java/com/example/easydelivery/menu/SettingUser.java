@@ -1,4 +1,4 @@
-package com.example.easydelivery;
+package com.example.easydelivery.menu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,13 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.easydelivery.R;
+import com.example.easydelivery.VerifyToken;
 import com.example.easydelivery.ado.InternalFile;
-import com.example.easydelivery.model.Person;
+import com.example.easydelivery.model.Buisnes;
+import com.example.easydelivery.model.Client;
+import com.example.easydelivery.model.Delivery;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,8 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.UUID;
-import com.example.easydelivery.ado.InternalFile;
 
 public class SettingUser extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
@@ -63,11 +64,13 @@ public class SettingUser extends AppCompatActivity {
             JSONObject jsonObject2 = new JSONObject();
             jsonObject2.put("User", jsonObject.getString("User"));
             jsonObject2.put("Token", "Null");
+            jsonObject2.put("UserType", jsonObject.getString("UserType"));
+            if(!jsonObject.getString("UserType").equals("Buisnes"))
             databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                        Person p = objSnaptshot.getValue(Person.class);
+                        Client p = objSnaptshot.getValue(Client.class);
                         try {
                             // se pregunta por el usuario en la bd esto por el email
                             if (jsonObject2.getString("User").equals(p.getEmail())) {
@@ -86,6 +89,57 @@ public class SettingUser extends AppCompatActivity {
 
                 }
             });
+            else if (jsonObject.getString("UserType").equals("Buisnes"))
+                databaseReference.child("Buisnes").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                            Buisnes p = objSnaptshot.getValue(Buisnes.class);
+                            try {
+                                // se pregunta por el usuario en la bd esto por el email
+                                if (jsonObject2.getString("User").equals(p.getEmail())) {
+                                    p.setToken("  ");
+                                    databaseReference.child("Buisnes").child(p.getId()).setValue(p);
+                                    break;
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            else
+            {
+                databaseReference.child("Delivery").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                            Delivery p = objSnaptshot.getValue(Delivery.class);
+                            try {
+                                // se pregunta por el usuario en la bd esto por el email
+                                if (jsonObject2.getString("User").equals(p.getCorreo())) {
+                                    p.setToken("  ");
+                                    databaseReference.child("Delivery").child(p.getId()).setValue(p);
+                                    break;
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
 
 
             internal.writerFile("data", "datausers", jsonObject2);

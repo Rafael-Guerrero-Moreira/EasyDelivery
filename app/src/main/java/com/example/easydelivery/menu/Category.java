@@ -1,4 +1,4 @@
-package com.example.easydelivery;
+package com.example.easydelivery.menu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.easydelivery.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Category extends AppCompatActivity {

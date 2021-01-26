@@ -1,13 +1,21 @@
 package com.example.easydelivery.model;
 
-public class Person {
+public class Client {
     private String name;
 private String lastname;
-private String user;
 private String iduser;
 private String token;
+private String type;
 
-    public Person() {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Client() {
     }
 
     public String getName() {
@@ -26,13 +34,6 @@ private String token;
         this.lastname = lastname;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
 
     public String getEmail() {
         return email;

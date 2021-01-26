@@ -44,6 +44,7 @@ public class ChangePassword extends AppCompatActivity {
                 { Toast.makeText(ChangePassword.this, "Se a enviado un corro a su usuario: ", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ChangePassword.this, com.example.easydelivery.VerifyToken.class);
                     startActivity(intent);
+                    finish();
                 }
                 else
                 { Toast.makeText(ChangePassword.this, "Error al enviar el correo: ", Toast.LENGTH_LONG).show(); }

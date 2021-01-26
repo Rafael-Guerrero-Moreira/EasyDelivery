@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.easydelivery.ado.InternalFile;
-import com.example.easydelivery.model.Person;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.easydelivery.model.Client;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,17 +43,18 @@ public class VerifyToken extends AppCompatActivity {
         // firebaseDatabase.setPersistenceEnabled(true);
         databaseReference = firebaseDatabase.getReference();
     }
+
     public void VerificarToken() throws IOException, JSONException {
 
         InternalFile internalFile = new InternalFile();
         JSONObject jsonObject = internalFile.readerFile("data","datausers");
 
-        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(jsonObject.getString("UserType")).addListenerForSingleValueEvent(new ValueEventListener() {
             Boolean band = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Person p = objSnaptshot.getValue(Person.class);
+                    Client p = objSnaptshot.getValue(Client.class);
                     try {
                         if(jsonObject.getString("Token").equals(p.getToken()))
                         {
@@ -78,9 +77,10 @@ public class VerifyToken extends AppCompatActivity {
                     finish();
                 }
                 else{
-                    Intent intent = new Intent( VerifyToken.this, login.class);
-                    startActivity(intent);
-                    finish();
+                        Intent intent = new Intent(VerifyToken.this, login.class);
+                        startActivity(intent);
+                        finish();
+
                 }
             }
             @Override
@@ -88,6 +88,8 @@ public class VerifyToken extends AppCompatActivity {
 
             }
         });
+
+
 
 
     }

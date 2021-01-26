@@ -2,7 +2,6 @@ package com.example.easydelivery;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +11,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.easydelivery.model.Person;
+import com.example.easydelivery.model.Buisnes;
+import com.example.easydelivery.model.Client;
+import com.example.easydelivery.model.Delivery;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,18 +22,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.annotations.NotNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -44,7 +38,7 @@ public class login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     EditText TextEmail ;
     EditText TextPassword;
-    private List<Person> listPerson = new ArrayList<Person>();
+    private List<Client> listPerson = new ArrayList<Client>();
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
@@ -59,7 +53,7 @@ public class login extends AppCompatActivity {
     }
     public void Register(View view)
     {
-        Intent intent = new Intent(this, com.example.easydelivery.CreateAcount.class);
+        Intent intent = new Intent(this, UserType.class);
         startActivity(intent);
     }
     public void ChangePass(View view)
@@ -127,17 +121,15 @@ public class login extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Person p = objSnaptshot.getValue(Person.class);
+                    Client p = objSnaptshot.getValue(Client.class);
                     try {
                         // se pregunta por el usuario en la bd esto por el email
                         if (object.getString("User").equals(p.getEmail())) {
                             //se asigna el nuevo token
-                            Log.d("Token entra", p.getToken());
                             p.setToken(UUID.randomUUID().toString());
-                            Log.d("Token sale", p.getToken());
                             InternalFile filei = new InternalFile();
                             object.put("Token",p.getToken());
-                            Log.d("Put",p.getToken());
+                            object.put("Type",p.getType());
                             databaseReference.child("Users").child(p.getIduser()).setValue(p);
                             filei.writerFile("data","datausers",object);
                             break;
@@ -156,8 +148,68 @@ public class login extends AppCompatActivity {
 
             }
         });
+        databaseReference.child("Buisnes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                    Buisnes b = objSnaptshot.getValue(Buisnes.class);
+                    try {
+                        // se pregunta por el usuario en la bd esto por el email
+                        if (object.getString("User").equals(b.getEmail())) {
+                            //se asigna el nuevo token
+                            b.setToken(UUID.randomUUID().toString());
+                            InternalFile filei = new InternalFile();
+                            object.put("Token",b.getToken());
+                            object.put("UserType","Buisnes");
+                            databaseReference.child("Buisnes").child(b.getId()).setValue(b);
+                            filei.writerFile("data","datausers",object);
+                            break;
+                        }
 
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        databaseReference.child("Delivery").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                    Delivery d = objSnaptshot.getValue(Delivery.class);
+                    try {
+                        // se pregunta por el usuario en la bd esto por el email
+                        if (object.getString("User").equals(d.getCorreo())) {
+                            //se asigna el nuevo token
+                            d.setToken(UUID.randomUUID().toString());
+                            InternalFile filei = new InternalFile();
+                            object.put("Token",d.getToken());
+                            object.put("UserType","Buisnes");
+                            databaseReference.child("Delivery").child(d.getId()).setValue(d);
+                            filei.writerFile("data","datausers",object);
+                            break;
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         return object;
     }
 

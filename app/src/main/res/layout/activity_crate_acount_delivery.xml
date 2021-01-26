@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".module.CreateAcount">
+    tools:context=".module.CrateAcountDelivery">
     <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="80sp"
@@ -20,7 +20,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="0dp"
             android:layout_marginBottom="0dp"
-            app:title="Creacion de Usuario"
+            app:title="Creacion de Usuario Delivery"
             app:titleTextColor="@color/white" />
 
         <ImageView
@@ -45,10 +45,10 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="146dp"
-        android:hint="Nombres">
+        android:hint="Nombre de Compañia">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtname"
+            android:id="@+id/txtnamecompany"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName" />
@@ -63,10 +63,10 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="235dp"
-        android:hint="Apellidos">
+        android:hint="Ruc o CI">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtlastname"
+            android:id="@+id/txtidentdelyvery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName" />
@@ -84,7 +84,7 @@
         android:hint="Correo">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtemail"
+            android:id="@+id/txtemaildelivery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
@@ -103,7 +103,7 @@
         android:hint="Contraseña">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtpass"
+            android:id="@+id/txtpassdelivery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -124,7 +124,7 @@
         android:hint="Confirma contraseña">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtconfirmpass"
+            android:id="@+id/txtconfirmpassdelyvery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -143,7 +143,7 @@
         android:layout_x="100dp"
         android:layout_y="443dp"
         android:background="@drawable/bordes_redondos"
-        android:onClick="CreateUsers"
+        android:onClick="registrarUsuariob"
         android:text="Crear"
         android:textColor="@color/white"
 
