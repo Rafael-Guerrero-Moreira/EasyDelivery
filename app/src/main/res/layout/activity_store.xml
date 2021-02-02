@@ -5,16 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".menu.Store">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="@drawable/gradient_toolbar"
-        android:gravity="bottom"
 
-        >
+        android:gravity="bottom"
+        android:orientation="vertical">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -27,11 +29,7 @@
             app:titleTextColor="@color/white" />
 
 
-
     </LinearLayout>
-
-
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/BottonNavigation"
@@ -51,6 +49,27 @@
         style="@style/BottonNavigation"
 
         android:background="@color/violet"
+
+        />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/tab_float_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/BottonNavigation"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="99dp"
+        android:background="@drawable/gradient_toolbar"
+        android:backgroundTint="@color/violet"
+        android:contentDescription="Des"
+        android:src="@drawable/ic_baseline_settings_24"
+        android:tint="#FFFFFF"
+        app:backgroundTint="#FFFFFF"
+        android:onClick="createProdcut"
+        app:rippleColor="#FFFFFF"
 
         />
 

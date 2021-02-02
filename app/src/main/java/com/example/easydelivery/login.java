@@ -130,6 +130,8 @@ public class login extends AppCompatActivity {
                             InternalFile filei = new InternalFile();
                             object.put("Token",p.getToken());
                             object.put("Type",p.getType());
+                            object.put("ID",p.getIduser());
+
                             databaseReference.child("Users").child(p.getIduser()).setValue(p);
                             filei.writerFile("data","datausers",object);
                             break;
@@ -161,6 +163,8 @@ public class login extends AppCompatActivity {
                             InternalFile filei = new InternalFile();
                             object.put("Token",b.getToken());
                             object.put("UserType","Buisnes");
+                            object.put("ID",b.getId());
+
                             databaseReference.child("Buisnes").child(b.getId()).setValue(b);
                             filei.writerFile("data","datausers",object);
                             break;
@@ -191,7 +195,8 @@ public class login extends AppCompatActivity {
                             d.setToken(UUID.randomUUID().toString());
                             InternalFile filei = new InternalFile();
                             object.put("Token",d.getToken());
-                            object.put("UserType","Buisnes");
+                            object.put("UserType","Delivery");
+                            object.put("ID",d.getId());
                             databaseReference.child("Delivery").child(d.getId()).setValue(d);
                             filei.writerFile("data","datausers",object);
                             break;

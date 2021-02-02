@@ -143,6 +143,7 @@ public class CreateAcount extends AppCompatActivity {
         object.put("User",p.getEmail());
         object.put("Token",p.getToken());
         object.put("UserType",p.getType());
+        object.put("ID",p.getIduser());
         Log.d("json",object.toString());
         Log.d("ruta", String.valueOf((Environment.getExternalStorageDirectory())));
         InternalFile i = new InternalFile();

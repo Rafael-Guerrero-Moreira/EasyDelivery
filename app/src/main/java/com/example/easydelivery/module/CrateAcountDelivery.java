@@ -84,7 +84,7 @@ public class CrateAcountDelivery extends AppCompatActivity {
         object.put("User",delivery.getCorreo());
         object.put("Token",delivery.getToken());
         object.put("UserType",delivery.getType());
-
+        object.put("ID",delivery.getId());
         Log.d("json",object.toString());
         Log.d("ruta", String.valueOf((Environment.getExternalStorageDirectory())));
         InternalFile i = new InternalFile();

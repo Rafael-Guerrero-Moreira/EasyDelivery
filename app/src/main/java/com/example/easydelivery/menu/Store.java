@@ -7,8 +7,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.easydelivery.R;
+import com.example.easydelivery.module.CreateProduct;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Store extends AppCompatActivity {
@@ -21,6 +23,12 @@ public class Store extends AppCompatActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.BottonNavigation);
         bottomNavigationView.setSelectedItemId(R.id.fragmenStore);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    public void createProdcut(View view)
+    {
+        startActivity(new Intent(Store.this, CreateProduct.class));
+
     }
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @SuppressLint("NonConstantResourceId")

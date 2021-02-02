@@ -135,6 +135,7 @@ public class CreateAucontforBuisnes extends AppCompatActivity {
         object.put("User",buisnes.getEmail());
         object.put("Token",buisnes.getToken());
         object.put("UserType","Buisnes");
+        object.put("ID",buisnes.getId());
         Log.d("json",object.toString());
         Log.d("ruta", String.valueOf((Environment.getExternalStorageDirectory())));
         InternalFile i = new InternalFile();
