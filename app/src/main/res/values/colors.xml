@@ -10,5 +10,7 @@
     <color name="violet">#8A2BE2</color>
     <color name="dodgerblue">#1E90FF</color>
 
-
+    <color name="toolbar1">#6A1B9A</color>
+    <color name="bg1">#9C28B1</color>
+    <color name="spinner1">#B66BC5</color>
 </resources>

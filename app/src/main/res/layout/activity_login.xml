@@ -37,7 +37,7 @@
         android:layout_x="13dp"
         android:layout_y="47dp"
         android:background="@mipmap/logo"
-        tools:srcCompat="@drawable/logo"
+        tools:srcCompat="@drawable/logoOld"
         android:contentDescription="TODO" />
 
 

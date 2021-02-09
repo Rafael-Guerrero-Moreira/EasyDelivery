@@ -31,7 +31,7 @@
             android:layout_x="130dp"
             android:layout_y="47dp"
             android:background="@mipmap/logo"
-            tools:srcCompat="@drawable/logo" />
+            tools:srcCompat="@drawable/logoOld" />
 
 
     </LinearLayout>

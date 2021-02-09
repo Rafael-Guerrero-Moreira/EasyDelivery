@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.example.easydelivery.MainActivity;
@@ -23,77 +24,83 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class WelcomeScreenActivity extends AppCompatActivity {
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private Boolean authenticated = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        InicializarFirebase ();
-        try {
-            VerificarToken();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Intent intent = new Intent( WelcomeScreenActivity.this, login.class);
-            startActivity(intent);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        setupFirebase();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (verifyToken()) {
+                        startActivity(new Intent( WelcomeScreenActivity.this, MainActivity.class));
+                    } else {
+                        startActivity(new Intent( WelcomeScreenActivity.this, login.class));
+                    }
+                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    finish();
+                    System.exit(0);
+                }
+            }
+        }, 3000);
     }
-    private void InicializarFirebase (){
+    private void setupFirebase(){
         // firebaseDatabase.setPersistenceEnabled(true);
         firebaseDatabase = FirebaseDatabase.getInstance();
         // firebaseDatabase.setPersistenceEnabled(true);
         databaseReference = firebaseDatabase.getReference();
     }
 
-    public void VerificarToken() throws IOException, JSONException {
-
+    public Boolean verifyToken() throws JSONException {
         InternalFile internalFile = new InternalFile();
-        JSONObject jsonObject = internalFile.readerFile("data","datausers");
+        JSONObject jsonObject; authenticated = false;
+        try {
+            jsonObject = internalFile.readerFile("data","datausers");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return authenticated;
+        }
 
         databaseReference.child(jsonObject.getString("UserType")).addListenerForSingleValueEvent(new ValueEventListener() {
             Boolean band = false;
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                     Client p = objSnaptshot.getValue(Client.class);
                     try {
-                        if(jsonObject.getString("Token").equals(p.getToken()))
-                        {
-                           band = true;
+                        if(jsonObject.getString("Token").equals(p.getToken())) {
+                            band = true;
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                 }
-                if(band)
-                {
+                if (band) {
                     try {
                         Toast.makeText(WelcomeScreenActivity.this, "Bienvenido: " +jsonObject.getString("User") , Toast.LENGTH_LONG).show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Intent intent = new Intent( WelcomeScreenActivity.this, MainActivity.class);
-                startActivity(intent);
-                    finish();
+                    authenticated = true;
                 }
-                else{
-                        Intent intent = new Intent(WelcomeScreenActivity.this, login.class);
-                        startActivity(intent);
-                        finish();
-
+                else {
+                    authenticated = false;
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
-
-
-
+        return authenticated;
     }
 }

@@ -4,32 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.activities.startup.WelcomeScreenActivity">
-    <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="80sp"
-        android:background="@drawable/gradient_toolbar"
-        android:gravity="bottom"
-        >
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="0dp"
-            app:title="@string/verify_name"
-            app:titleTextColor="@color/white"
-
-            />
-
-    </LinearLayout>
+    tools:context=".views.activities.startup.WelcomeScreenActivity"
+    android:background="?attr/awBackground">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/awIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:src="@drawable/logo" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo" />
+        android:layout_below="@+id/awIcon"
+        android:layout_centerHorizontal="true"
+        android:text="Versión 1.0.0"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/pBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/awIcon"
+        android:indeterminateTint="@color/spinner1"
+        android:layout_marginTop="125dp"
+        android:layout_centerHorizontal="true">
+    </ProgressBar>
+
 </RelativeLayout>
