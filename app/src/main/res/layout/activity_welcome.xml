@@ -4,36 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.activities.startup.WelcomeScreenActivity"
-    android:background="?attr/awBackground">
+    android:background="?attr/awBackground"
+    tools:context=".views.activities.startup.WelcomeScreenActivity">
 
     <ImageView
         android:id="@+id/awIcon"
         android:layout_width="wrap_content"
         android:layout_height="150dp"
+        android:layout_above="@+id/awLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp"
-        android:src="@drawable/logo" />
+        android:layout_marginBottom="140dp"
+        android:src="@drawable/logo_white" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/awIcon"
-        android:layout_centerHorizontal="true"
-        android:text="Versión 1.0.0"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    <LinearLayout
+        android:id="@+id/awLayout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg_rounded_1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-30dp">
 
-    <ProgressBar
-        android:id="@+id/pBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/awIcon"
-        android:indeterminateTint="@color/spinner1"
-        android:layout_marginTop="125dp"
-        android:layout_centerHorizontal="true">
-    </ProgressBar>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Bienvenido!"
+            android:textColor="?attr/awText"
+            android:textSize="38sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="¿Ya eres miembro o eres nuevo?"
+            android:textColor="?attr/awText"
+            android:layout_marginTop="15dp"
+            android:textSize="23sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp">
+
+            <Button
+                android:id="@+id/awBtnSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/layout_button_rounded_1"
+                android:textColor="?attr/awText2"
+                android:layout_weight="1"
+                android:text="Ingresar"
+                android:onClick="goToLogin"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/awBtnSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/layout_button_rounded_1"
+                android:textColor="?attr/awText2"
+                android:layout_weight="1"
+                android:text="Registrarse"
+                android:onClick="goToRegister"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

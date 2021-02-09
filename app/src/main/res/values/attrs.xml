@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="asBackground" format="reference" />
+    <attr name="asSpinner" format="reference" />
     <attr name="awBackground" format="reference" />
+    <attr name="awLayoutRounded" format="reference" />
+    <attr name="awText" format="reference" />
+    <attr name="awText2" format="reference" />
+    <attr name="awButton" format="reference" />
 </resources>

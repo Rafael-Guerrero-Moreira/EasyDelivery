@@ -13,8 +13,16 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/toolbar1</item>
 
-        <!-- Activity Welcome. -->
+        <!-- Activity Splash -->
+        <item name="asBackground">@color/bg1</item>
+        <item name="asSpinner">@color/spinner1</item>
+
+        <!-- Activity Welcome -->
         <item name="awBackground">@color/bg1</item>
+        <item name="awLayoutRounded">@color/bg2</item>
+        <item name="awText">@color/txt1</item>
+        <item name="awText2">@color/txt3</item>
+        <item name="awButton">@color/btn1</item>
 
     </style>
     <style name="BottonNavigation">

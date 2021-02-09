@@ -12,5 +12,14 @@
 
     <color name="toolbar1">#6A1B9A</color>
     <color name="bg1">#9C28B1</color>
+    <color name="bg2">#FFFFFF</color>
+    <color name="bg3">#212121</color>
+    <color name="bg4">#353535</color>
     <color name="spinner1">#B66BC5</color>
+    <color name="spinner2">#AAAAAA</color>
+    <color name="txt1">#000000</color>
+    <color name="txt2">#C1C1C1</color>
+    <color name="txt3">#FFFFFF</color>
+    <color name="btn1">#9C28B1</color>
+    <color name="btn2">#212121</color>
 </resources>

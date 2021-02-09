@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.easydelivery.R;
-import com.example.easydelivery.views.activities.startup.WelcomeScreenActivity;
+import com.example.easydelivery.views.activities.startup.SplashScreenActivity;
 import com.example.easydelivery.ado.InternalFile;
 import com.example.easydelivery.model.Buisnes;
 import com.example.easydelivery.model.Client;
@@ -148,7 +148,7 @@ public class SettingUser extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Intent intent = new Intent(this, WelcomeScreenActivity.class);
+        Intent intent = new Intent(this, SplashScreenActivity.class);
         startActivity(intent);
     }
     public void Changepassword(View view) throws IOException, JSONException {

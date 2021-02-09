@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyDeliver">
-        <activity android:name=".module.CreateProduct"></activity>
+        <activity android:name=".views.activities.startup.WelcomeScreenActivity"></activity>
+        <activity android:name=".module.CreateProduct" />
         <activity android:name=".module.CrateAcountDelivery" />
         <activity android:name=".module.CreateAucontforBuisnes" />
         <activity android:name=".UserType" />
@@ -24,7 +25,7 @@
         <activity android:name=".login" />
         <activity android:name=".module.CreateAcount" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".views.activities.startup.WelcomeScreenActivity">
+        <activity android:name=".views.activities.startup.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
