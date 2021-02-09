@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.example.easydelivery.ado.InternalFile;
+import com.example.easydelivery.helpers.InternalFile;
 
 
 public class login extends AppCompatActivity {
@@ -84,7 +84,7 @@ public class login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //Abrimos un nuevo fichero y doc si existe se sobre escribe en el
                             InternalFile filei = new InternalFile();
-                            filei.createFile("data","datausers");
+                            filei.createUserFile();
                             //funcion llenarJson llena el json con un nuevo token y el usuario para llenar el fichero
                             try {
                                 llenarJson();
@@ -133,7 +133,7 @@ public class login extends AppCompatActivity {
                             object.put("ID",p.getIduser());
 
                             databaseReference.child("Users").child(p.getIduser()).setValue(p);
-                            filei.writerFile("data","datausers",object);
+                            filei.writeUserFile(object);
                             break;
                         }
 
@@ -166,7 +166,7 @@ public class login extends AppCompatActivity {
                             object.put("ID",b.getId());
 
                             databaseReference.child("Buisnes").child(b.getId()).setValue(b);
-                            filei.writerFile("data","datausers",object);
+                            filei.writeUserFile(object);
                             break;
                         }
 
@@ -198,7 +198,7 @@ public class login extends AppCompatActivity {
                             object.put("UserType","Delivery");
                             object.put("ID",d.getId());
                             databaseReference.child("Delivery").child(d.getId()).setValue(d);
-                            filei.writerFile("data","datausers",object);
+                            filei.writeUserFile(object);
                             break;
                         }
 

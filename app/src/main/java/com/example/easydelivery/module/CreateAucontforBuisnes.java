@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
-import com.example.easydelivery.ado.InternalFile;
+import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.model.Buisnes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -139,8 +139,8 @@ public class CreateAucontforBuisnes extends AppCompatActivity {
         Log.d("json",object.toString());
         Log.d("ruta", String.valueOf((Environment.getExternalStorageDirectory())));
         InternalFile i = new InternalFile();
-        i.createFile("data","datausers");
-        i.writerFile("data","datausers",object);
+        i.createUserFile();
+        i.writeUserFile(object);
 
         Intent intent = new Intent( CreateAucontforBuisnes.this, MainActivity.class);
         startActivity(intent);

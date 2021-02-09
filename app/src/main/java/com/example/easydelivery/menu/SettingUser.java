@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.easydelivery.R;
 import com.example.easydelivery.views.activities.startup.SplashScreenActivity;
-import com.example.easydelivery.ado.InternalFile;
+import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.model.Buisnes;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.model.Delivery;
@@ -60,7 +60,7 @@ public class SettingUser extends AppCompatActivity {
         InternalFile internal = new InternalFile();
         JSONObject jsonObject = null;
         try {
-            jsonObject = internal.readerFile("data", "datausers");
+            jsonObject = internal.readUserFile();
             JSONObject jsonObject2 = new JSONObject();
             jsonObject2.put("User", jsonObject.getString("User"));
             jsonObject2.put("Token", "Null");
@@ -142,9 +142,7 @@ public class SettingUser extends AppCompatActivity {
             }
 
 
-            internal.writerFile("data", "datausers", jsonObject2);
-        } catch (IOException e) {
-            e.printStackTrace();
+            internal.writeUserFile(jsonObject2);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -153,7 +151,7 @@ public class SettingUser extends AppCompatActivity {
     }
     public void Changepassword(View view) throws IOException, JSONException {
         InternalFile file = new InternalFile();
-        JSONObject jsonObject = file.readerFile("data","datausers");
+        JSONObject jsonObject = file.readUserFile();
         mAuth.setLanguageCode("es");
         mAuth.sendPasswordResetEmail(jsonObject.getString("User")).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

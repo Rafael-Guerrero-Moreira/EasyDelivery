@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.easydelivery.R;
-import com.example.easydelivery.ado.InternalFile;
+import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.menu.Store;
 import com.example.easydelivery.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -88,7 +88,7 @@ public class CreateProduct extends AppCompatActivity {
             case R.id.icon_add: {
                 try {
                     InternalFile f = new InternalFile();
-                    JSONObject jsonObject =  f.readerFile("data","datausers");
+                    JSONObject jsonObject =  f.readUserFile();
                     Product p = new Product();
                     p.setProductname(Nameproduct.getText().toString());
                     p.setDescription(descripction.getText().toString());
@@ -104,8 +104,6 @@ public class CreateProduct extends AppCompatActivity {
                    startActivity(new Intent(this, Store.class));
                    finish();
                     break;
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

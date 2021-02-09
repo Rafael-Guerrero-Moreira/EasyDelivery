@@ -2,6 +2,7 @@ package com.example.easydelivery.views.activities.startup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,8 +10,8 @@ import android.widget.Toast;
 
 import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
-import com.example.easydelivery.ado.InternalFile;
-import com.example.easydelivery.login;
+import com.example.easydelivery.helpers.InternalFile;
+import com.example.easydelivery.helpers.PermissionsUtils;
 import com.example.easydelivery.model.Client;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,17 +37,15 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                try {
-                    if (verifyToken()) {
-                        startActivity(new Intent( SplashScreenActivity.this, MainActivity.class));
-                    } else {
-                        startActivity(new Intent( SplashScreenActivity.this, WelcomeScreenActivity.class));
+                if (PermissionsUtils.hasPermissions(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    try {
+                        verifyToken();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        goToActivity(false);
                     }
-                    finish();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    finish();
-                    System.exit(0);
+                } else {
+                    goToActivity(false);
                 }
             }
         }, 3000);
@@ -58,14 +57,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
     }
 
-    public Boolean verifyToken() throws JSONException {
+    public void verifyToken() throws JSONException {
         InternalFile internalFile = new InternalFile();
-        JSONObject jsonObject; authenticated = false;
-        try {
-            jsonObject = internalFile.readerFile("data","datausers");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return authenticated;
+        JSONObject jsonObject = internalFile.readUserFile();
+        if (jsonObject == null) {
+            goToActivity(false);
         }
 
         databaseReference.child(jsonObject.getString("UserType")).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -90,17 +86,24 @@ public class SplashScreenActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    authenticated = true;
+                    goToActivity(true);
                 }
                 else {
-                    authenticated = false;
+                    goToActivity(false);
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
 
-        return authenticated;
+    private void goToActivity(Boolean value) {
+        if (value) {
+            startActivity(new Intent( SplashScreenActivity.this, MainActivity.class));
+        } else {
+            startActivity(new Intent( SplashScreenActivity.this, WelcomeScreenActivity.class));
+        }
+        finish();
     }
 }
