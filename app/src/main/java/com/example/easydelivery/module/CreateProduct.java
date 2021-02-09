@@ -27,7 +27,6 @@ import com.google.firebase.storage.StorageReference;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.UUID;
 
 public class CreateProduct extends AppCompatActivity {
@@ -96,10 +95,8 @@ public class CreateProduct extends AppCompatActivity {
                     p.setUrlphoto(imageUri.getLastPathSegment());
                     p.setIdproduct(UUID.randomUUID().toString());
                     p.setIdBuisnes(jsonObject.getString("ID"));
-
                     databaseReference.child("Product").child(p.getIdproduct()).setValue(p);
-                    storage.child(p.getIdBuisnes()+"/"+imageUri.getLastPathSegment()+".jpeg").putFile(imageUri);
-
+                    storage.child("Products").child(p.getIdBuisnes()+"/"+imageUri.getLastPathSegment()+".jpeg").putFile(imageUri);
                     Toast.makeText(this, "Agregar", Toast.LENGTH_LONG).show();
                    startActivity(new Intent(this, Store.class));
                    finish();

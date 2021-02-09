@@ -22,12 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-    private Boolean authenticated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

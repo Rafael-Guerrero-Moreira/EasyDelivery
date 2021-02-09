@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.easydelivery.R;
+import com.example.easydelivery.module.CompanyInfo;
 import com.example.easydelivery.views.activities.startup.SplashScreenActivity;
 import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.model.Buisnes;
@@ -157,11 +158,14 @@ public class SettingUser extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
               if(task.isSuccessful())
-              { Toast.makeText(SettingUser.this, "Se a enviado un corro a su usuario: ", Toast.LENGTH_LONG).show(); }
+              { Toast.makeText(SettingUser.this, "Se a enviado un correo a su usuario: ", Toast.LENGTH_LONG).show(); }
               else
               { Toast.makeText(SettingUser.this, "Error al enviar el correo: ", Toast.LENGTH_LONG).show(); }
             }
         });
+    }
+    public void infoUser(View view) throws IOException, JSONException {
+       startActivity(new Intent(this, CompanyInfo.class));
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

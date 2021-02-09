@@ -7,7 +7,7 @@
     tools:context=".module.CreateProduct">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingbutoonphoto"
+        android:id="@+id/floatingbutoonlogo"
         android:layout_width="99dp"
         android:layout_height="96dp"
         android:layout_alignParentTop="true"
@@ -33,10 +33,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="0dp"
             android:layout_marginBottom="0dp"
-
-            app:title="@string/createproductativity"
+            app:title="Datos del Negocio"
             app:titleTextColor="@color/white"
-
             />
 
     </LinearLayout>
@@ -51,13 +49,13 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="325dp"
-        android:hint="@string/productname">
+        android:hint="Numero de telefono">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtproductname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="phone" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +68,7 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="405dp"
-        android:hint="Descripcion">
+        android:hint="Tipo de Negocio">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtdescripcion"
@@ -89,17 +87,17 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="491dp"
-        android:hint="Precio">
+        android:hint="Direccion">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtprice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
-        android:id="@+id/ivProduct"
+        android:id="@+id/ivlogonegocio"
         android:layout_width="301dp"
         android:layout_height="194dp"
         android:layout_alignParentStart="true"

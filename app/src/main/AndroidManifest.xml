@@ -8,13 +8,14 @@
 
     <application
         android:allowBackup="true"
-        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyDeliver">
-        <activity android:name=".views.activities.startup.WelcomeScreenActivity"></activity>
+        <activity android:name=".module.CompanyInfo"></activity>
+        <activity android:name=".views.activities.startup.WelcomeScreenActivity" />
         <activity android:name=".module.CreateProduct" />
         <activity android:name=".module.CrateAcountDelivery" />
         <activity android:name=".module.CreateAucontforBuisnes" />
