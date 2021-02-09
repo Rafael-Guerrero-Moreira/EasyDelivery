@@ -10,13 +10,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.easydelivery.ado.InternalFile;
+import com.example.easydelivery.views.activities.startup.WelcomeScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -42,7 +41,7 @@ public class ChangePassword extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful())
                 { Toast.makeText(ChangePassword.this, "Se a enviado un corro a su usuario: ", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(ChangePassword.this, com.example.easydelivery.VerifyToken.class);
+                    Intent intent = new Intent(ChangePassword.this, WelcomeScreenActivity.class);
                     startActivity(intent);
                     finish();
                 }

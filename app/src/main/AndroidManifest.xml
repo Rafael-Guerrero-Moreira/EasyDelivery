@@ -24,7 +24,7 @@
         <activity android:name=".login" />
         <activity android:name=".module.CreateAcount" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".VerifyToken">
+        <activity android:name=".views.activities.startup.WelcomeScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

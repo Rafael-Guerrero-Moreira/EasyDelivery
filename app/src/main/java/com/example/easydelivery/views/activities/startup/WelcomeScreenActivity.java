@@ -1,4 +1,4 @@
-package com.example.easydelivery;
+package com.example.easydelivery.views.activities.startup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.easydelivery.MainActivity;
+import com.example.easydelivery.R;
 import com.example.easydelivery.ado.InternalFile;
+import com.example.easydelivery.login;
 import com.example.easydelivery.model.Client;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,19 +22,19 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class VerifyToken extends AppCompatActivity {
+public class WelcomeScreenActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verify_token);
+        setContentView(R.layout.activity_welcome);
         InicializarFirebase ();
         try {
             VerificarToken();
         } catch (IOException e) {
             e.printStackTrace();
-            Intent intent = new Intent( VerifyToken.this, login.class);
+            Intent intent = new Intent( WelcomeScreenActivity.this, login.class);
             startActivity(intent);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -68,16 +71,16 @@ public class VerifyToken extends AppCompatActivity {
                 if(band)
                 {
                     try {
-                        Toast.makeText(VerifyToken.this, "Bienvenido: " +jsonObject.getString("User") , Toast.LENGTH_LONG).show();
+                        Toast.makeText(WelcomeScreenActivity.this, "Bienvenido: " +jsonObject.getString("User") , Toast.LENGTH_LONG).show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Intent intent = new Intent( VerifyToken.this, MainActivity.class);
+                    Intent intent = new Intent( WelcomeScreenActivity.this, MainActivity.class);
                 startActivity(intent);
                     finish();
                 }
                 else{
-                        Intent intent = new Intent(VerifyToken.this, login.class);
+                        Intent intent = new Intent(WelcomeScreenActivity.this, login.class);
                         startActivity(intent);
                         finish();
 
