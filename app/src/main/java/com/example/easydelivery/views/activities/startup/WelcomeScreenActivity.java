@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.example.easydelivery.R;
 import com.example.easydelivery.UserType;
-import com.example.easydelivery.login;
+import com.example.easydelivery.views.activities.auth.LoginScreenActivity;
 
 public class WelcomeScreenActivity extends AppCompatActivity {
 
@@ -19,7 +19,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
     }
 
     public void goToLogin(View view) {
-        startActivity(new Intent( this, login.class));
+        startActivity(new Intent( this, LoginScreenActivity.class));
     }
 
     public void goToRegister(View view) {

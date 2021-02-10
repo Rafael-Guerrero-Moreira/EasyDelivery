@@ -24,6 +24,18 @@
         <item name="awText2">@color/txt3</item>
         <item name="awButton">@color/btn1</item>
 
+        <!-- Activity Login, Register and Recover Password -->
+        <item name="alBackground">@color/bg1</item>
+        <item name="alLayoutRounded">@color/bg2</item>
+        <item name="alText">@color/txt1</item>
+        <item name="alText2">@color/txt3</item>
+        <item name="alText3">@color/txt4</item>
+        <item name="alButton">@color/btn1</item>
+
+    </style>
+    <style name="TextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/txt1</item>
     </style>
     <style name="BottonNavigation">
         <item name="background">@color/violet</item>

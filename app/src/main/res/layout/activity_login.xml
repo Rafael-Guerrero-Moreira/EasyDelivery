@@ -4,129 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login">
-<LinearLayout
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="80sp"
-    android:background="@drawable/gradient_toolbar"
-    android:gravity="bottom"
-    >
+    android:background="?attr/alBackground"
+    tools:context=".views.activities.auth.LoginScreenActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="?attr/alBackground"
+        android:tint="?attr/alText2"
+        android:scaleX="1.5"
+        android:onClick="goToPreviousActivity"
+        android:scaleY="1.5"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="0dp"
-        app:title="@string/login_name"
-        app:titleTextColor="@color/white" />
+        android:src="@drawable/ic_baseline_arrow_back_24"/>
 
-</LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="356dp"
-        android:layout_height="283dp"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="335dp"
-        android:layout_x="13dp"
-        android:layout_y="47dp"
-        android:background="@mipmap/logo"
-        tools:srcCompat="@drawable/logoOld"
-        android:contentDescription="TODO" />
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_layout_email"
-        android:layout_width="238dp"
-        android:layout_height="68dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="255dp"
-        android:hint="Usuario">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtuserlogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_layout_pass"
-        android:layout_width="238dp"
-        android:layout_height="68dp"
-
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="330dp"
-        android:hint="Contraseña">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtpasslogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/btnIniciarSec"
-        android:layout_width="162dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="144dp"
-        android:layout_x="100dp"
-        android:layout_y="443dp"
-        android:background="@drawable/bordes_redondos"
-        android:onClick="loguearUsuario"
-        android:text="Ingresar"
-        android:textColor="@color/white"
-
-        />
+        android:textColor="?attr/alText2"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:text="Registro"
+        android:onClick="register"/>
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="142dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="107dp"
-        android:layout_x="129dp"
-        android:layout_y="504dp"
-        android:text="O Registrate"
-        android:textAlignment="center"
-        android:textColor="@color/dodgerblue"
-        android:onClick="Register"
-        android:textSize="15dp"
-       />
-
-    <TextView
-        android:id="@+id/txtchangepass"
-        android:layout_width="236dp"
-        android:layout_height="30dp"
+        android:text="Ingreso"
+        android:textColor="?attr/alText2"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="84dp"
-        android:layout_marginBottom="221dp"
-        android:layout_x="129dp"
-        android:layout_y="504dp"
-        android:onClick="ChangePass"
-        android:text="Haz olvidado tu contraseña?"
-        android:textAlignment="textStart"
-        android:textColor="@color/dodgerblue"
-        android:textSize="15sp" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:textSize="38sp"
+        android:textStyle="bold" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Hola, Bienvenido de nuevo"
+        android:textColor="?attr/alText2"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="135dp"
+        android:textSize="23sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg_rounded_1"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="185dp"
+        android:layout_marginBottom="-30dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:hint="Correo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/alTxtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:hint="Contraseña"
+            app:helperTextEnabled="true"
+            app:helperText="Mínimo 6 caracteres"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/alTxtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/layout_button_rounded_1"
+            android:textColor="?attr/awText2"
+            android:text="Ingresar"
+            android:onClick="signIn"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:onClick="changePassword"
+            android:text="Recuperar Contraseña"
+            android:textColor="?attr/alText3"
+            android:textSize="15sp" />
+
+    </LinearLayout>
 
 </RelativeLayout>

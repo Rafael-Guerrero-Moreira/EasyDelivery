@@ -25,7 +25,7 @@
         <activity android:name=".menu.Category" />
         <activity android:name=".menu.Store" />
         <activity android:name=".menu.SettingUser" />
-        <activity android:name=".login" />
+        <activity android:name=".views.activities.auth.LoginScreenActivity" />
         <activity android:name=".module.CreateAcount" />
         <activity android:name=".MainActivity" />
         <activity android:name=".views.activities.startup.SplashScreenActivity">

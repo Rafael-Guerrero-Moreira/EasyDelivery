@@ -19,6 +19,7 @@
     <color name="txt1">#000000</color>
     <color name="txt2">#C1C1C1</color>
     <color name="txt3">#FFFFFF</color>
+    <color name="txt4">#1E90FF</color>
     <color name="btn1">#9C28B1</color>
     <color name="btn2">#212121</color>
 </resources>

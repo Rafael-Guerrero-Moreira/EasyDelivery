@@ -25,6 +25,18 @@
         <item name="awText2">@color/txt2</item>
         <item name="awButton">@color/btn2</item>
 
+        <!-- Activity Login, Register and Recover Password -->
+        <item name="alBackground">@color/bg3</item>
+        <item name="alLayoutRounded">@color/bg4</item>
+        <item name="alText">@color/txt2</item>
+        <item name="alText2">@color/txt2</item>
+        <item name="alText3">@color/txt2</item>
+        <item name="alButton">@color/btn2</item>
+
+    </style>
+    <style name="TextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/txt2</item>
     </style>
     <style name="BottonNavigation">
         <item name="background">@color/violet</item>

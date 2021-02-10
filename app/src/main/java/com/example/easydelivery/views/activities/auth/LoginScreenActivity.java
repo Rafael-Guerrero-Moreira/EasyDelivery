@@ -1,4 +1,4 @@
-package com.example.easydelivery;
+package com.example.easydelivery.views.activities.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.easydelivery.MainActivity;
+import com.example.easydelivery.R;
+import com.example.easydelivery.UserType;
 import com.example.easydelivery.model.Buisnes;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.model.Delivery;
@@ -34,35 +37,40 @@ import java.util.UUID;
 import com.example.easydelivery.helpers.InternalFile;
 
 
-public class login extends AppCompatActivity {
+public class LoginScreenActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    EditText TextEmail ;
-    EditText TextPassword;
+    private EditText TextEmail ;
+    private EditText TextPassword;
     private List<Client> listPerson = new ArrayList<Client>();
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        TextEmail = (EditText) findViewById(R.id.txtuserlogin);
-        TextPassword = (EditText) findViewById(R.id.txtpasslogin);
+        TextEmail = (EditText) findViewById(R.id.alTxtEmail);
+        TextPassword = (EditText) findViewById(R.id.alTxtPassword);
         InicializarFirebase();
 
     }
-    public void Register(View view)
+
+    public void goToPreviousActivity(View view) {
+        finish();
+    }
+
+    public void register(View view)
     {
         Intent intent = new Intent(this, UserType.class);
         startActivity(intent);
     }
-    public void ChangePass(View view)
+    public void changePassword(View view)
     {
         Intent intent = new Intent(this, com.example.easydelivery.ChangePassword.class);
         startActivity(intent);
     }
 
-    public void loguearUsuario(View view) {
+    public void signIn(View view) {
         //Obtenemos el email y la contraseña desde las cajas de texto
          String email = TextEmail.getText().toString().trim();
         String password = TextPassword.getText().toString().trim();
@@ -91,12 +99,12 @@ public class login extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            Toast.makeText(login.this, "Bienvenido: " + TextEmail.getText(), Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent( login.this, MainActivity.class);
+                            Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + TextEmail.getText(), Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent( LoginScreenActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
-                           Toast.makeText(login.this, "Usuario o comtrasenia Invalida", Toast.LENGTH_LONG).show();
+                           Toast.makeText(LoginScreenActivity.this, "Usuario o comtrasenia Invalida", Toast.LENGTH_LONG).show();
 
                         }
 
