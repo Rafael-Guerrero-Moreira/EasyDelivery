@@ -1,16 +1,20 @@
 package com.example.easydelivery.views.activities.auth;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.easydelivery.ChangePassword;
 import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
 import com.example.easydelivery.UserType;
@@ -30,8 +34,6 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import com.example.easydelivery.helpers.InternalFile;
@@ -39,9 +41,9 @@ import com.example.easydelivery.helpers.InternalFile;
 
 public class LoginScreenActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private EditText TextEmail ;
-    private EditText TextPassword;
-    private List<Client> listPerson = new ArrayList<Client>();
+    private EditText alTxtEmail;
+    private EditText alTxtPassword;
+    private CheckBox alChkRemember;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
@@ -49,10 +51,10 @@ public class LoginScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        TextEmail = (EditText) findViewById(R.id.alTxtEmail);
-        TextPassword = (EditText) findViewById(R.id.alTxtPassword);
-        InicializarFirebase();
-
+        alTxtEmail = findViewById(R.id.alTxtEmail);
+        alTxtPassword = findViewById(R.id.alTxtPassword);
+        alChkRemember = findViewById(R.id.alChkRemember);
+        setupFirebase();
     }
 
     public void goToPreviousActivity(View view) {
@@ -61,69 +63,58 @@ public class LoginScreenActivity extends AppCompatActivity {
 
     public void register(View view)
     {
-        Intent intent = new Intent(this, UserType.class);
-        startActivity(intent);
+        startActivity(new Intent(this, UserType.class));
+        finish();
     }
+
     public void changePassword(View view)
     {
-        Intent intent = new Intent(this, com.example.easydelivery.ChangePassword.class);
-        startActivity(intent);
+        startActivity(new Intent(this, ChangePassword.class));
+        finish();
     }
 
     public void signIn(View view) {
-        //Obtenemos el email y la contraseña desde las cajas de texto
-         String email = TextEmail.getText().toString().trim();
-        String password = TextPassword.getText().toString().trim();
-        //Verificamos que las cajas de texto no esten vacías
-        if (TextUtils.isEmpty(email)) {//(precio.equals(""))
-            Toast.makeText(this, "Se debe ingresar un email", Toast.LENGTH_LONG).show();
+        String email = alTxtEmail.getText().toString().trim();
+        String password = alTxtPassword.getText().toString().trim();
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Debe ingresar sus credenciales", Toast.LENGTH_LONG).show();
             return;
         }
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
-            return ;
-        }
-        //loguear usuario
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        //checking if success
                         if (task.isSuccessful()) {
-                            //Abrimos un nuevo fichero y doc si existe se sobre escribe en el
-                            InternalFile filei = new InternalFile();
-                            filei.createUserFile();
-                            //funcion llenarJson llena el json con un nuevo token y el usuario para llenar el fichero
-                            try {
-                                llenarJson();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (alChkRemember.isChecked()) {
+                                if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                                    requestPermissions(new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, 3);
+                                } else {
+                                    createUserFile();
+                                    Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+                                }
+                            } else {
+                                Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
+                                startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
                             }
-                            Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + TextEmail.getText(), Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent( LoginScreenActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
                         } else {
-                           Toast.makeText(LoginScreenActivity.this, "Usuario o comtrasenia Invalida", Toast.LENGTH_LONG).show();
-
+                           Toast.makeText(LoginScreenActivity.this, "Credenciales inválidas", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
-
     }
-    private void InicializarFirebase (){
+
+    private void setupFirebase(){
         // firebaseDatabase.setPersistenceEnabled(true);
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         // firebaseDatabase.setPersistenceEnabled(true);
         databaseReference = firebaseDatabase.getReference();
     }
-    public JSONObject llenarJson() throws JSONException {
 
+    public JSONObject generateToken() throws JSONException {
         JSONObject object = new JSONObject();
-        //LLenamso el objeto Json
-        object.put("User",TextEmail.getText());
+        object.put("User", alTxtEmail.getText());
         Log.d("PUT",object.getString("User"));
         databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -144,19 +135,14 @@ public class LoginScreenActivity extends AppCompatActivity {
                             filei.writeUserFile(object);
                             break;
                         }
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
-
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
         databaseReference.child("Buisnes").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -177,19 +163,14 @@ public class LoginScreenActivity extends AppCompatActivity {
                             filei.writeUserFile(object);
                             break;
                         }
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
-
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
         databaseReference.child("Delivery").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -209,23 +190,39 @@ public class LoginScreenActivity extends AppCompatActivity {
                             filei.writeUserFile(object);
                             break;
                         }
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
-
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
         return object;
     }
 
+    public void createUserFile() {
+        InternalFile filei = new InternalFile();
+        filei.createUserFile();
+        try {
+            generateToken();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
+            createUserFile();
+        } else {
+            //Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+        }
+        Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
+        startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+        return;
+    }
 }

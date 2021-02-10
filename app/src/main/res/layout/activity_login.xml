@@ -95,6 +95,15 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <CheckBox
+            android:id="@+id/alChkRemember"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:text="Recuérdame"
+            android:textColor="?attr/alText"
+            android:textSize="15sp"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="50dp"

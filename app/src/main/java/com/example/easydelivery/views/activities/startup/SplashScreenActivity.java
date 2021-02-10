@@ -46,7 +46,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     goToActivity(false);
                 }
             }
-        }, 3000);
+        }, 2000);
     }
     private void setupFirebase(){
         // firebaseDatabase.setPersistenceEnabled(true);
