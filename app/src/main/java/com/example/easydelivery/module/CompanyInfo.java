@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.menu.Store;
@@ -136,28 +139,28 @@ public class CompanyInfo extends AppCompatActivity {
     }
     private void verifydata()
     {
-        InternalFile i = new InternalFile();
-        JSONObject object = i.readUserFile();
+        SharedPreferences prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
+        String idcomerce = prefs.getString("id", "");
         databaseReference.child("Comerce").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listBuissnes.clear();
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                     buisnes  = objSnaptshot.getValue(InfoBuisnes.class);
-                    try {
-                        Log.d("JSON", object.getString("ID"));
-                        Log.d("JSON", buisnes.getIdBuissnes());
-                        if (object.getString("ID").equals(buisnes.getIdBuissnes()))
+
+                        Log.d("Variable gobal", idcomerce);
+                        Log.d("BD Fire", buisnes.getIdBuissnes());
+                        if (idcomerce.equals(buisnes.getIdBuissnes()))
                         {
                             textphone.setText(buisnes.getPhone());
                             textadress.setText(buisnes.getAddress());
+                            storage.child("LogoBuissnes").child(buisnes.getIdBuissnes()+"/"+buisnes.getUrllogo()+".jpeg");
+                            Glide.with(CompanyInfo.this).load(storage).into(ivlogo);
                             sptype.setSelection(valueselect(buisnes.getTypecomerce()));
                             Log.d("Error", "Aqui debe suceder algo");
                             break;
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+
 
                 }
             }

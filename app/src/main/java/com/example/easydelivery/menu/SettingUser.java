@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +38,7 @@ public class SettingUser extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class SettingUser extends AppCompatActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.BottonNavigation);
         bottomNavigationView.setSelectedItemId(R.id.fragmenUser);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
         InicializarFirebase ();
 
     }
@@ -58,30 +62,21 @@ public class SettingUser extends AppCompatActivity {
 
     public void CloseSession(View view)
     {
-        InternalFile internal = new InternalFile();
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = internal.readUserFile();
-            JSONObject jsonObject2 = new JSONObject();
-            jsonObject2.put("User", jsonObject.getString("User"));
-            jsonObject2.put("Token", "Null");
-            jsonObject2.put("UserType", jsonObject.getString("UserType"));
-            if(!jsonObject.getString("UserType").equals("Buisnes"))
-            databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+        String idcomerce = prefs.getString("id", "");
+
+        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                         Client p = objSnaptshot.getValue(Client.class);
-                        try {
+
                             // se pregunta por el usuario en la bd esto por el email
-                            if (jsonObject2.getString("User").equals(p.getEmail())) {
+                            if (idcomerce.equals(p.getIduser())) {
                                 p.setToken("  ");
                                 databaseReference.child("Users").child(p.getIduser()).setValue(p);
                                 break;
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
                     }
                 }
 
@@ -90,22 +85,19 @@ public class SettingUser extends AppCompatActivity {
 
                 }
             });
-            else if (jsonObject.getString("UserType").equals("Buisnes"))
-                databaseReference.child("Buisnes").addListenerForSingleValueEvent(new ValueEventListener() {
+            databaseReference.child("Buisnes").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                             Buisnes p = objSnaptshot.getValue(Buisnes.class);
-                            try {
+
                                 // se pregunta por el usuario en la bd esto por el email
-                                if (jsonObject2.getString("User").equals(p.getEmail())) {
+                                if (idcomerce.equals(p.getId())) {
                                     p.setToken("  ");
                                     databaseReference.child("Buisnes").child(p.getId()).setValue(p);
                                     break;
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+
                         }
                     }
 
@@ -114,23 +106,18 @@ public class SettingUser extends AppCompatActivity {
 
                     }
                 });
-            else
-            {
-                databaseReference.child("Delivery").addListenerForSingleValueEvent(new ValueEventListener() {
+            databaseReference.child("Delivery").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                             Delivery p = objSnaptshot.getValue(Delivery.class);
-                            try {
                                 // se pregunta por el usuario en la bd esto por el email
-                                if (jsonObject2.getString("User").equals(p.getCorreo())) {
+                                if (idcomerce.equals(p.getId())) {
                                     p.setToken("  ");
                                     databaseReference.child("Delivery").child(p.getId()).setValue(p);
                                     break;
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+
                         }
                     }
 
@@ -139,22 +126,17 @@ public class SettingUser extends AppCompatActivity {
 
                     }
                 });
+            InternalFile file = new InternalFile();
+            file.deleteUserFile();
 
-            }
-
-
-            internal.writeUserFile(jsonObject2);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         Intent intent = new Intent(this, SplashScreenActivity.class);
         startActivity(intent);
     }
     public void Changepassword(View view) throws IOException, JSONException {
-        InternalFile file = new InternalFile();
-        JSONObject jsonObject = file.readUserFile();
+        String email = prefs.getString("email", "");
+
         mAuth.setLanguageCode("es");
-        mAuth.sendPasswordResetEmail(jsonObject.getString("User")).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
               if(task.isSuccessful())

@@ -1,7 +1,9 @@
 package com.example.easydelivery.views.activities.auth;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,6 +20,7 @@ import com.example.easydelivery.ChangePassword;
 import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
 import com.example.easydelivery.UserType;
+import com.example.easydelivery.helpers.GobalVarible;
 import com.example.easydelivery.model.Buisnes;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.model.Delivery;
@@ -46,6 +49,7 @@ public class LoginScreenActivity extends AppCompatActivity {
     private CheckBox alChkRemember;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +99,9 @@ public class LoginScreenActivity extends AppCompatActivity {
                                 }
                             } else {
                                 Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
+                                obtenerID();
                                 startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+
                             }
                         } else {
                            Toast.makeText(LoginScreenActivity.this, "Credenciales inválidas", Toast.LENGTH_LONG).show();
@@ -114,8 +120,7 @@ public class LoginScreenActivity extends AppCompatActivity {
 
     public JSONObject generateToken() throws JSONException {
         JSONObject object = new JSONObject();
-        object.put("User", alTxtEmail.getText());
-        Log.d("PUT",object.getString("User"));
+        String user = alTxtEmail.getText().toString();
         databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -123,14 +128,12 @@ public class LoginScreenActivity extends AppCompatActivity {
                     Client p = objSnaptshot.getValue(Client.class);
                     try {
                         // se pregunta por el usuario en la bd esto por el email
-                        if (object.getString("User").equals(p.getEmail())) {
+                        if (user.equals(p.getEmail())) {
                             //se asigna el nuevo token
                             p.setToken(UUID.randomUUID().toString());
                             InternalFile filei = new InternalFile();
                             object.put("Token",p.getToken());
-                            object.put("Type",p.getType());
-                            object.put("ID",p.getIduser());
-
+                           loginvar(p.getIduser(), p.getName() + " "+ p.getLastname(),p.getEmail());
                             databaseReference.child("Users").child(p.getIduser()).setValue(p);
                             filei.writeUserFile(object);
                             break;
@@ -151,14 +154,12 @@ public class LoginScreenActivity extends AppCompatActivity {
                     Buisnes b = objSnaptshot.getValue(Buisnes.class);
                     try {
                         // se pregunta por el usuario en la bd esto por el email
-                        if (object.getString("User").equals(b.getEmail())) {
+                        if (user.equals(b.getEmail())) {
                             //se asigna el nuevo token
                             b.setToken(UUID.randomUUID().toString());
                             InternalFile filei = new InternalFile();
                             object.put("Token",b.getToken());
-                            object.put("UserType","Buisnes");
-                            object.put("ID",b.getId());
-
+                           loginvar(b.getId(), b.getBuisnesname() , b.getEmail());
                             databaseReference.child("Buisnes").child(b.getId()).setValue(b);
                             filei.writeUserFile(object);
                             break;
@@ -179,13 +180,13 @@ public class LoginScreenActivity extends AppCompatActivity {
                     Delivery d = objSnaptshot.getValue(Delivery.class);
                     try {
                         // se pregunta por el usuario en la bd esto por el email
-                        if (object.getString("User").equals(d.getCorreo())) {
+                        if (user.equals(d.getCorreo())) {
                             //se asigna el nuevo token
                             d.setToken(UUID.randomUUID().toString());
                             InternalFile filei = new InternalFile();
                             object.put("Token",d.getToken());
-                            object.put("UserType","Delivery");
-                            object.put("ID",d.getId());
+                           loginvar(d.getId(), d.getCompanyname() , d.getCorreo());
+
                             databaseReference.child("Delivery").child(d.getId()).setValue(d);
                             filei.writeUserFile(object);
                             break;
@@ -201,6 +202,64 @@ public class LoginScreenActivity extends AppCompatActivity {
         });
         return object;
     }
+    public void obtenerID()  {
+      String user = alTxtEmail.getText().toString();
+
+        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                    Client p = objSnaptshot.getValue(Client.class);
+                        // se pregunta por el usuario en la bd esto por el email
+                        if (user.equals(p.getEmail())) {
+                           loginvar(p.getIduser(), p.getName() + " "+ p.getLastname(),p.getEmail());
+                            break;
+                        }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+        databaseReference.child("Buisnes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                    Buisnes b = objSnaptshot.getValue(Buisnes.class);
+                        // se pregunta por el usuario en la bd esto por el email
+                        if (user.equals(b.getEmail())) {
+                           loginvar(b.getId(), b.getBuisnesname() , b.getEmail());
+                            break;
+                        }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+        databaseReference.child("Delivery").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                    Delivery d = objSnaptshot.getValue(Delivery.class);
+
+                        // se pregunta por el usuario en la bd esto por el email
+                        if (user.equals(d.getCorreo())) {
+                            loginvar(d.getId(), d.getCompanyname() , d.getCorreo());
+
+                            break;
+                        }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+    }
+
 
     public void createUserFile() {
         InternalFile filei = new InternalFile();
@@ -224,5 +283,14 @@ public class LoginScreenActivity extends AppCompatActivity {
         Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
         startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
         return;
+    }
+    public void loginvar(String id, String name, String email)
+    {
+        SharedPreferences prefs = getSharedPreferences("shared_login_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("id",id);
+        editor.putString("name",name);
+        editor.putString("email", email);
+        editor.commit();
     }
 }

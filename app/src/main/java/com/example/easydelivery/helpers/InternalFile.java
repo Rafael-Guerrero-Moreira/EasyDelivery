@@ -72,4 +72,15 @@ public class InternalFile {
     public JSONObject readUserFile() {
         return readFile(userDir, "userdata", ".json");
     }
+
+    public void deleteFile(String directory, String filename, String extension) {
+
+            File file = new File(Environment.getExternalStorageDirectory() + "/" + directory,filename + extension);
+            file.delete();
+    }
+
+
+    public void deleteUserFile() {
+         deleteFile(userDir, "userdata", ".json");
+    }
 }
