@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
+import com.example.easydelivery.menu.Store;
 import com.example.easydelivery.model.Buisnes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -142,7 +143,7 @@ public class CreateAucontforBuisnes extends AppCompatActivity {
         i.createUserFile();
         i.writeUserFile(object);
 
-        Intent intent = new Intent( CreateAucontforBuisnes.this, MainActivity.class);
+        Intent intent = new Intent( CreateAucontforBuisnes.this, Store.class);
         startActivity(intent);
         finish();
 

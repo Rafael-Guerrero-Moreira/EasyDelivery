@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,10 +20,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
-import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.menu.Store;
 import com.example.easydelivery.model.InfoBuisnes;
-import com.example.easydelivery.model.Product;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -34,13 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import com.google.firebase.storage.UploadTask;
 
 public class CompanyInfo extends AppCompatActivity {
     private EditText textphone;
@@ -49,12 +43,11 @@ public class CompanyInfo extends AppCompatActivity {
     private ImageView ivlogo;
     private FloatingActionButton buttonlogo;
     private Uri imageUri;
+    SharedPreferences prefs;
     private static final int Gallery_Intent = 1;
     private  InfoBuisnes buisnes;
     private String[] Opciones = {"Seleccione","Restaurante","Distribuidora","Zapateria","Venta ropa","Otros"};
-    private List<InfoBuisnes> listBuissnes = new ArrayList<InfoBuisnes>();
-    private ArrayAdapter<InfoBuisnes> arrayAdapterPersona;
-
+    private String idUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private StorageReference storage;
@@ -63,6 +56,8 @@ public class CompanyInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_info);
         inicializarFirebase ();
+         prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
+        idUser = prefs.getString("id", "");
         textphone = findViewById(R.id.txtphone);
         sptype = findViewById(R.id.sptype);
         textadress = findViewById(R.id.txtadress);
@@ -81,7 +76,6 @@ public class CompanyInfo extends AppCompatActivity {
         sptype.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,Opciones));
         verifydata();
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -94,33 +88,37 @@ public class CompanyInfo extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menuinfouser,menu);
         return super.onCreateOptionsMenu(menu);
-
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.icon_add: {
-                try {
-                    InternalFile f = new InternalFile();
-                    JSONObject jsonObject =  f.readUserFile();
-                    InfoBuisnes inf = new InfoBuisnes();
-                    inf.setPhone(textphone.getText().toString());
-                    inf.setTypecomerce(sptype.getSelectedItem().toString());
-                    inf.setAddress(textadress.getText().toString());
-                    inf.setIdBuissnes(jsonObject.getString("ID"));
-                    inf.setUrllogo(imageselect(imageUri));
-                    databaseReference.child("Comerce").child(inf.getIdBuissnes()).setValue(inf);
                     if (!imageselect(imageUri).equals("null"))
-                    storage.child("LogoBuissnes").child(inf.getIdBuissnes()+"/"+imageUri.getLastPathSegment()+".jpeg").putFile(imageUri);
-
-                    Toast.makeText(this, "Agregar", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(this, Store.class));
-                    finish();
+                    storage.child("LogoBuissnes").child(idUser +"/"+imageUri.getLastPathSegment()).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                            while(!uri.isComplete());
+                            Uri url = uri.getResult();
+                            InfoBuisnes inf = new InfoBuisnes();
+                            inf.setPhone(textphone.getText().toString());
+                            inf.setTypecomerce(sptype.getSelectedItem().toString());
+                            inf.setAddress(textadress.getText().toString());
+                            inf.setIdBuissnes(idUser);
+                            inf.setUrllogo(imageselect(url));
+                            databaseReference.child("Comerce").child(inf.getIdBuissnes()).setValue(inf).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful())
+                                    { Toast.makeText(CompanyInfo.this, "Datos Guardados", Toast.LENGTH_LONG).show(); }
+                                    else
+                                    { Toast.makeText(CompanyInfo.this, "Error al Guardar los Datos", Toast.LENGTH_LONG).show();
+                                        storage.delete();}
+                                }
+                            });
+                        }
+                    });
                     break;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
             case R.id.icon_back: {
                 startActivity(new Intent(this, Store.class));
@@ -129,8 +127,6 @@ public class CompanyInfo extends AppCompatActivity {
         }
         return true;
     }
-
-
     private void inicializarFirebase (){
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -139,32 +135,24 @@ public class CompanyInfo extends AppCompatActivity {
     }
     private void verifydata()
     {
-        SharedPreferences prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
-        String idcomerce = prefs.getString("id", "");
+        idUser = prefs.getString("id", "");
         databaseReference.child("Comerce").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                listBuissnes.clear();
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                     buisnes  = objSnaptshot.getValue(InfoBuisnes.class);
 
-                        Log.d("Variable gobal", idcomerce);
-                        Log.d("BD Fire", buisnes.getIdBuissnes());
-                        if (idcomerce.equals(buisnes.getIdBuissnes()))
+                        if (idUser.equals(buisnes.getIdBuissnes()))
                         {
                             textphone.setText(buisnes.getPhone());
                             textadress.setText(buisnes.getAddress());
-                            storage.child("LogoBuissnes").child(buisnes.getIdBuissnes()+"/"+buisnes.getUrllogo()+".jpeg");
-                            Glide.with(CompanyInfo.this).load(storage).into(ivlogo);
+                            if(buisnes.getUrllogo().isEmpty()) return;
+                            Glide.with(CompanyInfo.this).load(buisnes.getUrllogo()).into(ivlogo);
                             sptype.setSelection(valueselect(buisnes.getTypecomerce()));
-                            Log.d("Error", "Aqui debe suceder algo");
                             break;
                         }
-
-
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -184,7 +172,7 @@ public class CompanyInfo extends AppCompatActivity {
     {
         try {
             if(uri.equals(null)) return "null";
-            else return uri.getLastPathSegment();
+            else return uri.toString();
         } catch (Exception e)
         {
             return "null";

@@ -6,7 +6,11 @@
     android:layout_height="wrap_content"
     tools:context=".menu.Store">
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80sp"
@@ -31,6 +35,12 @@
 
     </LinearLayout>
 
+
+    <ListView
+        android:id="@+id/lisproductos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/BottonNavigation"
         android:layout_width="match_parent"
@@ -72,6 +82,5 @@
         app:rippleColor="#FFFFFF"
 
         />
-
 
 </RelativeLayout>

@@ -21,6 +21,7 @@ import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
 import com.example.easydelivery.UserType;
 import com.example.easydelivery.helpers.GobalVarible;
+import com.example.easydelivery.menu.Store;
 import com.example.easydelivery.model.Buisnes;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.model.Delivery;
@@ -95,12 +96,12 @@ public class LoginScreenActivity extends AppCompatActivity {
                                 } else {
                                     createUserFile();
                                     Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+                                    startActivity(new Intent( LoginScreenActivity.this, Store.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
                                 }
                             } else {
                                 Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
                                 obtenerID();
-                                startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+                                startActivity(new Intent( LoginScreenActivity.this, Store.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
 
                             }
                         } else {

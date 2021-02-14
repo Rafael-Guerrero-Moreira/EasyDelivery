@@ -15,6 +15,7 @@ import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.helpers.PermissionsUtils;
+import com.example.easydelivery.menu.Store;
 import com.example.easydelivery.model.Buisnes;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.helpers.GobalVarible;
@@ -208,7 +209,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             InternalFile internalFile = new InternalFile();
             JSONObject jsonObject = internalFile.readUserFile();
             if (value) {
-                startActivity(new Intent( SplashScreenActivity.this, MainActivity.class));
+                startActivity(new Intent( SplashScreenActivity.this, Store.class));
                 Log.d("Token BD","Fue a Main" );
             } else if (!jsonObject.getString("flag").equals("true")) {
                 startActivity(new Intent( SplashScreenActivity.this, WelcomeScreenActivity.class));

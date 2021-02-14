@@ -14,9 +14,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
+import com.example.easydelivery.menu.Store;
 import com.example.easydelivery.model.Delivery;
 import com.example.easydelivery.val.Validation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -90,7 +90,7 @@ public class CrateAcountDelivery extends AppCompatActivity {
         i.createUserFile();
         i.writeUserFile(object);
 
-        Intent intent = new Intent( CrateAcountDelivery.this, MainActivity.class);
+        Intent intent = new Intent( CrateAcountDelivery.this, Store.class);
         startActivity(intent);
         finish();
 
