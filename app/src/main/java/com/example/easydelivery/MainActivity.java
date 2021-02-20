@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import com.example.easydelivery.menu.Category;
 import com.example.easydelivery.menu.Search;
 import com.example.easydelivery.menu.SettingUser;
-import com.example.easydelivery.menu.Store;
+import com.example.easydelivery.menu.StoreForBusinnes;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.fragmenStore:
-                     intent = new Intent(MainActivity.this, Store.class);
+                     intent = new Intent(MainActivity.this, StoreForBusinnes.class);
                     startActivity(intent);
                     finish();
                     return true;

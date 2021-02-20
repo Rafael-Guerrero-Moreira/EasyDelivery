@@ -16,7 +16,7 @@ import com.example.easydelivery.R;
 import com.example.easydelivery.module.CompanyInfo;
 import com.example.easydelivery.views.activities.startup.SplashScreenActivity;
 import com.example.easydelivery.helpers.InternalFile;
-import com.example.easydelivery.model.Buisnes;
+import com.example.easydelivery.model.Bussines;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.model.Delivery;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -89,7 +88,7 @@ public class SettingUser extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                            Buisnes p = objSnaptshot.getValue(Buisnes.class);
+                            Bussines p = objSnaptshot.getValue(Bussines.class);
 
                                 // se pregunta por el usuario en la bd esto por el email
                                 if (idcomerce.equals(p.getId())) {
@@ -157,7 +156,7 @@ public class SettingUser extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.fragmenStore:
-                    intent = new Intent(SettingUser.this, Store.class);
+                    intent = new Intent(SettingUser.this, StoreForBusinnes.class);
                     startActivity(intent);
                     finish();
                     return true;

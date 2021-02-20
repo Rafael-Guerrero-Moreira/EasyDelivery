@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,9 +19,8 @@ import com.example.easydelivery.ChangePassword;
 import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
 import com.example.easydelivery.UserType;
-import com.example.easydelivery.helpers.GobalVarible;
-import com.example.easydelivery.menu.Store;
-import com.example.easydelivery.model.Buisnes;
+import com.example.easydelivery.menu.StoreForBusinnes;
+import com.example.easydelivery.model.Bussines;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.model.Delivery;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -96,12 +94,12 @@ public class LoginScreenActivity extends AppCompatActivity {
                                 } else {
                                     createUserFile();
                                     Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent( LoginScreenActivity.this, Store.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+                                    startActivity(new Intent( LoginScreenActivity.this, StoreForBusinnes.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
                                 }
                             } else {
                                 Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
                                 obtenerID();
-                                startActivity(new Intent( LoginScreenActivity.this, Store.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+                                startActivity(new Intent( LoginScreenActivity.this, StoreForBusinnes.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
 
                             }
                         } else {
@@ -134,7 +132,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                             p.setToken(UUID.randomUUID().toString());
                             InternalFile filei = new InternalFile();
                             object.put("Token",p.getToken());
-                           loginvar(p.getIduser(), p.getName() + " "+ p.getLastname(),p.getEmail());
+                            loginvar(p.getIduser(), p.getName() + " "+ p.getLastname(),p.getEmail());
                             databaseReference.child("Users").child(p.getIduser()).setValue(p);
                             filei.writeUserFile(object);
                             break;
@@ -148,11 +146,11 @@ public class LoginScreenActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
-        databaseReference.child("Buisnes").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Bussines").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Buisnes b = objSnaptshot.getValue(Buisnes.class);
+                    Bussines b = objSnaptshot.getValue(Bussines.class);
                     try {
                         // se pregunta por el usuario en la bd esto por el email
                         if (user.equals(b.getEmail())) {
@@ -160,8 +158,8 @@ public class LoginScreenActivity extends AppCompatActivity {
                             b.setToken(UUID.randomUUID().toString());
                             InternalFile filei = new InternalFile();
                             object.put("Token",b.getToken());
-                           loginvar(b.getId(), b.getBuisnesname() , b.getEmail());
-                            databaseReference.child("Buisnes").child(b.getId()).setValue(b);
+                           loginvar(b.getId(), b.getBussinesname() , b.getEmail());
+                            databaseReference.child("Bussines").child(b.getId()).setValue(b);
                             filei.writeUserFile(object);
                             break;
                         }
@@ -223,14 +221,14 @@ public class LoginScreenActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
-        databaseReference.child("Buisnes").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Bussines").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Buisnes b = objSnaptshot.getValue(Buisnes.class);
+                    Bussines b = objSnaptshot.getValue(Bussines.class);
                         // se pregunta por el usuario en la bd esto por el email
                         if (user.equals(b.getEmail())) {
-                           loginvar(b.getId(), b.getBuisnesname() , b.getEmail());
+                           loginvar(b.getId(), b.getBussinesname() , b.getEmail());
                             break;
                         }
 

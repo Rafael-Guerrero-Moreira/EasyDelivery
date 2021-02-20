@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,11 +29,14 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Store extends AppCompatActivity {
+public class StoreForBusinnes extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     StorageReference storage;
     ListView lista;
+    String id;
+    private SharedPreferences prefs;
+
     private List<Product> productList = new ArrayList<Product>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +48,14 @@ public class Store extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.fragmenStore);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         lista = findViewById(R.id.lisproductos);
+        prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
+        id = prefs.getString("id", "");
         ListarDatos();
     }
 
     public void createProdcut(View view)
     {
-        startActivity(new Intent(Store.this, CreateProduct.class));
+        startActivity(new Intent(StoreForBusinnes.this, CreateProduct.class));
 
     }
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,22 +65,22 @@ public class Store extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.fragmenStore:
-                    intent = new Intent(Store.this, Store.class);
+                    intent = new Intent(StoreForBusinnes.this, StoreForBusinnes.class);
                     startActivity(intent);
                     finish();
                     return true;
                 case R.id.fragmenCategory:
-                    intent = new Intent(Store.this, Category.class);
+                    intent = new Intent(StoreForBusinnes.this, Category.class);
                     startActivity(intent);
                     finish();
                     return true;
                 case R.id.fragmenSearch:
-                    intent = new Intent(Store.this, Search.class);
+                    intent = new Intent(StoreForBusinnes.this, Search.class);
                     startActivity(intent);
                     finish();
                     return true;
                 case R.id.fragmenUser:
-                    intent = new Intent(Store.this, SettingUser.class);
+                    intent = new Intent(StoreForBusinnes.this, SettingUser.class);
                     startActivity(intent);
                     finish();
                     return true;
@@ -91,9 +98,11 @@ public class Store extends AppCompatActivity {
                 productList.clear();
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                     Product c = objSnaptshot.getValue(Product.class);
-                    productList.add(c);
-                    AdapterProducts adapterProducts = new AdapterProducts(Store.this,(ArrayList<Product>)productList );
-                    lista.setAdapter(adapterProducts);
+                    if (id.equals(c.getIdBuisnes())) {
+                        productList.add(c);
+                        AdapterProducts adapterProducts = new AdapterProducts(StoreForBusinnes.this, (ArrayList<Product>) productList);
+                        lista.setAdapter(adapterProducts);
+                    }
                 }
             }
 

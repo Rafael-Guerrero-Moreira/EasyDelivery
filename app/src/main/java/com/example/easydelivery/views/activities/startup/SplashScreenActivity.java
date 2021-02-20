@@ -11,14 +11,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.helpers.PermissionsUtils;
-import com.example.easydelivery.menu.Store;
-import com.example.easydelivery.model.Buisnes;
+import com.example.easydelivery.menu.StoreForBusinnes;
+import com.example.easydelivery.model.Bussines;
 import com.example.easydelivery.model.Client;
-import com.example.easydelivery.helpers.GobalVarible;
 
 import com.example.easydelivery.model.Delivery;
 import com.google.firebase.database.DataSnapshot;
@@ -29,8 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.UUID;
 
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -117,12 +113,12 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        databaseReference.child("Buisnes").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Bussines").addListenerForSingleValueEvent(new ValueEventListener() {
             Boolean band = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Buisnes b = objSnaptshot.getValue(Buisnes.class);
+                    Bussines b = objSnaptshot.getValue(Bussines.class);
                     try {
                         // se pregunta por el usuario en la bd esto por el email
                         Log.d("Token json",jsonObject.getString("Token") );
@@ -130,7 +126,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                         if (jsonObject.getString("Token").equals(b.getToken())) {
                             jsonObject.put("flag","true");
                             internalFile.writeUserFile(jsonObject);
-                           loginvar(b.getId(), b.getBuisnesname() , b.getEmail());
+                           loginvar(b.getId(), b.getBussinesname() , b.getEmail());
                             band=true;
                             break;
                         }
@@ -208,8 +204,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         try {
             InternalFile internalFile = new InternalFile();
             JSONObject jsonObject = internalFile.readUserFile();
-            if (value) {
-                startActivity(new Intent( SplashScreenActivity.this, Store.class));
+            if (jsonObject.getString("flag").equals("true")) {
+                startActivity(new Intent( SplashScreenActivity.this, StoreForBusinnes.class));
                 Log.d("Token BD","Fue a Main" );
             } else if (!jsonObject.getString("flag").equals("true")) {
                 startActivity(new Intent( SplashScreenActivity.this, WelcomeScreenActivity.class));

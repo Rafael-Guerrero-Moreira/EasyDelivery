@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.easydelivery.R;
-import com.example.easydelivery.menu.Store;
+import com.example.easydelivery.menu.StoreForBusinnes;
 import com.example.easydelivery.model.Product;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -109,7 +109,7 @@ public class CreateProduct extends AppCompatActivity {
                     break;
             }
             case R.id.icon_back: {
-                startActivity(new Intent(this, Store.class));
+                startActivity(new Intent(this, StoreForBusinnes.class));
                 finish();
             }
             }

@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.easydelivery.module.CreateAcount;
-import com.example.easydelivery.module.CreateAucontforBuisnes;
+import com.example.easydelivery.module.CreateAucontforBussines;
 import com.example.easydelivery.module.CrateAcountDelivery;
 public class UserType extends AppCompatActivity {
 
@@ -19,7 +19,7 @@ public class UserType extends AppCompatActivity {
     }
     public void userBuisnes(View view)
     {
-        startActivity(new Intent(this, CreateAucontforBuisnes.class));
+        startActivity(new Intent(this, CreateAucontforBussines.class));
         finish();
     }
     public void userClient(View view)

@@ -1,9 +1,9 @@
 package com.example.easydelivery.model;
 
-public class Buisnes {
+public class Bussines {
     private String id;
     private String name;
-    private String buisnesname;
+    private String bussinesname;
     private String email;
     private String identification;
     private String type;
@@ -42,12 +42,12 @@ public class Buisnes {
         this.name = name;
     }
 
-    public String getBuisnesname() {
-        return buisnesname;
+    public String getBussinesname() {
+        return bussinesname;
     }
 
-    public void setBuisnesname(String buisnesname) {
-        this.buisnesname = buisnesname;
+    public void setBussinesname(String bussinesname) {
+        this.bussinesname = bussinesname;
     }
 
     public String getEmail() {

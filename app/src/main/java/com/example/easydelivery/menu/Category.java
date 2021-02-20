@@ -29,7 +29,7 @@ public class Category extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.fragmenStore:
-                    intent = new Intent(Category.this, Store.class);
+                    intent = new Intent(Category.this, StoreForBusinnes.class);
                     startActivity(intent);
                     finish();
                     return true;

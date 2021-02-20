@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
-import com.example.easydelivery.menu.Store;
+import com.example.easydelivery.menu.StoreForBusinnes;
 import com.example.easydelivery.val.Validation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -150,7 +150,7 @@ public class CreateAcount extends AppCompatActivity {
         i.createUserFile();
         i.writeUserFile(object);
 
-        Intent intent = new Intent( CreateAcount.this, Store.class);
+        Intent intent = new Intent( CreateAcount.this, StoreForBusinnes.class);
         startActivity(intent);
         finish();
 

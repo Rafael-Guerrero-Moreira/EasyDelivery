@@ -3,7 +3,9 @@ package com.example.easydelivery.module;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
@@ -14,11 +16,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
-import com.example.easydelivery.menu.Store;
-import com.example.easydelivery.model.Buisnes;
+import com.example.easydelivery.menu.StoreForBusinnes;
+import com.example.easydelivery.model.Bussines;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -34,7 +35,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.UUID;
 
-public class CreateAucontforBuisnes extends AppCompatActivity {
+public class CreateAucontforBussines extends AppCompatActivity {
     private FirebaseAuth mAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -45,7 +46,7 @@ public class CreateAucontforBuisnes extends AppCompatActivity {
     EditText txtident;
     EditText TexConfirmpass;
     Boolean ConfimPass = false;
-    Buisnes buisnes;
+    Bussines bussines;
     Validation validation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,15 +82,16 @@ public class CreateAucontforBuisnes extends AppCompatActivity {
     }
 
     public void RegisterUser(){
-      buisnes = new Buisnes();
-      buisnes.setId(UUID.randomUUID().toString());
-      buisnes.setName(TextName.getText().toString());
-      buisnes.setBuisnesname(Texbuinesname.getText().toString());
-      buisnes.setIdentification(txtident.getText().toString());
-      buisnes.setEmail(TextEmail.getText().toString());
-      buisnes.setToken(UUID.randomUUID().toString());
-      buisnes.setType("Buisnes");
-      databaseReference.child("Buisnes").child(buisnes.getId()).setValue(buisnes);
+      bussines = new Bussines();
+      bussines.setId(UUID.randomUUID().toString());
+      bussines.setName(TextName.getText().toString());
+      bussines.setBussinesname(Texbuinesname.getText().toString());
+      bussines.setIdentification(txtident.getText().toString());
+      bussines.setEmail(TextEmail.getText().toString());
+      bussines.setToken(UUID.randomUUID().toString());
+      bussines.setType("Bussines");
+      databaseReference.child("Bussines").child(bussines.getId()).setValue(bussines);
+      loginvar(bussines.getId(),bussines.getName(),bussines.getEmail());
 
     }
     public void registrarUsuariob(View view){
@@ -104,7 +106,7 @@ public class CreateAucontforBuisnes extends AppCompatActivity {
          String   resultado = validation.ValidarCamposBuisnes(email,password,name,buisnesname,identi,ConfimPass);
         if(!TextUtils.isEmpty(resultado))
         {
-            Toast.makeText(CreateAucontforBuisnes.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
+            Toast.makeText(CreateAucontforBussines.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
             return;
         }
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -114,7 +116,7 @@ public class CreateAucontforBuisnes extends AppCompatActivity {
                         //checking if success
                         if(task.isSuccessful()){
                             RegisterUser();
-                            Toast.makeText(CreateAucontforBuisnes.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(CreateAucontforBussines.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
                             try {
                                 IniciarSesion();
                             } catch (JSONException | IOException e) {
@@ -123,9 +125,9 @@ public class CreateAucontforBuisnes extends AppCompatActivity {
                         }else{
 
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
-                                Toast.makeText(CreateAucontforBuisnes.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CreateAucontforBussines.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(CreateAucontforBuisnes.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreateAucontforBussines.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
                             }                        }
                     }
                 });
@@ -133,21 +135,29 @@ public class CreateAucontforBuisnes extends AppCompatActivity {
     }
     private void IniciarSesion() throws JSONException, IOException {
         JSONObject object = new JSONObject();
-        object.put("User",buisnes.getEmail());
-        object.put("Token",buisnes.getToken());
-        object.put("UserType","Buisnes");
-        object.put("ID",buisnes.getId());
+        object.put("User", bussines.getEmail());
+        object.put("Token", bussines.getToken());
+        object.put("UserType","Bussines");
+        object.put("ID", bussines.getId());
         Log.d("json",object.toString());
         Log.d("ruta", String.valueOf((Environment.getExternalStorageDirectory())));
         InternalFile i = new InternalFile();
         i.createUserFile();
         i.writeUserFile(object);
 
-        Intent intent = new Intent( CreateAucontforBuisnes.this, Store.class);
+        Intent intent = new Intent( CreateAucontforBussines.this, StoreForBusinnes.class);
         startActivity(intent);
         finish();
 
     }
-
+    private void loginvar(String id, String name, String email)
+    {
+        SharedPreferences prefs = getSharedPreferences("shared_login_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("id",id);
+        editor.putString("name",name);
+        editor.putString("email", email);
+        editor.commit();
+    }
 
 }
