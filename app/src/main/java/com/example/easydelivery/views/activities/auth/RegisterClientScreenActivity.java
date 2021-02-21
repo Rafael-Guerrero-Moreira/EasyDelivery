@@ -1,4 +1,4 @@
-package com.example.easydelivery.module;
+package com.example.easydelivery.views.activities.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,28 +36,28 @@ import com.example.easydelivery.model.Client;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CreateAcount extends AppCompatActivity {
-   private FirebaseAuth mAuth;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    EditText TextEmail ;
-    EditText TextPassword;
-    EditText TextName;
-    EditText TexLastName;
-    Validation validation;
-    EditText TexConfirmpass;
-    Boolean ConfimPass = false;
-    Client p;
+public class RegisterClientScreenActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private EditText TextEmail ;
+    private EditText TextPassword;
+    private EditText TextName;
+    private EditText TexLastName;
+    private Validation validation;
+    private EditText TexConfirmpass;
+    private Boolean ConfimPass = false;
+    private Client p;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_acount);
-        TextEmail = (EditText) findViewById(R.id.txtemail);
-        TextPassword = (EditText) findViewById(R.id.txtpass);
-        TextName = (EditText) findViewById(R.id.txtname);
-        TexLastName = (EditText) findViewById(R.id.txtlastname);
-        TexConfirmpass = (EditText) findViewById(R.id.txtconfirmpass);
-//validacion de contrasenia
+        setContentView(R.layout.activity_register_client);
+        TextEmail = findViewById(R.id.arcTxtEmail);
+        TextPassword = findViewById(R.id.arcTxtPassword);
+        TextName = findViewById(R.id.arcTxtName);
+        TexLastName = findViewById(R.id.arcTxtLastname);
+        TexConfirmpass = findViewById(R.id.arcTxtConfirmPassword);
         TexConfirmpass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,6 +75,17 @@ public class CreateAcount extends AppCompatActivity {
 
     }
 
+    public void goToPreviousActivity(View view) {
+        startActivity(new Intent(this, UserTypeScreenActivity.class));
+        finish();
+    }
+
+    public void goToLoginActivity(View view)
+    {
+        startActivity(new Intent(this, LoginScreenActivity.class));
+        finish();
+    }
+
     private void registrarUsuario(){
 
         //Obtenemos el email y la contraseña desde las cajas de texto
@@ -86,7 +97,7 @@ public class CreateAcount extends AppCompatActivity {
         String   resultado = validation.ValidarCamposClient(email,password,name,lastname,ConfimPass);        //creating a new user
         if(!TextUtils.isEmpty(resultado))
         {
-            Toast.makeText(CreateAcount.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterClientScreenActivity.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
             return;
         }
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -96,7 +107,7 @@ public class CreateAcount extends AppCompatActivity {
                        //checking if success
                        if(task.isSuccessful()){
                             RegisterUser();
-                            Toast.makeText(CreateAcount.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterClientScreenActivity.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
                            try {
                                IniciarSesion();
                            } catch (JSONException | IOException e) {
@@ -105,9 +116,9 @@ public class CreateAcount extends AppCompatActivity {
                        }else{
 
                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
-                               Toast.makeText(CreateAcount.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
+                               Toast.makeText(RegisterClientScreenActivity.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
                            } else {
-                               Toast.makeText(CreateAcount.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
+                               Toast.makeText(RegisterClientScreenActivity.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
                            }                        }
                    }
                });
@@ -150,7 +161,7 @@ public class CreateAcount extends AppCompatActivity {
         i.createUserFile();
         i.writeUserFile(object);
 
-        Intent intent = new Intent( CreateAcount.this, StoreForBusinnes.class);
+        Intent intent = new Intent( RegisterClientScreenActivity.this, StoreForBusinnes.class);
         startActivity(intent);
         finish();
 

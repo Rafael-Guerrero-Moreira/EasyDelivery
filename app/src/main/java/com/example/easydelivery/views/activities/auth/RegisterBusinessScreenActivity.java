@@ -1,4 +1,4 @@
-package com.example.easydelivery.module;
+package com.example.easydelivery.views.activities.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,37 +35,38 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.UUID;
 
-public class CreateAucontforBussines extends AppCompatActivity {
+public class RegisterBusinessScreenActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    EditText TextEmail ;
-    EditText TextPassword;
-    EditText TextName;
-    EditText Texbuinesname;
-    EditText txtident;
-    EditText TexConfirmpass;
-    Boolean ConfimPass = false;
-    Bussines bussines;
-    Validation validation;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private EditText TextEmail ;
+    private EditText TextPassword;
+    private EditText TextName;
+    private EditText TextBusiness;
+    private EditText TextIdent;
+    private EditText TextConfirmPassword;
+    private Boolean ConfirmPassword = false;
+    private Bussines bussines;
+    private Validation validation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_aucontfor_buisnes);
-        TextEmail = (EditText) findViewById(R.id.txtemailbuisnees);
-        TextPassword = (EditText) findViewById(R.id.txtpassbuisnes);
-        TextName = (EditText) findViewById(R.id.txtnameprop);
-        Texbuinesname = (EditText) findViewById(R.id.txtbuisnesname);
-        txtident = (EditText) findViewById(R.id.txtident);
-        TexConfirmpass = (EditText) findViewById(R.id.txtconfirmpassbuisnes);
-        TexConfirmpass.addTextChangedListener(new TextWatcher() {
+        setContentView(R.layout.activity_register_business);
+        TextEmail = findViewById(R.id.arbTxtEmail);
+        TextPassword = findViewById(R.id.arbTxtPassword);
+        TextName = findViewById(R.id.arbTxtName);
+        TextBusiness = findViewById(R.id.arbTxtBusiness);
+        TextIdent = findViewById(R.id.arbTxtIdent);
+        TextConfirmPassword = findViewById(R.id.arbTxtConfirmPassword);
+        TextConfirmPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(TextPassword.getText().toString().equals(s.toString()))ConfimPass = true;
-                else ConfimPass = false;
+                if(TextPassword.getText().toString().equals(s.toString())) ConfirmPassword = true;
+                else ConfirmPassword = false;
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -73,6 +74,18 @@ public class CreateAucontforBussines extends AppCompatActivity {
         });
         InicializarFirebase ();
     }
+
+    public void goToPreviousActivity(View view) {
+        startActivity(new Intent(this, UserTypeScreenActivity.class));
+        finish();
+    }
+
+    public void goToLoginActivity(View view)
+    {
+        startActivity(new Intent(this, LoginScreenActivity.class));
+        finish();
+    }
+
     private void InicializarFirebase (){
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -85,8 +98,8 @@ public class CreateAucontforBussines extends AppCompatActivity {
       bussines = new Bussines();
       bussines.setId(UUID.randomUUID().toString());
       bussines.setName(TextName.getText().toString());
-      bussines.setBussinesname(Texbuinesname.getText().toString());
-      bussines.setIdentification(txtident.getText().toString());
+      bussines.setBussinesname(TextBusiness.getText().toString());
+      bussines.setIdentification(TextIdent.getText().toString());
       bussines.setEmail(TextEmail.getText().toString());
       bussines.setToken(UUID.randomUUID().toString());
       bussines.setType("Bussines");
@@ -100,13 +113,13 @@ public class CreateAucontforBussines extends AppCompatActivity {
         String email = TextEmail.getText().toString();
         String password  = TextPassword.getText().toString();
         String name = TextName.getText().toString();
-        String buisnesname  = Texbuinesname.getText().toString();
-        String identi = txtident.getText().toString();
+        String buisnesname  = TextBusiness.getText().toString();
+        String identi = TextIdent.getText().toString();
         validation = new Validation();
-         String   resultado = validation.ValidarCamposBuisnes(email,password,name,buisnesname,identi,ConfimPass);
+        String resultado = validation.ValidarCamposBuisnes(email,password,name,buisnesname,identi,ConfirmPassword);
         if(!TextUtils.isEmpty(resultado))
         {
-            Toast.makeText(CreateAucontforBussines.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterBusinessScreenActivity.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
             return;
         }
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -116,7 +129,7 @@ public class CreateAucontforBussines extends AppCompatActivity {
                         //checking if success
                         if(task.isSuccessful()){
                             RegisterUser();
-                            Toast.makeText(CreateAucontforBussines.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterBusinessScreenActivity.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
                             try {
                                 IniciarSesion();
                             } catch (JSONException | IOException e) {
@@ -125,9 +138,9 @@ public class CreateAucontforBussines extends AppCompatActivity {
                         }else{
 
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
-                                Toast.makeText(CreateAucontforBussines.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterBusinessScreenActivity.this, "Ese usuario ya existe", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(CreateAucontforBussines.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegisterBusinessScreenActivity.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
                             }                        }
                     }
                 });
@@ -145,7 +158,7 @@ public class CreateAucontforBussines extends AppCompatActivity {
         i.createUserFile();
         i.writeUserFile(object);
 
-        Intent intent = new Intent( CreateAucontforBussines.this, StoreForBusinnes.class);
+        Intent intent = new Intent( RegisterBusinessScreenActivity.this, StoreForBusinnes.class);
         startActivity(intent);
         finish();
 

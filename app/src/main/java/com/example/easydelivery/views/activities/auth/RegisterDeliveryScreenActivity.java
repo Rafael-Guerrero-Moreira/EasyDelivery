@@ -1,4 +1,4 @@
-package com.example.easydelivery.module;
+package com.example.easydelivery.views.activities.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,29 +34,29 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.UUID;
 
-public class CrateAcountDelivery extends AppCompatActivity {
-
+public class RegisterDeliveryScreenActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    EditText TextCompanyname;
-    EditText TextIdnet;
-    EditText Textpass;
-    EditText Textcorreo;
-    EditText confirpass;
-    Delivery delivery;
-    Boolean ConfimPass = false;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private EditText TextCompanyname;
+    private EditText TextIdnet;
+    private EditText Textpass;
+    private EditText Textcorreo;
+    private EditText confirpass;
+    private Delivery delivery;
+    private Boolean ConfimPass = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crate_acount_delivery);
+        setContentView(R.layout.activity_register_delivery);
         delivery = new Delivery();
         InicializarFirebase ();
-        TextCompanyname = findViewById(R.id.txtnamecompany);
-        TextIdnet =  findViewById(R.id.txtidentdelyvery);
-        Textcorreo =  findViewById(R.id.txtemaildelivery);
-        Textpass = findViewById(R.id.txtpassdelivery);
-        confirpass  = findViewById(R.id.txtconfirmpassdelyvery);
+        TextCompanyname = findViewById(R.id.ardTxtCompany);
+        TextIdnet = findViewById(R.id.ardTxtIdent);
+        Textcorreo = findViewById(R.id.ardTxtEmail);
+        Textpass = findViewById(R.id.ardTxtPassword);
+        confirpass = findViewById(R.id.ardTxtConfirmPassword);
         confirpass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -71,6 +71,18 @@ public class CrateAcountDelivery extends AppCompatActivity {
             }
         });
     }
+
+    public void goToPreviousActivity(View view) {
+        startActivity(new Intent(this, UserTypeScreenActivity.class));
+        finish();
+    }
+
+    public void goToLoginActivity(View view)
+    {
+        startActivity(new Intent(this, LoginScreenActivity.class));
+        finish();
+    }
+
     private void InicializarFirebase (){
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -90,7 +102,7 @@ public class CrateAcountDelivery extends AppCompatActivity {
         i.createUserFile();
         i.writeUserFile(object);
 
-        Intent intent = new Intent( CrateAcountDelivery.this, StoreForBusinnes.class);
+        Intent intent = new Intent( RegisterDeliveryScreenActivity.this, StoreForBusinnes.class);
         startActivity(intent);
         finish();
 
@@ -115,7 +127,7 @@ public class CrateAcountDelivery extends AppCompatActivity {
         String   resultado = validation.ValidarCamposDelivery(email,password,name,identi,ConfimPass);
         if(!TextUtils.isEmpty(resultado))
         {
-            Toast.makeText(CrateAcountDelivery.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterDeliveryScreenActivity.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
             return;
         }
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -125,7 +137,7 @@ public class CrateAcountDelivery extends AppCompatActivity {
                         //checking if success
                         if(task.isSuccessful()){
                             RegisterUser();
-                            Toast.makeText(CrateAcountDelivery.this,"Se ha registrado el usuario con el email: "+ Textcorreo.getText(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterDeliveryScreenActivity.this,"Se ha registrado el usuario con el email: "+ Textcorreo.getText(),Toast.LENGTH_LONG).show();
                             try {
                                 IniciarSesion();
                             } catch (JSONException | IOException e) {
@@ -134,9 +146,9 @@ public class CrateAcountDelivery extends AppCompatActivity {
                         }else{
 
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
-                                Toast.makeText(CrateAcountDelivery.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterDeliveryScreenActivity.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(CrateAcountDelivery.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegisterDeliveryScreenActivity.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
                             }                        }
                     }
                 });

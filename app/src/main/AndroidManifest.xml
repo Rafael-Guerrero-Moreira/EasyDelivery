@@ -6,8 +6,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
@@ -19,16 +17,16 @@
         <activity android:name=".module.CompanyInfo"></activity>
         <activity android:name=".views.activities.startup.WelcomeScreenActivity" />
         <activity android:name=".module.CreateProduct" />
-        <activity android:name=".module.CrateAcountDelivery" />
-        <activity android:name=".module.CreateAucontforBussines" />
-        <activity android:name=".UserType" />
-        <activity android:name=".ChangePassword" />
+        <activity android:name=".views.activities.auth.RegisterDeliveryScreenActivity" />
+        <activity android:name=".views.activities.auth.RegisterBusinessScreenActivity" />
+        <activity android:name=".views.activities.auth.UserTypeScreenActivity" />
+        <activity android:name=".views.activities.auth.ChangePasswordScreenActivity" />
         <activity android:name=".menu.Search" />
         <activity android:name=".menu.Category" />
         <activity android:name=".menu.StoreForBusinnes" />
         <activity android:name=".menu.SettingUser" />
         <activity android:name=".views.activities.auth.LoginScreenActivity" />
-        <activity android:name=".module.CreateAcount" />
+        <activity android:name=".views.activities.auth.RegisterClientScreenActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".views.activities.startup.SplashScreenActivity">
             <intent-filter>

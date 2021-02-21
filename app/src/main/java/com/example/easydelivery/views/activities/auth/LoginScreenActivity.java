@@ -15,10 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.easydelivery.ChangePassword;
 import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
-import com.example.easydelivery.UserType;
 import com.example.easydelivery.menu.StoreForBusinnes;
 import com.example.easydelivery.model.Bussines;
 import com.example.easydelivery.model.Client;
@@ -64,16 +62,16 @@ public class LoginScreenActivity extends AppCompatActivity {
         finish();
     }
 
-    public void register(View view)
+    public void goToRegisterActivity(View view)
     {
-        startActivity(new Intent(this, UserType.class));
+        startActivity(new Intent(this, UserTypeScreenActivity.class));
         finish();
     }
 
     public void changePassword(View view)
     {
-        startActivity(new Intent(this, ChangePassword.class));
-        finish();
+        startActivity(new Intent(this, ChangePasswordScreenActivity.class));
+        //finish();
     }
 
     public void signIn(View view) {

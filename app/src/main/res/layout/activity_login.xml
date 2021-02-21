@@ -29,7 +29,7 @@
         android:textSize="18sp"
         android:gravity="center_vertical"
         android:text="Registro"
-        android:onClick="register"/>
+        android:onClick="goToRegisterActivity"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
         android:text="Hola, Bienvenido de nuevo"
         android:textColor="?attr/alText2"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="135dp"
         android:textSize="23sp" />
 
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="10dp"
-            android:hint="Correo">
+            android:hint="Email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/alTxtEmail"
