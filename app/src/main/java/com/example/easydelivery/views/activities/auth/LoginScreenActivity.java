@@ -46,7 +46,7 @@ public class LoginScreenActivity extends AppCompatActivity {
     private CheckBox alChkRemember;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-    ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

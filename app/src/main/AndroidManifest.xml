@@ -16,7 +16,7 @@
         android:theme="@style/Theme.EasyDeliver">
         <activity android:name=".module.CompanyInfo"></activity>
         <activity android:name=".views.activities.startup.WelcomeScreenActivity" />
-        <activity android:name=".module.CreateProduct" />
+        <activity android:name=".module.ModuleProduct" />
         <activity android:name=".views.activities.auth.RegisterDeliveryScreenActivity" />
         <activity android:name=".views.activities.auth.RegisterBusinessScreenActivity" />
         <activity android:name=".views.activities.auth.UserTypeScreenActivity" />

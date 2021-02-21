@@ -2,7 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".module.CreateProduct">
+    tools:context=".module.ModuleProduct">
     <item android:id="@+id/icon_back"
         android:icon="@drawable/ic_baseline_arrow_back_24"
         android:title="Regresar"

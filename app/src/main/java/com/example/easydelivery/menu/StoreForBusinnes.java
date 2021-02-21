@@ -10,12 +10,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.easydelivery.Adapter.AdapterProducts;
 import com.example.easydelivery.R;
 import com.example.easydelivery.model.Product;
-import com.example.easydelivery.module.CreateProduct;
+import com.example.easydelivery.module.ModuleProduct;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +34,8 @@ public class StoreForBusinnes extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     StorageReference storage;
-    ListView lista;
+    ListView lisproducts;
+    Product selectProduct;
     String id;
     private SharedPreferences prefs;
 
@@ -43,19 +45,27 @@ public class StoreForBusinnes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
         InicializarFirebase();
+        selectProduct = new Product();
         BottomNavigationView bottomNavigationView;
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.BottonNavigation);
         bottomNavigationView.setSelectedItemId(R.id.fragmenStore);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        lista = findViewById(R.id.lisproductos);
+        lisproducts = findViewById(R.id.lisproductos);
         prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
         id = prefs.getString("id", "");
         ListarDatos();
+        lisproducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectProduct= (Product) parent.getItemAtPosition(position);
+                startActivity(new Intent(StoreForBusinnes.this, ModuleProduct.class).putExtra("idporduct",selectProduct.getIdproduct()).putExtra("url",selectProduct.getUrlphoto()));
+            }
+        });
     }
 
     public void createProdcut(View view)
     {
-        startActivity(new Intent(StoreForBusinnes.this, CreateProduct.class));
+        startActivity(new Intent(StoreForBusinnes.this, ModuleProduct.class).putExtra("idporduct","").putExtra("url",""));
 
     }
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -101,7 +111,7 @@ public class StoreForBusinnes extends AppCompatActivity {
                     if (id.equals(c.getIdBuisnes())) {
                         productList.add(c);
                         AdapterProducts adapterProducts = new AdapterProducts(StoreForBusinnes.this, (ArrayList<Product>) productList);
-                        lista.setAdapter(adapterProducts);
+                        lisproducts.setAdapter(adapterProducts);
                     }
                 }
             }
