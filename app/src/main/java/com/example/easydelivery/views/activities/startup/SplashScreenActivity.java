@@ -215,8 +215,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         catch (Exception e)
         {
             startActivity(new Intent( SplashScreenActivity.this, WelcomeScreenActivity.class));
+            finish();
         }
-
     }
     public void loginvar(String id, String name, String email)
     {
