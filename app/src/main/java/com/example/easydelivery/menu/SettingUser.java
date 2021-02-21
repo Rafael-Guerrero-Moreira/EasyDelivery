@@ -16,7 +16,7 @@ import com.example.easydelivery.R;
 import com.example.easydelivery.module.CompanyInfo;
 import com.example.easydelivery.views.activities.startup.SplashScreenActivity;
 import com.example.easydelivery.helpers.InternalFile;
-import com.example.easydelivery.model.Bussines;
+import com.example.easydelivery.model.Business;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.model.Delivery;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +45,7 @@ public class SettingUser extends AppCompatActivity {
         setContentView(R.layout.activity_setting_user);
         BottomNavigationView bottomNavigationView;
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.BottonNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.fragmenUser);
+        bottomNavigationView.setSelectedItemId(R.id.fragmenSettingUser);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
         InicializarFirebase ();
@@ -88,7 +88,7 @@ public class SettingUser extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                            Bussines p = objSnaptshot.getValue(Bussines.class);
+                            Business p = objSnaptshot.getValue(Business.class);
 
                                 // se pregunta por el usuario en la bd esto por el email
                                 if (idcomerce.equals(p.getId())) {
@@ -155,7 +155,7 @@ public class SettingUser extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Intent intent;
             switch (item.getItemId()) {
-                case R.id.fragmenStore:
+                case R.id.fragmenProductsBusiness:
                     intent = new Intent(SettingUser.this, StoreForBusinnes.class);
                     startActivity(intent);
                     finish();
@@ -172,7 +172,7 @@ public class SettingUser extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                     return true;
-                case R.id.fragmenUser:
+                case R.id.fragmenSettingUser:
                     intent = new Intent(SettingUser.this, SettingUser.class);
                     startActivity(intent);
                     finish();

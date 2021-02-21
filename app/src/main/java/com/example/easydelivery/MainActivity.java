@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Intent intent;
             switch (item.getItemId()) {
-                case R.id.fragmenStore:
+                case R.id.fragmenProductsBusiness:
                      intent = new Intent(MainActivity.this, StoreForBusinnes.class);
                     startActivity(intent);
                     finish();
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                     return true;
-                case R.id.fragmenUser:
+                case R.id.fragmenSettingUser:
                      intent = new Intent(MainActivity.this, SettingUser.class);
                     startActivity(intent);
                     finish();

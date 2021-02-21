@@ -28,7 +28,7 @@ public class Search extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Intent intent;
             switch (item.getItemId()) {
-                case R.id.fragmenStore:
+                case R.id.fragmenProductsBusiness:
                     intent = new Intent(Search.this, StoreForBusinnes.class);
                     startActivity(intent);
                     finish();
@@ -45,7 +45,7 @@ public class Search extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                     return true;
-                case R.id.fragmenUser:
+                case R.id.fragmenSettingUser:
                     intent = new Intent(Search.this, SettingUser.class);
                     startActivity(intent);
                     finish();

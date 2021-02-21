@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.easydelivery.MainActivity;
 import com.example.easydelivery.R;
 import com.example.easydelivery.menu.StoreForBusinnes;
-import com.example.easydelivery.model.Bussines;
+import com.example.easydelivery.model.Business;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.model.Delivery;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -148,7 +148,7 @@ public class LoginScreenActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Bussines b = objSnaptshot.getValue(Bussines.class);
+                    Business b = objSnaptshot.getValue(Business.class);
                     try {
                         // se pregunta por el usuario en la bd esto por el email
                         if (user.equals(b.getEmail())) {
@@ -223,7 +223,7 @@ public class LoginScreenActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Bussines b = objSnaptshot.getValue(Bussines.class);
+                    Business b = objSnaptshot.getValue(Business.class);
                         // se pregunta por el usuario en la bd esto por el email
                         if (user.equals(b.getEmail())) {
                            loginvar(b.getId(), b.getBussinesname() , b.getEmail());

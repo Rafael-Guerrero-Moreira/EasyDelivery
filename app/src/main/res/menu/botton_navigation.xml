@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <item
-    android:id="@+id/fragmenStore"
+    android:id="@+id/fragmenProductsBusiness"
     android:icon="@drawable/ic_store"
-    android:title="Tienda"
+    android:title="Productos"
     ></item>
     <item
         android:id="@+id/fragmenCategory"
@@ -16,8 +16,8 @@
         android:title="Buscar"
         ></item>
     <item
-        android:id="@+id/fragmenUser"
+        android:id="@+id/fragmenSettingUser"
         android:icon="@drawable/ic_user"
-        android:title="User"
+        android:title="Setting User"
         ></item>
 </menu>

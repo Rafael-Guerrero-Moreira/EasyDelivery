@@ -48,10 +48,10 @@ public class StoreForBusinnes extends AppCompatActivity {
         selectProduct = new Product();
         BottomNavigationView bottomNavigationView;
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.BottonNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.fragmenStore);
+        bottomNavigationView.setSelectedItemId(R.id.fragmenProductsBusiness);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         lisproducts = findViewById(R.id.lisproductos);
-        prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
+        prefs = getSharedPreferences("shared_login_data",Context.MODE_PRIVATE);
         id = prefs.getString("id", "");
         ListarDatos();
         lisproducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,7 +74,7 @@ public class StoreForBusinnes extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Intent intent;
             switch (item.getItemId()) {
-                case R.id.fragmenStore:
+                case R.id.fragmenProductsBusiness:
                     intent = new Intent(StoreForBusinnes.this, StoreForBusinnes.class);
                     startActivity(intent);
                     finish();
@@ -89,7 +89,7 @@ public class StoreForBusinnes extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                     return true;
-                case R.id.fragmenUser:
+                case R.id.fragmenSettingUser:
                     intent = new Intent(StoreForBusinnes.this, SettingUser.class);
                     startActivity(intent);
                     finish();

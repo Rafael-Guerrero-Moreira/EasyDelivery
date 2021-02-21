@@ -100,6 +100,7 @@ public class ModuleProduct extends AppCompatActivity {
                         descripction.setText(p.getDescription());
                         price.setText(p.getPrice());
                         Glide.with(ModuleProduct.this).load(p.getUrlphoto()).into(ivProduct);
+                        ivProduct.setBackground(null);
                         break;
                     }
                 }
@@ -117,6 +118,7 @@ public class ModuleProduct extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == Gallery_Intent) {
             uri = data.getData();
             ivProduct.setImageURI(uri);
+            ivProduct.setBackground(null);
         }
     }
     @Override

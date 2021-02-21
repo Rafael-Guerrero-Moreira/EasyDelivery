@@ -15,7 +15,7 @@ import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.helpers.PermissionsUtils;
 import com.example.easydelivery.menu.StoreForBusinnes;
-import com.example.easydelivery.model.Bussines;
+import com.example.easydelivery.model.Business;
 import com.example.easydelivery.model.Client;
 
 import com.example.easydelivery.model.Delivery;
@@ -118,7 +118,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Bussines b = objSnaptshot.getValue(Bussines.class);
+                    Business b = objSnaptshot.getValue(Business.class);
                     try {
                         // se pregunta por el usuario en la bd esto por el email
                         Log.d("Token json",jsonObject.getString("Token") );

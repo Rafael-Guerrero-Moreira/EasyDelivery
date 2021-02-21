@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.menu.StoreForBusinnes;
-import com.example.easydelivery.model.Bussines;
+import com.example.easydelivery.model.Business;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -46,7 +46,7 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
     private EditText TextIdent;
     private EditText TextConfirmPassword;
     private Boolean ConfirmPassword = false;
-    private Bussines bussines;
+    private Business bussines;
     private Validation validation;
 
     @Override
@@ -95,7 +95,7 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
     }
 
     public void RegisterUser(){
-      bussines = new Bussines();
+      bussines = new Business();
       bussines.setId(UUID.randomUUID().toString());
       bussines.setName(TextName.getText().toString());
       bussines.setBussinesname(TextBusiness.getText().toString());
