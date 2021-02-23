@@ -36,7 +36,7 @@ public class InternalFile {
 
     public void createUserFile()
     {
-        createFile(userDir, "userdata", ".json");
+        createFile(userDir, "userdata", ".txt");
     }
 
     private void writeFile(String directory, String filename, String extension, JSONObject data)
@@ -52,7 +52,7 @@ public class InternalFile {
     }
 
     public void writeUserFile(JSONObject data) {
-        writeFile(userDir, "userdata", ".json", data);
+        writeFile(userDir, "userdata", ".txt", data);
     }
 
     public JSONObject readFile(String directory, String filename, String extension) {
@@ -70,7 +70,7 @@ public class InternalFile {
     }
 
     public JSONObject readUserFile() {
-        return readFile(userDir, "userdata", ".json");
+        return readFile(userDir, "userdata", ".txt");
     }
 
     public void deleteFile(String directory, String filename, String extension) {
@@ -81,6 +81,6 @@ public class InternalFile {
 
 
     public void deleteUserFile() {
-         deleteFile(userDir, "userdata", ".json");
+         deleteFile(userDir, "userdata", ".txt");
     }
 }
