@@ -23,7 +23,7 @@
         <activity android:name=".views.activities.auth.ChangePasswordScreenActivity" />
         <activity android:name=".menu.Search" />
         <activity android:name=".menu.Category" />
-        <activity android:name=".menu.StoreForBusinnes" />
+        <activity android:name=".menu.StoreForBusiness" />
         <activity android:name=".menu.SettingUser" />
         <activity android:name=".views.activities.auth.LoginScreenActivity" />
         <activity android:name=".views.activities.auth.RegisterClientScreenActivity" />

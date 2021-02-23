@@ -3,29 +3,18 @@ package com.example.easydelivery.views.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.example.easydelivery.R;
 import com.example.easydelivery.databinding.ActivityMainBinding;
-import com.example.easydelivery.menu.Category;
-import com.example.easydelivery.menu.Search;
-import com.example.easydelivery.menu.SettingUser;
-import com.example.easydelivery.menu.StoreForBusinnes;
 import com.example.easydelivery.views.activities.fragments.Account;
 import com.example.easydelivery.views.activities.fragments.Dashboard;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.example.easydelivery.model;
 
-public class InfoBuisnes {
+public class InfoBusiness {
    private String idBuissnes;
    private String phone;
    private String typecomerce;

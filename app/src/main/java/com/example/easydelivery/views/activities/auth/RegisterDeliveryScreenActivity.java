@@ -3,7 +3,9 @@ package com.example.easydelivery.views.activities.auth;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
@@ -16,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
-import com.example.easydelivery.menu.StoreForBusinnes;
+import com.example.easydelivery.menu.StoreForBusiness;
 import com.example.easydelivery.model.Delivery;
 import com.example.easydelivery.val.Validation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -92,7 +94,7 @@ public class RegisterDeliveryScreenActivity extends AppCompatActivity {
     }
     private void IniciarSesion() throws JSONException, IOException {
         JSONObject object = new JSONObject();
-        object.put("User",delivery.getCorreo());
+        object.put("User",delivery.getEmail());
         object.put("Token",delivery.getToken());
         object.put("UserType",delivery.getType());
         object.put("ID",delivery.getId());
@@ -102,8 +104,9 @@ public class RegisterDeliveryScreenActivity extends AppCompatActivity {
         i.createUserFile();
         i.writeUserFile(object);
 
-        Intent intent = new Intent( RegisterDeliveryScreenActivity.this, StoreForBusinnes.class);
+        Intent intent = new Intent( RegisterDeliveryScreenActivity.this, StoreForBusiness.class);
         startActivity(intent);
+        loginvar(delivery.getId(),delivery.getCompanyname(),delivery.getEmail(),delivery.getType());
         finish();
 
     }
@@ -111,7 +114,7 @@ public class RegisterDeliveryScreenActivity extends AppCompatActivity {
         delivery.setId(UUID.randomUUID().toString());
         delivery.setCompanyname(TextCompanyname.getText().toString());
         delivery.setIdent(TextIdnet.getText().toString());
-        delivery.setCorreo(Textcorreo.getText().toString());
+        delivery.setEmail(Textcorreo.getText().toString());
         delivery.setType("Delivery");
         delivery.setToken(UUID.randomUUID().toString());
         databaseReference.child("Delivery").child(delivery.getId()).setValue(delivery);
@@ -153,6 +156,18 @@ public class RegisterDeliveryScreenActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+    public void loginvar(String id, String name, String email, String usertype)
+    {
+        SharedPreferences prefs = getSharedPreferences("shared_login_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("id",id);
+        Log.d("Id", id);
+        editor.putString("name",name);
+        editor.putString("email", email);
+        editor.putString("usertype", usertype);
+        Log.d("User", usertype);
+        editor.commit();
     }
 
 }

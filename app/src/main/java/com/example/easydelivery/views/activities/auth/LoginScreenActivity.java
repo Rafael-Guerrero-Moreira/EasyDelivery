@@ -16,11 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.easydelivery.model.GenealLoginModel;
 import com.example.easydelivery.views.activities.MainActivity;
 import com.example.easydelivery.R;
-import com.example.easydelivery.model.Business;
-import com.example.easydelivery.model.Client;
-import com.example.easydelivery.model.Delivery;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -46,8 +44,8 @@ public class LoginScreenActivity extends AppCompatActivity {
     private CheckBox alChkRemember;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-
-
+    int i;
+    String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +53,7 @@ public class LoginScreenActivity extends AppCompatActivity {
         alTxtEmail = findViewById(R.id.alTxtEmail);
         alTxtPassword = findViewById(R.id.alTxtPassword);
         alChkRemember = findViewById(R.id.alChkRemember);
+        user = alTxtEmail.getText().toString();
         setupFirebase();
     }
 
@@ -96,7 +95,11 @@ public class LoginScreenActivity extends AppCompatActivity {
                                 }
                             } else {
                                 Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
-                                obtenerID();
+                                try {
+                                    generateToken(false);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
 
                             }
@@ -106,7 +109,6 @@ public class LoginScreenActivity extends AppCompatActivity {
                     }
                 });
     }
-
     private void setupFirebase(){
         // firebaseDatabase.setPersistenceEnabled(true);
         mAuth = FirebaseAuth.getInstance();
@@ -114,161 +116,52 @@ public class LoginScreenActivity extends AppCompatActivity {
         // firebaseDatabase.setPersistenceEnabled(true);
         databaseReference = firebaseDatabase.getReference();
     }
-
-    public JSONObject generateToken() throws JSONException {
+    public JSONObject generateToken(boolean createfile) throws JSONException {
         JSONObject object = new JSONObject();
-        String user = alTxtEmail.getText().toString();
-        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Client p = objSnaptshot.getValue(Client.class);
-                    try {
-                        // se pregunta por el usuario en la bd esto por el email
-                        if (user.equals(p.getEmail())) {
-                            //se asigna el nuevo token
-                            p.setToken(UUID.randomUUID().toString());
-                            InternalFile filei = new InternalFile();
-                            object.put("Token",p.getToken());
-                            loginvar(p.getIduser(), p.getName() + " "+ p.getLastname(),p.getEmail(), p.getType());
-                            databaseReference.child("Users").child(p.getIduser()).setValue(p);
-                            filei.writeUserFile(object);
-                            break;
+        String [] tables = {"Client","Business","Delivery"};
+        for (i =0; i<tables.length;i++)
+        {
+            databaseReference.child(tables[i]).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                        GenealLoginModel model = objSnaptshot.getValue(GenealLoginModel.class);
+                        try {
+                            // se pregunta por el usuario en la bd esto por el email
+                            if (user.equals(model.getEmail())) {
+                                //se asigna el nuevo token
+                                if(createfile) {
+                                    model.setToken(UUID.randomUUID().toString());
+                                    InternalFile filei = new InternalFile();
+                                    object.put("Token", model.getToken());
+                                    databaseReference.child(tables[i]).child(model.getId()).setValue(model);
+                                    filei.writeUserFile(object);
+                                }
+                                loginvar(model.getId(), model.getName() ,model.getEmail(), model.getType());
+                                break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
-        databaseReference.child("Bussines").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Business b = objSnaptshot.getValue(Business.class);
-                    try {
-                        // se pregunta por el usuario en la bd esto por el email
-                        if (user.equals(b.getEmail())) {
-                            //se asigna el nuevo token
-                            b.setToken(UUID.randomUUID().toString());
-                            Log.d("Token", b.getToken());
-                            InternalFile filei = new InternalFile();
-                            object.put("Token",b.getToken());
-                           loginvar(b.getId(), b.getBussinesname() , b.getEmail(), b.getType());
-                            databaseReference.child("Bussines").child(b.getId()).setValue(b);
-                            filei.writeUserFile(object);
-                            break;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) { }
+            });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
-        databaseReference.child("Delivery").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Delivery d = objSnaptshot.getValue(Delivery.class);
-                    try {
-                        // se pregunta por el usuario en la bd esto por el email
-                        if (user.equals(d.getCorreo())) {
-                            //se asigna el nuevo token
-                            d.setToken(UUID.randomUUID().toString());
-                            InternalFile filei = new InternalFile();
-                            object.put("Token",d.getToken());
-                           loginvar(d.getId(), d.getCompanyname() , d.getCorreo(), d.getType());
-
-                            databaseReference.child("Delivery").child(d.getId()).setValue(d);
-                            filei.writeUserFile(object);
-                            break;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
+        }
         return object;
     }
-    public void obtenerID()  {
-      String user = alTxtEmail.getText().toString();
-
-        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Client p = objSnaptshot.getValue(Client.class);
-                        // se pregunta por el usuario en la bd esto por el email
-                        if (user.equals(p.getEmail())) {
-                           loginvar(p.getIduser(), p.getName() + " "+ p.getLastname(),p.getEmail(), p.getType());
-                            break;
-                        }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
-        databaseReference.child("Bussines").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Business b = objSnaptshot.getValue(Business.class);
-                        // se pregunta por el usuario en la bd esto por el email
-                        if (user.equals(b.getEmail())) {
-                           loginvar(b.getId(), b.getBussinesname() , b.getEmail(), b.getType());
-                            break;
-                        }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
-        databaseReference.child("Delivery").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Delivery d = objSnaptshot.getValue(Delivery.class);
-
-                        // se pregunta por el usuario en la bd esto por el email
-                        if (user.equals(d.getCorreo())) {
-                            loginvar(d.getId(), d.getCompanyname() , d.getCorreo(), d.getType());
-
-                            break;
-                        }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
-    }
-
-
     public void createUserFile() {
         InternalFile filei = new InternalFile();
         filei.createUserFile();
         try {
-            generateToken();
+            generateToken(true);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {

@@ -29,7 +29,7 @@ public class Search extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.fragmenProductsBusiness:
-                    intent = new Intent(Search.this, StoreForBusinnes.class);
+                    intent = new Intent(Search.this, StoreForBusiness.class);
                     startActivity(intent);
                     finish();
                     return true;

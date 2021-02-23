@@ -46,7 +46,7 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
     private EditText TextIdent;
     private EditText TextConfirmPassword;
     private Boolean ConfirmPassword = false;
-    private Business bussines;
+    private Business business;
     private Validation validation;
 
     @Override
@@ -95,16 +95,16 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
     }
 
     public void RegisterUser(){
-      bussines = new Business();
-      bussines.setId(UUID.randomUUID().toString());
-      bussines.setName(TextName.getText().toString());
-      bussines.setBussinesname(TextBusiness.getText().toString());
-      bussines.setIdentification(TextIdent.getText().toString());
-      bussines.setEmail(TextEmail.getText().toString());
-      bussines.setToken(UUID.randomUUID().toString());
-      bussines.setType("Bussines");
-      databaseReference.child("Bussines").child(bussines.getId()).setValue(bussines);
-      loginvar(bussines.getId(),bussines.getName(),bussines.getEmail());
+      business = new Business();
+      business.setId(UUID.randomUUID().toString());
+      business.setName(TextName.getText().toString());
+      business.setBussinesname(TextBusiness.getText().toString());
+      business.setIdentification(TextIdent.getText().toString());
+      business.setEmail(TextEmail.getText().toString());
+      business.setToken(UUID.randomUUID().toString());
+      business.setType("Business");
+      databaseReference.child("Business").child(business.getId()).setValue(business);
+      loginvar(business.getId(), business.getName(), business.getEmail(), business.getType());
 
     }
     public void registrarUsuariob(View view){
@@ -113,10 +113,10 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
         String email = TextEmail.getText().toString();
         String password  = TextPassword.getText().toString();
         String name = TextName.getText().toString();
-        String buisnesname  = TextBusiness.getText().toString();
+        String businessname  = TextBusiness.getText().toString();
         String identi = TextIdent.getText().toString();
         validation = new Validation();
-        String resultado = validation.ValidarCamposBuisnes(email,password,name,buisnesname,identi,ConfirmPassword);
+        String resultado = validation.ValidarCamposBuisnes(email,password,name,businessname,identi,ConfirmPassword);
         if(!TextUtils.isEmpty(resultado))
         {
             Toast.makeText(RegisterBusinessScreenActivity.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
@@ -148,10 +148,10 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
     }
     private void IniciarSesion() throws JSONException, IOException {
         JSONObject object = new JSONObject();
-        object.put("User", bussines.getEmail());
-        object.put("Token", bussines.getToken());
-        object.put("UserType","Bussines");
-        object.put("ID", bussines.getId());
+        object.put("User", business.getEmail());
+        object.put("Token", business.getToken());
+        object.put("UserType","Business");
+        object.put("ID", business.getId());
         Log.d("json",object.toString());
         Log.d("ruta", String.valueOf((Environment.getExternalStorageDirectory())));
         InternalFile i = new InternalFile();
@@ -163,13 +163,16 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
         finish();
 
     }
-    private void loginvar(String id, String name, String email)
+    public void loginvar(String id, String name, String email, String usertype)
     {
         SharedPreferences prefs = getSharedPreferences("shared_login_data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("id",id);
+        Log.d("Id", id);
         editor.putString("name",name);
         editor.putString("email", email);
+        editor.putString("usertype", usertype);
+        Log.d("User", usertype);
         editor.commit();
     }
 

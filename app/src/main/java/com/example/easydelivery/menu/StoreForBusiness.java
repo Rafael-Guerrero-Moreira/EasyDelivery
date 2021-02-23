@@ -4,30 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.easydelivery.Adapter.AdapterProducts;
 import com.example.easydelivery.R;
-import com.example.easydelivery.model.InfoBuisnes;
 import com.example.easydelivery.model.Product;
-import com.example.easydelivery.module.CompanyInfo;
 import com.example.easydelivery.module.ModuleProduct;
 import com.example.easydelivery.views.activities.MainActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,12 +27,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoreForBusinnes extends AppCompatActivity {
+public class StoreForBusiness extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     StorageReference storage;
@@ -55,7 +45,7 @@ public class StoreForBusinnes extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_store);
+        setContentView(R.layout.activity_storeforbusinnes);
 
         InicializarFirebase();
         selectProduct = new Product();
@@ -68,7 +58,7 @@ public class StoreForBusinnes extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectProduct= (Product) parent.getItemAtPosition(position);
-                startActivity(new Intent(StoreForBusinnes.this, ModuleProduct.class).putExtra("idporduct",selectProduct.getIdproduct()).putExtra("url",selectProduct.getUrlphoto()));
+                startActivity(new Intent(StoreForBusiness.this, ModuleProduct.class).putExtra("idporduct",selectProduct.getIdproduct()).putExtra("url",selectProduct.getUrlphoto()));
             }
         });
         Toolbar myToolbar =  findViewById(R.id.toolbarStoreBusines);
@@ -77,7 +67,7 @@ public class StoreForBusinnes extends AppCompatActivity {
 
     public void createProdcut(View view)
     {
-        startActivity(new Intent(StoreForBusinnes.this, ModuleProduct.class).putExtra("idporduct","").putExtra("url",""));
+        startActivity(new Intent(StoreForBusiness.this, ModuleProduct.class).putExtra("idporduct","").putExtra("url",""));
 
     }
 
@@ -90,7 +80,7 @@ public class StoreForBusinnes extends AppCompatActivity {
                     Product c = objSnaptshot.getValue(Product.class);
                     if (id.equals(c.getIdBuisnes())) {
                         productList.add(c);
-                        AdapterProducts adapterProducts = new AdapterProducts(StoreForBusinnes.this, (ArrayList<Product>) productList);
+                        AdapterProducts adapterProducts = new AdapterProducts(StoreForBusiness.this, (ArrayList<Product>) productList);
                         lisproducts.setAdapter(adapterProducts);
                     }
                 }

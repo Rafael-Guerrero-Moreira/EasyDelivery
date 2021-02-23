@@ -3,7 +3,7 @@ package com.example.easydelivery.model;
 public class Delivery {
     private String companyname;
     private String ident;
-    private String correo;
+    private String email;
     private String token;
     private String type;
     private String id;
@@ -40,12 +40,12 @@ public class Delivery {
         this.ident = ident;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getToken() {

@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
-import com.example.easydelivery.menu.StoreForBusinnes;
-import com.example.easydelivery.model.InfoBuisnes;
+import com.example.easydelivery.menu.StoreForBusiness;
+import com.example.easydelivery.model.InfoBusiness;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -45,7 +45,7 @@ public class CompanyInfo extends AppCompatActivity {
     private Uri imageUri;
     SharedPreferences prefs;
     private static final int Gallery_Intent = 1;
-    private  InfoBuisnes buisnes;
+    private InfoBusiness buisnes;
     private String[] Opciones = {"Seleccione","Restaurante","Distribuidora","Zapateria","Venta ropa","Otros"};
     private String idUser;
     private FirebaseDatabase firebaseDatabase;
@@ -100,7 +100,7 @@ public class CompanyInfo extends AppCompatActivity {
                             Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
                             while(!uri.isComplete());
                             Uri url = uri.getResult();
-                            InfoBuisnes inf = new InfoBuisnes();
+                            InfoBusiness inf = new InfoBusiness();
                             inf.setPhone(textphone.getText().toString());
                             inf.setTypecomerce(sptype.getSelectedItem().toString());
                             inf.setAddress(textadress.getText().toString());
@@ -121,7 +121,7 @@ public class CompanyInfo extends AppCompatActivity {
                     break;
             }
             case R.id.icon_back: {
-                startActivity(new Intent(this, StoreForBusinnes.class));
+                startActivity(new Intent(this, StoreForBusiness.class));
                 finish();
             }
         }
@@ -140,7 +140,7 @@ public class CompanyInfo extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    buisnes  = objSnaptshot.getValue(InfoBuisnes.class);
+                    buisnes  = objSnaptshot.getValue(InfoBusiness.class);
 
                         if (idUser.equals(buisnes.getIdBuissnes()))
                         {

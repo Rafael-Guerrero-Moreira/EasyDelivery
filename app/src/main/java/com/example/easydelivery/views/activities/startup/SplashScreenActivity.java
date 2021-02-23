@@ -14,11 +14,8 @@ import android.widget.Toast;
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.helpers.PermissionsUtils;
-import com.example.easydelivery.menu.StoreForBusinnes;
-import com.example.easydelivery.model.Business;
-import com.example.easydelivery.model.Client;
 
-import com.example.easydelivery.model.Delivery;
+import com.example.easydelivery.model.GenealLoginModel;
 import com.example.easydelivery.views.activities.MainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -75,17 +72,18 @@ public class SplashScreenActivity extends AppCompatActivity {
             return;
         }
 
-        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(jsonObject.getString("UserType")).addListenerForSingleValueEvent(new ValueEventListener() {
             Boolean band = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Client p = objSnaptshot.getValue(Client.class);
+                    GenealLoginModel model = objSnaptshot.getValue(GenealLoginModel.class);
                     try {
-                        if(jsonObject.getString("Token").equals(p.getToken())) {
+
+                        if(jsonObject.getString("Token").equals(model.getToken())) {
                             jsonObject.put("flag","true");
                             internalFile.writeUserFile(jsonObject);
-                           loginvar(p.getIduser(), p.getName() + " "+ p.getLastname(),p.getEmail());
+                            loginvar(model.getId(), model.getName(),model.getEmail(),model.getType());
                             band=true;
                             break;
                         }
@@ -114,88 +112,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        databaseReference.child("Bussines").addListenerForSingleValueEvent(new ValueEventListener() {
-            Boolean band = false;
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Business b = objSnaptshot.getValue(Business.class);
-                    try {
-                        // se pregunta por el usuario en la bd esto por el email
-                        Log.d("Token json",jsonObject.getString("Token") );
-                        Log.d("Token BD",b.getToken() );
-                        if (jsonObject.getString("Token").equals(b.getToken())) {
-                            jsonObject.put("flag","true");
-                            internalFile.writeUserFile(jsonObject);
-                           loginvar(b.getId(), b.getBussinesname() , b.getEmail());
-                            band=true;
-                            break;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (band) {
-                    Toast.makeText(SplashScreenActivity.this, "Bienvenido:  "  , Toast.LENGTH_LONG).show();
-                    try {
-                        goToActivity(true);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else {
-                    try {
-                        goToActivity(false);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
-        databaseReference.child("Delivery").addListenerForSingleValueEvent(new ValueEventListener() {
-            Boolean band = false;
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    Delivery d = objSnaptshot.getValue(Delivery.class);
-                    try {
-                        // se pregunta por el usuario en la bd esto por el email
-
-
-                        if (jsonObject.getString("Token").equals(d.getToken())) {
-                            //se asigna el nuevo token
-                            jsonObject.put("flag","true");
-                            internalFile.writeUserFile(jsonObject);
-                           loginvar(d.getId(), d.getCompanyname() , d.getCorreo());
-                            break;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (band) {
-                        Toast.makeText(SplashScreenActivity.this, "Bienvenido: "  , Toast.LENGTH_LONG).show();
-                    try {
-                        goToActivity(true);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else {
-                    try {
-                        goToActivity(false);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
 
     }
 
@@ -203,10 +120,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         try {
             InternalFile internalFile = new InternalFile();
             JSONObject jsonObject = internalFile.readUserFile();
-            if (jsonObject.getString("flag").equals("true")) {
+            if (value) {
                 startActivity(new Intent( SplashScreenActivity.this, MainActivity.class));
                 Log.d("Token BD","Fue a Main" );
-            } else if (!jsonObject.getString("flag").equals("true")) {
+            } else if (!value) {
                 startActivity(new Intent( SplashScreenActivity.this, WelcomeScreenActivity.class));
             }
             finish();
@@ -217,13 +134,14 @@ public class SplashScreenActivity extends AppCompatActivity {
             finish();
         }
     }
-    public void loginvar(String id, String name, String email)
+    public void loginvar(String id, String name, String email, String usertype)
     {
         SharedPreferences prefs = getSharedPreferences("shared_login_data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("id",id);
         editor.putString("name",name);
         editor.putString("email", email);
+        editor.putString("usertype", usertype);
         editor.commit();
     }
 }

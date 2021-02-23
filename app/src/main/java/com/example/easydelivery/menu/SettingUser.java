@@ -156,7 +156,7 @@ public class SettingUser extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.fragmenProductsBusiness:
-                    intent = new Intent(SettingUser.this, StoreForBusinnes.class);
+                    intent = new Intent(SettingUser.this, StoreForBusiness.class);
                     startActivity(intent);
                     finish();
                     return true;

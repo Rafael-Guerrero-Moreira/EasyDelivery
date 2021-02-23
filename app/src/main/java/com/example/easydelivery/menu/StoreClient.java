@@ -1,8 +1,6 @@
 package com.example.easydelivery.menu;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -12,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.easydelivery.Adapter.AdapterBusiness;
 import com.example.easydelivery.R;
 import com.example.easydelivery.model.Business;
-import com.example.easydelivery.model.InfoBuisnes;
+import com.example.easydelivery.model.InfoBusiness;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,7 +58,7 @@ public class StoreClient extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                                InfoBuisnes infoBusiness = objSnaptshot.getValue(InfoBuisnes.class);
+                                InfoBusiness infoBusiness = objSnaptshot.getValue(InfoBusiness.class);
                                 AdapterBusiness adapterBusiness = new AdapterBusiness(StoreClient.this, (ArrayList<Business>) businessList,infoBusiness.getUrllogo());
                                 listViewbusiness.setAdapter(adapterBusiness);
                             }

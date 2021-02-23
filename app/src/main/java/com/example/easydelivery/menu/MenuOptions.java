@@ -41,9 +41,9 @@ public class MenuOptions {
     public static JSONArray getOptions(String userType) {
         JSONArray result = new JSONArray();
         switch (userType) {
-            case "Bussines":
+            case "Business":
                 return result.put(PRODUCTS).put(ORDERS).put(REPORTS).put(BUSINESS).put(DELIVER);
-            case "Users":
+            case "Client":
                 return result.put(BUSINESS).put(PRODUCTS).put(DELIVER);
             case "Delivery":
                 return result.put(ORDERS);

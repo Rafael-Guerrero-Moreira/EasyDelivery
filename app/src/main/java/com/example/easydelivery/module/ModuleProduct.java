@@ -18,7 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
-import com.example.easydelivery.menu.StoreForBusinnes;
+import com.example.easydelivery.menu.StoreForBusiness;
 import com.example.easydelivery.model.Product;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -58,7 +58,7 @@ public class ModuleProduct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_product);
+        setContentView(R.layout.activity_module_product);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarproduct);
         setSupportActionBar(myToolbar);
         nameproduct = findViewById(R.id.txtproductname);
@@ -150,7 +150,7 @@ public class ModuleProduct extends AppCompatActivity {
                     break;
             }
             case R.id.icon_back: {
-                startActivity(new Intent(this, StoreForBusinnes.class));
+                startActivity(new Intent(this, StoreForBusiness.class));
                 finish();
             }
             }
