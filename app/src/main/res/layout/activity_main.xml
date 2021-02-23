@@ -63,9 +63,9 @@
             android:id="@+id/amViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
             android:layout_below="@+id/amAppBarLayout"
             android:layout_above="@+id/amTabLayout"
+            android:visibility="visible"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </RelativeLayout>

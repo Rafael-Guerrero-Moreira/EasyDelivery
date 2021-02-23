@@ -41,7 +41,7 @@
                     android:layout_weight="0.7"
                     android:textColor="?attr/alText"
                     android:gravity="center"
-                    android:text="Bienvenidos a la mejor app del mundo"/>
+                    android:text="Bienvenidos"/>
 
             </LinearLayout>
 

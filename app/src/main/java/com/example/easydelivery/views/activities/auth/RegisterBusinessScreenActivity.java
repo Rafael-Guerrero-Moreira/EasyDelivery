@@ -18,8 +18,8 @@ import android.widget.Toast;
 
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
-import com.example.easydelivery.menu.StoreForBusinnes;
 import com.example.easydelivery.model.Business;
+import com.example.easydelivery.views.activities.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -158,7 +158,7 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
         i.createUserFile();
         i.writeUserFile(object);
 
-        Intent intent = new Intent( RegisterBusinessScreenActivity.this, StoreForBusinnes.class);
+        Intent intent = new Intent( RegisterBusinessScreenActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
 

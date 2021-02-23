@@ -3,11 +3,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/amBackground2"
     tools:context=".views.activities.fragments.Account">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Account"/>
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg_rounded_4"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="15dp"
+        android:padding="0dp">
+
+        <Button
+            android:id="@+id/amButtonLogout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/layout_button_rounded_1"
+            android:textColor="?attr/awText2"
+            android:text="Cerrar Sesión"
+            android:drawableStart="@drawable/ic_baseline_logout_24"
+            android:paddingHorizontal="15dp"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/amButtonInfoUser"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/layout_button_rounded_1"
+            android:textColor="?attr/awText2"
+            android:text="Información del Usuario"
+            android:drawableStart="@drawable/ic_baseline_account_circle_24"
+            android:paddingHorizontal="15dp"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/amButtonChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/layout_button_rounded_1"
+            android:textColor="?attr/awText2"
+            android:text="Cambiar Clave"
+            android:drawableStart="@drawable/ic_baseline_password_24"
+            android:paddingHorizontal="15dp"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
 
 </FrameLayout>

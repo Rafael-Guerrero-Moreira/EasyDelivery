@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.easydelivery.views.activities.MainActivity;
 import com.example.easydelivery.R;
-import com.example.easydelivery.menu.StoreForBusinnes;
 import com.example.easydelivery.model.Business;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.model.Delivery;

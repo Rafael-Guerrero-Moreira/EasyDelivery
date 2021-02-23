@@ -13,7 +13,9 @@ public class MenuOptions {
     static {
         try {
             PRODUCTS = new JSONObject()
-                    .put("title", "Mis Productos");
+                    .put("title", "Mis Productos")
+                    .put("image", "a.jpg")
+                    .put("activity", "a");
             ORDERS = new JSONObject()
                     .put("title", "Pedidos");
             REPORTS = new JSONObject()

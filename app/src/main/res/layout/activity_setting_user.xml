@@ -30,12 +30,12 @@
 
     </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <Button
+        <Button
             android:id="@+id/cerrasession"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,35 +47,35 @@
             android:onClick="CloseSession"
             android:textColor="@color/white"
             android:background="@drawable/settindrawable"
-        />
+            />
 
-    <Button
-        android:id="@+id/infouser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        android:onClick="infoUser"
-        android:text="Informacion del usuario"
-        android:textColor="@color/white"
-        android:background="@drawable/settindrawable"
-        />
-    <Button
-        android:id="@+id/changepass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        android:onClick="Changepassword"
-        android:text="Cambiar Clave"
-        android:textColor="@color/white"
-        android:background="@drawable/settindrawable"
-        />
-</LinearLayout>
+        <Button
+            android:id="@+id/infouser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:onClick="infoUser"
+            android:text="Informacion del usuario"
+            android:textColor="@color/white"
+            android:background="@drawable/settindrawable"
+            />
+        <Button
+            android:id="@+id/changepass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:onClick="Changepassword"
+            android:text="Cambiar Clave"
+            android:textColor="@color/white"
+            android:background="@drawable/settindrawable"
+            />
+    </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/BottonNavigation"
         android:layout_width="match_parent"
