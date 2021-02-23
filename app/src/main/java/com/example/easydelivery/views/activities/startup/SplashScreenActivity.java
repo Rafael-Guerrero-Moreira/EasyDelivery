@@ -19,6 +19,7 @@ import com.example.easydelivery.model.Business;
 import com.example.easydelivery.model.Client;
 
 import com.example.easydelivery.model.Delivery;
+import com.example.easydelivery.views.activities.MainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -176,9 +177,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     }
                 }
                 if (band) {
-
                         Toast.makeText(SplashScreenActivity.this, "Bienvenido: "  , Toast.LENGTH_LONG).show();
-
                     try {
                         goToActivity(true);
                     } catch (JSONException e) {
@@ -205,7 +204,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             InternalFile internalFile = new InternalFile();
             JSONObject jsonObject = internalFile.readUserFile();
             if (jsonObject.getString("flag").equals("true")) {
-                startActivity(new Intent( SplashScreenActivity.this, StoreForBusinnes.class));
+                startActivity(new Intent( SplashScreenActivity.this, MainActivity.class));
                 Log.d("Token BD","Fue a Main" );
             } else if (!jsonObject.getString("flag").equals("true")) {
                 startActivity(new Intent( SplashScreenActivity.this, WelcomeScreenActivity.class));

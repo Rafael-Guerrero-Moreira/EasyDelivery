@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -154,6 +155,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                         if (user.equals(b.getEmail())) {
                             //se asigna el nuevo token
                             b.setToken(UUID.randomUUID().toString());
+                            Log.d("Token", b.getToken());
                             InternalFile filei = new InternalFile();
                             object.put("Token",b.getToken());
                            loginvar(b.getId(), b.getBussinesname() , b.getEmail(), b.getType());
@@ -286,9 +288,11 @@ public class LoginScreenActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("shared_login_data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("id",id);
+        Log.d("Id", id);
         editor.putString("name",name);
         editor.putString("email", email);
         editor.putString("usertype", usertype);
+        Log.d("User", usertype);
         editor.commit();
     }
 }
