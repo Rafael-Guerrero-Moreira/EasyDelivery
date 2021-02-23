@@ -2,21 +2,31 @@ package com.example.easydelivery.menu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.easydelivery.Adapter.AdapterProducts;
 import com.example.easydelivery.R;
+import com.example.easydelivery.model.InfoBuisnes;
 import com.example.easydelivery.model.Product;
+import com.example.easydelivery.module.CompanyInfo;
 import com.example.easydelivery.module.ModuleProduct;
+import com.example.easydelivery.views.activities.MainActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +48,7 @@ public class StoreForBusinnes extends AppCompatActivity {
     ListView lisproducts;
     Product selectProduct;
     String id;
+
     private SharedPreferences prefs;
 
     private List<Product> productList = new ArrayList<Product>();
@@ -44,16 +56,14 @@ public class StoreForBusinnes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
+
         InicializarFirebase();
         selectProduct = new Product();
-        BottomNavigationView bottomNavigationView;
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.BottonNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.fragmenProductsBusiness);
-        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         lisproducts = findViewById(R.id.lisproductos);
         prefs = getSharedPreferences("shared_login_data",Context.MODE_PRIVATE);
         id = prefs.getString("id", "");
         ListarDatos();
+
         lisproducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -61,6 +71,8 @@ public class StoreForBusinnes extends AppCompatActivity {
                 startActivity(new Intent(StoreForBusinnes.this, ModuleProduct.class).putExtra("idporduct",selectProduct.getIdproduct()).putExtra("url",selectProduct.getUrlphoto()));
             }
         });
+        Toolbar myToolbar =  findViewById(R.id.toolbarStoreBusines);
+        setSupportActionBar(myToolbar);
     }
 
     public void createProdcut(View view)
@@ -68,38 +80,6 @@ public class StoreForBusinnes extends AppCompatActivity {
         startActivity(new Intent(StoreForBusinnes.this, ModuleProduct.class).putExtra("idporduct","").putExtra("url",""));
 
     }
-    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @SuppressLint("NonConstantResourceId")
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Intent intent;
-            switch (item.getItemId()) {
-                case R.id.fragmenProductsBusiness:
-                    intent = new Intent(StoreForBusinnes.this, StoreForBusinnes.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                case R.id.fragmenCategory:
-                    intent = new Intent(StoreForBusinnes.this, Category.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                case R.id.fragmenSearch:
-                    intent = new Intent(StoreForBusinnes.this, Search.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                case R.id.fragmenSettingUser:
-                    intent = new Intent(StoreForBusinnes.this, SettingUser.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-            }
-
-
-            return false;
-        }
-    };
 
     private void ListarDatos() {
         databaseReference.child("Product").addValueEventListener(new ValueEventListener() {
@@ -127,5 +107,24 @@ public class StoreForBusinnes extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         storage  = FirebaseStorage.getInstance().getReference("images");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menugeneral,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.itemhome: {
+                startActivity(new Intent(this, MainActivity.class));
+                break;
+            }
+            case R.id.itemback: {
+                finish();
+            }
+        }
+        return true;
     }
 }
