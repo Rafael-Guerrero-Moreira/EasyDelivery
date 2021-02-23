@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
 
 import org.json.JSONArray;
@@ -42,12 +44,12 @@ public class DashboardOptionsAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.layout_dashboard_options, null);
-        //ImageView icon = (ImageView) view.findViewById(R.id.icon);
-        //icon.setImageResource(logos[i]);
         TextView txtTitle = view.findViewById(R.id.ldoTextViewTitle);
+        ImageView image = (ImageView) view.findViewById(R.id.ldoImageView);
         try {
             Log.d("Taggggg", optionsList.getJSONObject(i).getString("title"));
             txtTitle.setText(optionsList.getJSONObject(i).getString("title"));
+            Glide.with(context).load(optionsList.getJSONObject(i).getString("image")).into(image);
         } catch (JSONException e) {
             e.printStackTrace();
         }

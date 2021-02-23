@@ -15,11 +15,11 @@ public class MenuOptions {
         try {
             PRODUCTS = new JSONObject()
                     .put("title", "Mis Productos")
-                    .put("image", "https://blog.gs1mexico.org/hubfs/Newsletter/2017/Septiembre%202017/Clasificacion%20de%20Productos%20SAT%20ONU%20UNSPSC%20GS1%20Mexico%20Syncfonia%20Factura%20Blog.png")
+                    .put("image", "https://cdn.icon-icons.com/icons2/1138/PNG/512/1486395306-11-packaging_80579.png")
                     .put("activity", "a");
             ORDERS = new JSONObject()
                     .put("title", "Pedidos")
-                    .put("image", "https://www.consumiblestpv.com/WebRoot/acens/Shops/consumiblestpv_com/547E/E231/7BE2/5F0B/8AC4/4DF0/7515/6434/carro-compra-supermercado.jpg")
+                    .put("image", "https://cdn.icon-icons.com/icons2/943/PNG/512/shoppaymentorderbuy-20_icon-icons.com_73877.png")
                     .put("activity", "b");
             REPORTS = new JSONObject()
                     .put("title", "Reportes")
@@ -27,11 +27,11 @@ public class MenuOptions {
                     .put("activity", "c");
             BUSINESS = new JSONObject()
                     .put("title", "Negocios")
-                    .put("image", "https://i0.wp.com/feriainclusivaempresassb.com/images/feriasb/home.png")
+                    .put("image", "https://img.icons8.com/dusk/344/small-business.png")
                     .put("activity", "d");
             DELIVER = new JSONObject()
                     .put("title", "Repartidores")
-                    .put("image", "https://image.freepik.com/vector-gratis/servicio-entrega-concepto-mascara_23-2148505104.jpg")
+                    .put("image", "https://image.flaticon.com/icons/png/128/3731/3731784.png")
                     .put("activity", "e");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -42,7 +42,7 @@ public class MenuOptions {
         JSONArray result = new JSONArray();
         switch (userType) {
             case "Bussines":
-                return result.put(PRODUCTS).put(ORDERS).put(REPORTS);
+                return result.put(PRODUCTS).put(ORDERS).put(REPORTS).put(BUSINESS).put(DELIVER);
             case "Users":
                 return result.put(BUSINESS).put(PRODUCTS).put(DELIVER);
             case "Delivery":
