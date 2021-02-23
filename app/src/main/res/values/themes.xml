@@ -32,6 +32,14 @@
         <item name="alText3">@color/txt4</item>
         <item name="alButton">@color/btn1</item>
 
+        <!-- Activity Dashboard and Others -->
+        <item name="amBackground">@color/bg1</item>
+        <item name="amBackground2">@color/bg5</item>
+        <item name="amBackground3">@color/bg2</item>
+        <item name="amText">@color/txt3</item>
+        <item name="amText2">@color/txt3</item>
+        <item name="amText3">@color/txt2</item>
+
     </style>
     <style name="TextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:textSize">20sp</item>

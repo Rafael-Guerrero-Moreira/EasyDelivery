@@ -27,7 +27,7 @@
         <activity android:name=".menu.SettingUser" />
         <activity android:name=".views.activities.auth.LoginScreenActivity" />
         <activity android:name=".views.activities.auth.RegisterClientScreenActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".views.activities.MainActivity" />
         <activity android:name=".views.activities.startup.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

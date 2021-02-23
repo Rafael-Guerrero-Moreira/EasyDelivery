@@ -33,6 +33,14 @@
         <item name="alText3">@color/txt2</item>
         <item name="alButton">@color/btn2</item>
 
+        <!-- Activity Dashboard and Others -->
+        <item name="amBackground">@color/bg3</item>
+        <item name="amBackground2">@color/bg6</item>
+        <item name="amBackground3">@color/bg4</item>
+        <item name="amText">@color/txt2</item>
+        <item name="amText2">@color/txt3</item>
+        <item name="amText3">@color/txt2</item>
+
     </style>
     <style name="TextStyle" parent="@android:style/TextAppearance">
         <item name="android:textSize">20sp</item>

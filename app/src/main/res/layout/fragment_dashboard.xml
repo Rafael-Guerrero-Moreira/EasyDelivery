@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/amBackground2"
+    tools:context=".views.activities.fragments.Dashboard">
+
+    <!--<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/amLinearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:orientation="vertical"
+                android:background="@drawable/layout_bg_rounded_2"
+                android:layout_marginTop="15dp"
+                android:layout_marginHorizontal="15dp"
+                android:padding="0dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="20dp"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/logo_white"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_bg_rounded_3"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_weight="0.7"
+                    android:textColor="?attr/alText"
+                    android:gravity="center"
+                    android:text="Bienvenidos a la mejor app del mundo"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/amLinearLayout1"
+                android:orientation="vertical"
+                android:background="@drawable/layout_bg_rounded_4"
+                android:layout_marginTop="15dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginBottom="15dp"
+                android:padding="0dp">
+
+                <GridView
+                    android:id="@+id/amGridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:footerDividersEnabled="false"
+                    android:padding="1dp"
+                    android:numColumns="3" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    <!--</ScrollView>-->
+
+</FrameLayout>

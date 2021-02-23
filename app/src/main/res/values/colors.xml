@@ -14,6 +14,8 @@
     <color name="bg2">#FFFFFF</color>
     <color name="bg3">#212121</color>
     <color name="bg4">#353535</color>
+    <color name="bg5">#DFDFDF</color>
+    <color name="bg6">#2B2B2B</color>
     <color name="spinner1">#B66BC5</color>
     <color name="spinner2">#AAAAAA</color>
     <color name="txt1">#000000</color>

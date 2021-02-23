@@ -13,4 +13,10 @@
     <attr name="alText2" format="reference" />
     <attr name="alText3" format="reference" />
     <attr name="alButton" format="reference" />
+    <attr name="amBackground" format="reference" />
+    <attr name="amBackground2" format="reference" />
+    <attr name="amBackground3" format="reference" />
+    <attr name="amText" format="reference" />
+    <attr name="amText2" format="reference" />
+    <attr name="amText3" format="reference" />
 </resources>

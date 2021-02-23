@@ -1,62 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".MainActivity">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80sp"
-        android:background="@drawable/gradient_toolbar"
-        android:gravity="bottom"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/amBackground2"
+        tools:context=".views.activities.MainActivity">
 
-        >
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="0dp"
-            app:title="@string/app_name"
-            app:titleTextColor="@color/white" />
-
-
-
-    </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/frame_conten"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/amAppBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            app:elevation="0dp"
+            android:background="?attr/amBackground">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/BottonNavigation"
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Easy Deliver"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold"/>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/amTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
-            android:elevation="8dp"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:menu="@menu/botton_navigation"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            app:labelVisibilityMode="selected"
-            style="@style/BottonNavigation"
+            android:background="?attr/amBackground"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="?attr/amText2"
+            app:tabIndicatorGravity="bottom"
+            app:tabIndicatorHeight="3dp"
+            app:tabSelectedTextColor="?attr/amText2"
+            app:tabTextColor="?attr/amText3">
 
-            android:background="@color/violet"
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INICIO" />
 
-            />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CUENTA"/>
 
+        </com.google.android.material.tabs.TabLayout>
 
-</RelativeLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/amViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:layout_below="@+id/amAppBarLayout"
+            android:layout_above="@+id/amTabLayout"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </RelativeLayout>
+
+</layout>
