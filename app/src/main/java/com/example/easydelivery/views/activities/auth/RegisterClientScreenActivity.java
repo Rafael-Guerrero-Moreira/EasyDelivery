@@ -27,6 +27,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -104,7 +105,8 @@ public class RegisterClientScreenActivity extends AppCompatActivity {
              public void onComplete(@NonNull Task<AuthResult> task) {
                        //checking if success
                        if(task.isSuccessful()){
-                            RegisterUser();
+                           FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                           RegisterUser(user.getUid());
                             Toast.makeText(RegisterClientScreenActivity.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
                            try {
                                signIn();
@@ -125,12 +127,12 @@ public class RegisterClientScreenActivity extends AppCompatActivity {
         //Invocamos al método:
         registrarUsuario();
     }
-    public void RegisterUser(){
+    public void RegisterUser(String uid){
         client = new Client();
         client.setName(TextName.getText().toString());
         client.setLastname(TexLastName.getText().toString());
         client.setEmail(TextEmail.getText().toString());
-        client.setId(UUID.randomUUID().toString());
+        client.setId(uid);
         client.setToken(UUID.randomUUID().toString());
         client.setType("Client");
         databaseReference.child("Client").child(client.getId()).setValue(client);

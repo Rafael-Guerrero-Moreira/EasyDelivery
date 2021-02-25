@@ -28,6 +28,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -110,8 +111,8 @@ public class RegisterDeliveryScreenActivity extends AppCompatActivity {
         finish();
 
     }
-    public void RegisterUser(){
-        delivery.setId(UUID.randomUUID().toString());
+    public void RegisterUser(String Uid){
+        delivery.setId(Uid);
         delivery.setName(TextCompanyname.getText().toString());
         delivery.setIdent(TextIdnet.getText().toString());
         delivery.setEmail(Textcorreo.getText().toString());
@@ -139,7 +140,8 @@ public class RegisterDeliveryScreenActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if(task.isSuccessful()){
-                            RegisterUser();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            RegisterUser(user.getUid());
                             Toast.makeText(RegisterDeliveryScreenActivity.this,"Se ha registrado el usuario con el email: "+ Textcorreo.getText(),Toast.LENGTH_LONG).show();
                             try {
                                 IniciarSesion();

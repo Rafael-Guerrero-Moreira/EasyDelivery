@@ -176,7 +176,7 @@
                     android:background="@drawable/layout_button_rounded_1"
                     android:textColor="?attr/awText2"
                     android:text="Crear"
-                    android:onClick="registerinAuth"
+                    android:onClick="registerinAuthBusiness"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
 

@@ -3,6 +3,7 @@ package com.example.easydelivery.views.activities.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class Dashboard extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         prefs = getActivity().getSharedPreferences("shared_login_data", getContext().MODE_PRIVATE);
         String usertype = prefs.getString("usertype", "");
+        Log.d("Type",usertype);
         optionsList = MenuOptions.getOptions(usertype);
         gridView = view.findViewById(R.id.amGridView);
         DashboardOptionsAdapter customAdapter = new DashboardOptionsAdapter(view.getContext(), optionsList);

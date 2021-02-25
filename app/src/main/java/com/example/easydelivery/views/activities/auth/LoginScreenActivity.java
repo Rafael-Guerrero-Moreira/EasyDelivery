@@ -46,6 +46,8 @@ public class LoginScreenActivity extends AppCompatActivity {
     private int i =0;
     private String user;
     private String tablesUser;
+    private SharedPreferences prefs;
+    private String logeo="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class LoginScreenActivity extends AppCompatActivity {
         alTxtPassword = findViewById(R.id.alTxtPassword);
         alChkRemember = findViewById(R.id.alChkRemember);
         mAuth = FirebaseAuth.getInstance();
-
+        prefs = getSharedPreferences("shared_login_data", Context.MODE_PRIVATE);
 
     }
 
@@ -91,19 +93,15 @@ public class LoginScreenActivity extends AppCompatActivity {
                                 if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                                     requestPermissions(new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, 3);
                                 } else {
-                                    createUserFile();
                                     Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
                                 }
                             } else {
                                 Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
                                 try {
-                                    generateToken(false);
+                                       generateToken(false);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
-
                             }
                         } else {
                            Toast.makeText(LoginScreenActivity.this, "Credenciales inválidas", Toast.LENGTH_LONG).show();
@@ -114,16 +112,12 @@ public class LoginScreenActivity extends AppCompatActivity {
     public JSONObject generateToken(boolean createfile) throws JSONException {
         user = alTxtEmail.getText().toString();
         JSONObject object = new JSONObject();
-        String [] tables = {"Client","Business","Delivery"};
-        int tableLength = tables.length-1;
-        for (i =0; i<=tableLength;i++)
-        {
-            tablesUser = tables[i];
-            FireBaseRealtime realtime = new FireBaseRealtime();
+
             SharedPreferences prefs = getSharedPreferences("shared_login_data", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
-            realtime.sigin(createfile,user,tablesUser,editor);
-        }
+            sigin(createfile,user,"Client",editor);
+            sigin(createfile,user,"Business",editor);
+            sigin(createfile,user,"Delivery",editor);
         return object;
     }
     public void createUserFile() {
@@ -148,4 +142,69 @@ public class LoginScreenActivity extends AppCompatActivity {
         startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
         return;
     }
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
+
+
+    public void sigin(Boolean createfile, String user, String tablesUser, SharedPreferences.Editor editor)
+    {
+        setupFirebase();
+        JSONObject object = new JSONObject();
+        databaseReference.child(tablesUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                    GenealLoginModel model = objSnaptshot.getValue(GenealLoginModel.class);
+                    try {
+                        // se pregunta por el usuario en la bd esto por el email
+                        if (user.equals(model.getEmail())) {
+                            //se asigna el nuevo token
+                            if(createfile) {
+                                model.setToken(UUID.randomUUID().toString());
+                                InternalFile filei = new InternalFile();
+                                object.put("Token", model.getToken());
+                                object.put("UserType",model.getType());
+                                databaseReference.child(tablesUser).child(model.getId()).child("token").setValue(model.getToken());
+                                filei.writeUserFile(object);
+                                loginvar(model.getId(), model.getName() ,model.getEmail(), model.getType(),editor);
+
+                            }
+                            else
+                            {
+                                loginvar(model.getId(), model.getName() ,model.getEmail(), model.getType(),editor);
+
+                            }
+                            break;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+    }
+    private void setupFirebase(){
+        // firebaseDatabase.setPersistenceEnabled(true);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        // firebaseDatabase.setPersistenceEnabled(true);
+        databaseReference = firebaseDatabase.getReference();
+    }
+    public void loginvar(String id, String name, String email, String usertype,SharedPreferences.Editor editor)
+    {
+        editor.putString("id",id);
+        editor.putString("name",name);
+        editor.putString("email", email);
+        Log.d("h",usertype);
+        editor.putString("usertype", usertype);
+        editor.putString("logeo", "true");
+        editor.commit();
+        startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+
+    }
+
 }

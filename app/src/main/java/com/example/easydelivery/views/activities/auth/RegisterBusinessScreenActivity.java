@@ -26,6 +26,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.example.easydelivery.val.Validation;
@@ -94,9 +95,9 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public void RegisterUser(){
+    public void RegisterUser(String uid){
       business = new Business();
-      business.setId(UUID.randomUUID().toString());
+      business.setId(uid);
       business.setProperty(TextName.getText().toString());
       business.setName(TextBusiness.getText().toString());
       business.setIdentification(TextIdent.getText().toString());
@@ -107,45 +108,7 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
       loginvar(business.getId(), business.getProperty(), business.getEmail(), business.getType());
 
     }
-    public void registrarUsuariob(View view){
 
-        //Obtenemos el email y la contraseña desde las cajas de texto
-        String email = TextEmail.getText().toString();
-        String password  = TextPassword.getText().toString();
-        String name = TextName.getText().toString();
-        String businessname  = TextBusiness.getText().toString();
-        String identi = TextIdent.getText().toString();
-        validation = new Validation();
-        String resultado = validation.ValidarCamposBuisnes(email,password,name,businessname,identi,ConfirmPassword);
-        if(!TextUtils.isEmpty(resultado))
-        {
-            Toast.makeText(RegisterBusinessScreenActivity.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
-            return;
-        }
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //checking if success
-                        if(task.isSuccessful()){
-                            RegisterUser();
-                            Toast.makeText(RegisterBusinessScreenActivity.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
-                            try {
-                                IniciarSesion();
-                            } catch (JSONException | IOException e) {
-                                e.printStackTrace();
-                            }
-                        }else{
-
-                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
-                                Toast.makeText(RegisterBusinessScreenActivity.this, "Ese usuario ya existe", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(RegisterBusinessScreenActivity.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
-                            }                        }
-                    }
-                });
-
-    }
     private void IniciarSesion() throws JSONException, IOException {
         JSONObject object = new JSONObject();
         object.put("User", business.getEmail());
@@ -176,4 +139,44 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    public void registerinAuthBusiness(View view) {
+
+        //Obtenemos el email y la contraseña desde las cajas de texto
+        String email = TextEmail.getText().toString();
+        String password  = TextPassword.getText().toString();
+        String name = TextName.getText().toString();
+        String businessname  = TextBusiness.getText().toString();
+        String identi = TextIdent.getText().toString();
+        validation = new Validation();
+        String resultado = validation.ValidarCamposBuisnes(email,password,name,businessname,identi,ConfirmPassword);
+        if(!TextUtils.isEmpty(resultado))
+        {
+            Toast.makeText(RegisterBusinessScreenActivity.this,"Le falta ingresar: "+ resultado,Toast.LENGTH_LONG).show();
+            return;
+        }
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        //checking if success
+                        if(task.isSuccessful()){
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            RegisterUser(user.getUid());
+                            Toast.makeText(RegisterBusinessScreenActivity.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
+                            try {
+                                IniciarSesion();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }else{
+
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
+                                Toast.makeText(RegisterBusinessScreenActivity.this, "Ese usuario ya existe", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(RegisterBusinessScreenActivity.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
+                            }                        }
+                    }
+                });
+
+    }
 }

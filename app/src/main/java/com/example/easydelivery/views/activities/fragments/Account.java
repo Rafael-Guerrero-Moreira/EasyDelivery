@@ -88,18 +88,18 @@ public class Account extends Fragment {
 
     public void closeSession()
     {
-        String idcomerce = prefs.getString("id", "");
+        String id = prefs.getString("id", "");
 
-        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Client").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                     Client p = objSnaptshot.getValue(Client.class);
 
                     // se pregunta por el usuario en la bd esto por el email
-                    if (idcomerce.equals(p.getId())) {
+                    if (id.equals(p.getId())) {
                         p.setToken("  ");
-                        databaseReference.child("Users").child(p.getId()).setValue(p);
+                        databaseReference.child("Client").child(p.getId()).setValue(p);
                         break;
                     }
 
@@ -111,16 +111,16 @@ public class Account extends Fragment {
 
             }
         });
-        databaseReference.child("Buisnes").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Business").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                     Business p = objSnaptshot.getValue(Business.class);
 
                     // se pregunta por el usuario en la bd esto por el email
-                    if (idcomerce.equals(p.getId())) {
+                    if (id.equals(p.getId())) {
                         p.setToken("  ");
-                        databaseReference.child("Buisnes").child(p.getId()).setValue(p);
+                        databaseReference.child("Business").child(p.getId()).setValue(p);
                         break;
                     }
 
@@ -138,7 +138,7 @@ public class Account extends Fragment {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                     Delivery p = objSnaptshot.getValue(Delivery.class);
                     // se pregunta por el usuario en la bd esto por el email
-                    if (idcomerce.equals(p.getId())) {
+                    if (id.equals(p.getId())) {
                         p.setToken("  ");
                         databaseReference.child("Delivery").child(p.getId()).setValue(p);
                         break;
@@ -154,9 +154,9 @@ public class Account extends Fragment {
         });
         InternalFile file = new InternalFile();
         file.deleteUserFile();
-
-        startActivity(new Intent(getActivity(), SplashScreenActivity.class));
+        startActivity(new Intent(getActivity(), SplashScreenActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));;
         getActivity().finish();
+        loginvar();
     }
 
     public void changePassword() {
@@ -176,5 +176,11 @@ public class Account extends Fragment {
 
     public void infoUser() {
         startActivity(new Intent(getActivity(), CompanyInfo.class));
+    }
+    public void loginvar()
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("usertype","Null");
+        editor.commit();
     }
 }
