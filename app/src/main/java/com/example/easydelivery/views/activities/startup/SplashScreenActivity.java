@@ -71,15 +71,14 @@ public class SplashScreenActivity extends AppCompatActivity {
             goToActivity(false);
             return;
         }
-
-        databaseReference.child(jsonObject.getString("UserType")).addListenerForSingleValueEvent(new ValueEventListener() {
+        String table = jsonObject.getString("UserType");
+        databaseReference.child(table).addListenerForSingleValueEvent(new ValueEventListener() {
             Boolean band = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                     GenealLoginModel model = objSnaptshot.getValue(GenealLoginModel.class);
                     try {
-
                         if(jsonObject.getString("Token").equals(model.getToken())) {
                             jsonObject.put("flag","true");
                             internalFile.writeUserFile(jsonObject);

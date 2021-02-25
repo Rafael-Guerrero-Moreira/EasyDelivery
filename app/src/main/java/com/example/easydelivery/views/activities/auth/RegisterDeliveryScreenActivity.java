@@ -21,6 +21,7 @@ import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.menu.StoreForBusiness;
 import com.example.easydelivery.model.Delivery;
 import com.example.easydelivery.val.Validation;
+import com.example.easydelivery.views.activities.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -103,23 +104,22 @@ public class RegisterDeliveryScreenActivity extends AppCompatActivity {
         InternalFile i = new InternalFile();
         i.createUserFile();
         i.writeUserFile(object);
-
-        Intent intent = new Intent( RegisterDeliveryScreenActivity.this, StoreForBusiness.class);
+        loginvar(delivery.getId(),delivery.getName(),delivery.getEmail(),delivery.getType());
+        Intent intent = new Intent( RegisterDeliveryScreenActivity.this, MainActivity.class);
         startActivity(intent);
-        loginvar(delivery.getId(),delivery.getCompanyname(),delivery.getEmail(),delivery.getType());
         finish();
 
     }
     public void RegisterUser(){
         delivery.setId(UUID.randomUUID().toString());
-        delivery.setCompanyname(TextCompanyname.getText().toString());
+        delivery.setName(TextCompanyname.getText().toString());
         delivery.setIdent(TextIdnet.getText().toString());
         delivery.setEmail(Textcorreo.getText().toString());
         delivery.setType("Delivery");
         delivery.setToken(UUID.randomUUID().toString());
         databaseReference.child("Delivery").child(delivery.getId()).setValue(delivery);
     }
-    public void registrarUsuariob(View view){
+    public void registerinAuth(View view){
 
         //Obtenemos el email y la contraseña desde las cajas de texto
         String email = Textcorreo.getText().toString();

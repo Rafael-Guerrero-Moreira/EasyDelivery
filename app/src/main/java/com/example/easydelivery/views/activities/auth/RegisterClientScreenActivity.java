@@ -130,10 +130,10 @@ public class RegisterClientScreenActivity extends AppCompatActivity {
         client.setName(TextName.getText().toString());
         client.setLastname(TexLastName.getText().toString());
         client.setEmail(TextEmail.getText().toString());
-        client.setIduser(UUID.randomUUID().toString());
+        client.setId(UUID.randomUUID().toString());
         client.setToken(UUID.randomUUID().toString());
         client.setType("Client");
-        databaseReference.child("Client").child(client.getIduser()).setValue(client);
+        databaseReference.child("Client").child(client.getId()).setValue(client);
     }
     private void setupFirebase(){
         FirebaseApp.initializeApp(this);
@@ -147,13 +147,13 @@ public class RegisterClientScreenActivity extends AppCompatActivity {
         object.put("User", client.getEmail());
         object.put("Token", client.getToken());
         object.put("UserType", client.getType());
-        object.put("ID", client.getIduser());
+        object.put("ID", client.getId());
         Log.d("json",object.toString());
         Log.d("ruta", String.valueOf((Environment.getExternalStorageDirectory())));
         InternalFile i = new InternalFile();
         i.createUserFile();
         i.writeUserFile(object);
-        loginvar(client.getIduser(), client.getName() ,client.getEmail(), client.getType());
+        loginvar(client.getId(), client.getName() ,client.getEmail(), client.getType());
         startActivity(new Intent( RegisterClientScreenActivity.this, MainActivity.class));
         finish();
     }

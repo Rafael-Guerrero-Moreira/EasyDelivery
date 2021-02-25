@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
 import com.example.easydelivery.menu.StoreForBusiness;
 import com.example.easydelivery.model.InfoBusiness;
+import com.example.easydelivery.views.activities.MapsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -177,7 +178,8 @@ public class CompanyInfo extends AppCompatActivity {
         {
             return "null";
         }
-
     }
-
+    public void goToMap(View view) {
+        startActivity(new Intent(this, MapsActivity.class));
+    }
 }

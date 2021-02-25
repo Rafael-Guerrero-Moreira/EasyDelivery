@@ -27,7 +27,7 @@ public class AdapterBusiness extends ArrayAdapter<Business> {
         ImageView img;
         Name = item.findViewById(R.id.textnameBusiness);
         img = item.findViewById(R.id.imbusiness);
-        Name.setText(getItem(position).getBussinesname());
+        Name.setText(getItem(position).getName());
         Glide.with(getContext()).load(urlFoto).into(img);
         return(item);
     }

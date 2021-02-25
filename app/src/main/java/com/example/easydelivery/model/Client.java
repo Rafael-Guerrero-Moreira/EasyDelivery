@@ -3,7 +3,7 @@ package com.example.easydelivery.model;
 public class Client {
     private String name;
 private String lastname;
-private String iduser;
+private String id;
 private String token;
 private String type;
 
@@ -53,11 +53,11 @@ private String type;
         this.token = token;
     }
 
-    public String getIduser() {
-        return iduser;
+    public String getId() {
+        return id;
     }
 
-    public void setIduser(String iduser) {
-        this.iduser = iduser;
+    public void setId(String id) {
+        this.id = id;
     }
 }

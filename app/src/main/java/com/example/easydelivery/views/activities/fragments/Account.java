@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
-import com.example.easydelivery.menu.SettingUser;
 import com.example.easydelivery.model.Business;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.model.Delivery;
@@ -29,10 +28,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.json.JSONException;
-
-import java.io.IOException;
 
 
 public class Account extends Fragment {
@@ -102,9 +97,9 @@ public class Account extends Fragment {
                     Client p = objSnaptshot.getValue(Client.class);
 
                     // se pregunta por el usuario en la bd esto por el email
-                    if (idcomerce.equals(p.getIduser())) {
+                    if (idcomerce.equals(p.getId())) {
                         p.setToken("  ");
-                        databaseReference.child("Users").child(p.getIduser()).setValue(p);
+                        databaseReference.child("Users").child(p.getId()).setValue(p);
                         break;
                     }
 

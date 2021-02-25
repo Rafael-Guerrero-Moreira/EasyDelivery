@@ -1,7 +1,7 @@
 package com.example.easydelivery.model;
 
 public class Delivery {
-    private String companyname;
+    private String name;
     private String ident;
     private String email;
     private String token;
@@ -24,12 +24,12 @@ public class Delivery {
         this.type = type;
     }
 
-    public String getCompanyname() {
-        return companyname;
+    public String getName() {
+        return name;
     }
 
-    public void setCompanyname(String companyname) {
-        this.companyname = companyname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getIdent() {

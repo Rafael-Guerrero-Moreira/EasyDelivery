@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.easydelivery.helpers.FireBaseRealtime;
 import com.example.easydelivery.model.GenealLoginModel;
 import com.example.easydelivery.views.activities.MainActivity;
 import com.example.easydelivery.R;
@@ -42,10 +43,10 @@ public class LoginScreenActivity extends AppCompatActivity {
     private EditText alTxtEmail;
     private EditText alTxtPassword;
     private CheckBox alChkRemember;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
-    int i;
-    String user;
+    private int i =0;
+    private String user;
+    private String tablesUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +54,9 @@ public class LoginScreenActivity extends AppCompatActivity {
         alTxtEmail = findViewById(R.id.alTxtEmail);
         alTxtPassword = findViewById(R.id.alTxtPassword);
         alChkRemember = findViewById(R.id.alChkRemember);
-        user = alTxtEmail.getText().toString();
-        setupFirebase();
+        mAuth = FirebaseAuth.getInstance();
+
+
     }
 
     public void goToPreviousActivity(View view) {
@@ -109,47 +111,18 @@ public class LoginScreenActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void setupFirebase(){
-        // firebaseDatabase.setPersistenceEnabled(true);
-        mAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        // firebaseDatabase.setPersistenceEnabled(true);
-        databaseReference = firebaseDatabase.getReference();
-    }
     public JSONObject generateToken(boolean createfile) throws JSONException {
+        user = alTxtEmail.getText().toString();
         JSONObject object = new JSONObject();
         String [] tables = {"Client","Business","Delivery"};
-        for (i =0; i<tables.length;i++)
+        int tableLength = tables.length-1;
+        for (i =0; i<=tableLength;i++)
         {
-            databaseReference.child(tables[i]).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                        GenealLoginModel model = objSnaptshot.getValue(GenealLoginModel.class);
-                        try {
-                            // se pregunta por el usuario en la bd esto por el email
-                            if (user.equals(model.getEmail())) {
-                                //se asigna el nuevo token
-                                if(createfile) {
-                                    model.setToken(UUID.randomUUID().toString());
-                                    InternalFile filei = new InternalFile();
-                                    object.put("Token", model.getToken());
-                                    databaseReference.child(tables[i]).child(model.getId()).setValue(model);
-                                    filei.writeUserFile(object);
-                                }
-                                loginvar(model.getId(), model.getName() ,model.getEmail(), model.getType());
-                                break;
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) { }
-            });
-
+            tablesUser = tables[i];
+            FireBaseRealtime realtime = new FireBaseRealtime();
+            SharedPreferences prefs = getSharedPreferences("shared_login_data", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            realtime.sigin(createfile,user,tablesUser,editor);
         }
         return object;
     }
@@ -174,17 +147,5 @@ public class LoginScreenActivity extends AppCompatActivity {
         Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
         startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
         return;
-    }
-    public void loginvar(String id, String name, String email, String usertype)
-    {
-        SharedPreferences prefs = getSharedPreferences("shared_login_data", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("id",id);
-        Log.d("Id", id);
-        editor.putString("name",name);
-        editor.putString("email", email);
-        editor.putString("usertype", usertype);
-        Log.d("User", usertype);
-        editor.commit();
     }
 }

@@ -70,9 +70,9 @@ public class SettingUser extends AppCompatActivity {
                         Client p = objSnaptshot.getValue(Client.class);
 
                             // se pregunta por el usuario en la bd esto por el email
-                            if (idcomerce.equals(p.getIduser())) {
+                            if (idcomerce.equals(p.getId())) {
                                 p.setToken("  ");
-                                databaseReference.child("Users").child(p.getIduser()).setValue(p);
+                                databaseReference.child("Users").child(p.getId()).setValue(p);
                                 break;
                             }
 

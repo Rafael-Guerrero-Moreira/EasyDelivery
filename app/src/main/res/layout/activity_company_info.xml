@@ -40,7 +40,6 @@
     </LinearLayout>
 
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_imputProuctname"
         android:layout_width="238dp"
@@ -48,7 +47,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="325dp"
+        android:layout_marginTop="313dp"
         android:hint="Numero de telefono">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -61,25 +60,45 @@
 
     <Spinner
         android:id="@+id/sptype"
-        android:layout_width="231dp"
-        android:layout_height="50dp"
+        android:layout_width="238dp"
+        android:layout_height="68dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="88dp"
-        android:layout_marginBottom="187dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="87dp"
+        android:layout_marginBottom="217dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_price"
+        android:id="@+id/text_input_adress"
         android:layout_width="238dp"
         android:layout_height="68dp"
 
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="491dp"
+        android:layout_marginTop="445dp"
         android:hint="Direccion">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtadress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_cord"
+        android:layout_width="238dp"
+        android:layout_height="68dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="519dp"
+        android:hint="Cordenadas">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtcord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -98,6 +117,19 @@
         android:layout_marginTop="98dp"
         android:layout_marginEnd="48dp"
         android:background="@drawable/ic_templatephoto" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="76dp"
+        android:background="@color/white"
+        app:srcCompat="@drawable/ic_baseline_my_location_24"
+        android:onClick="goToMap"
+        />
 
 
 </RelativeLayout>

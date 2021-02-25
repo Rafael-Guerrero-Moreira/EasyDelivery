@@ -97,14 +97,14 @@ public class RegisterBusinessScreenActivity extends AppCompatActivity {
     public void RegisterUser(){
       business = new Business();
       business.setId(UUID.randomUUID().toString());
-      business.setName(TextName.getText().toString());
-      business.setBussinesname(TextBusiness.getText().toString());
+      business.setProperty(TextName.getText().toString());
+      business.setName(TextBusiness.getText().toString());
       business.setIdentification(TextIdent.getText().toString());
       business.setEmail(TextEmail.getText().toString());
       business.setToken(UUID.randomUUID().toString());
       business.setType("Business");
       databaseReference.child("Business").child(business.getId()).setValue(business);
-      loginvar(business.getId(), business.getName(), business.getEmail(), business.getType());
+      loginvar(business.getId(), business.getProperty(), business.getEmail(), business.getType());
 
     }
     public void registrarUsuariob(View view){
