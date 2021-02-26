@@ -43,8 +43,9 @@ public class CompanyInfo extends AppCompatActivity {
     private Spinner sptype;
     private ImageView ivlogo;
     private FloatingActionButton buttonlogo;
+    public EditText cordBusiness;
     private Uri imageUri;
-    SharedPreferences prefs;
+    private SharedPreferences prefs;
     private static final int Gallery_Intent = 1;
     private InfoBusiness buisnes;
     private String[] Opciones = {"Seleccione","Restaurante","Distribuidora","Zapateria","Venta ropa","Otros"};
@@ -52,6 +53,8 @@ public class CompanyInfo extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private StorageReference storage;
+    private String cordenadas;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +67,17 @@ public class CompanyInfo extends AppCompatActivity {
         textadress = findViewById(R.id.txtadress);
         ivlogo = findViewById(R.id.ivlogonegocio);
         buttonlogo = findViewById(R.id.floatingbutoonlogo);
+        cordBusiness = findViewById(R.id.txtcord);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolcompanyinf);
         setSupportActionBar(myToolbar);
+        try {
+            cordenadas = getIntent().getStringExtra("cordenadas");
+
+            cordBusiness.setText(cordenadas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         buttonlogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +88,7 @@ public class CompanyInfo extends AppCompatActivity {
         });
         sptype.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,Opciones));
         verifydata();
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -181,5 +194,6 @@ public class CompanyInfo extends AppCompatActivity {
     }
     public void goToMap(View view) {
         startActivity(new Intent(this, MapsActivity.class));
+        finish();
     }
 }

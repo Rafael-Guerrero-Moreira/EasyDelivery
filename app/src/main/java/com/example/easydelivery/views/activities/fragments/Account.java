@@ -18,6 +18,7 @@ import com.example.easydelivery.helpers.InternalFile;
 import com.example.easydelivery.model.Business;
 import com.example.easydelivery.model.Client;
 import com.example.easydelivery.model.Delivery;
+import com.example.easydelivery.module.ClientInfo;
 import com.example.easydelivery.module.CompanyInfo;
 import com.example.easydelivery.views.activities.startup.SplashScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -175,7 +176,9 @@ public class Account extends Fragment {
     }
 
     public void infoUser() {
-        startActivity(new Intent(getActivity(), CompanyInfo.class));
+        String type = prefs.getString("usertype", "");
+        if(type.equals("Business")) startActivity(new Intent(getActivity(), CompanyInfo.class));
+        if(type.equals("Client")) startActivity(new Intent(getActivity(), ClientInfo.class));
     }
     public void loginvar()
     {

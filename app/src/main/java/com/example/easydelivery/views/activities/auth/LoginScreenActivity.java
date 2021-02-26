@@ -43,9 +43,7 @@ public class LoginScreenActivity extends AppCompatActivity {
     private EditText alTxtEmail;
     private EditText alTxtPassword;
     private CheckBox alChkRemember;
-    private int i =0;
     private String user;
-    private String tablesUser;
     private SharedPreferences prefs;
     private String logeo="";
 
@@ -94,7 +92,13 @@ public class LoginScreenActivity extends AppCompatActivity {
                                     requestPermissions(new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, 3);
                                 } else {
                                     Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
+                                    try {
+                                        generateToken(true);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
+
                             } else {
                                 Toast.makeText(LoginScreenActivity.this, "Bienvenido: " + alTxtEmail.getText(), Toast.LENGTH_LONG).show();
                                 try {
@@ -204,7 +208,6 @@ public class LoginScreenActivity extends AppCompatActivity {
         editor.putString("logeo", "true");
         editor.commit();
         startActivity(new Intent( LoginScreenActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
-
     }
 
 }

@@ -6,15 +6,20 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.easydelivery.R;
+import com.example.easydelivery.module.CompanyInfo;
+import com.example.easydelivery.views.activities.auth.LoginScreenActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -150,13 +155,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     private void capturecod()
     {
-        try {
-            editText.setText(marker.getPosition().toString());
+     try { editText.setText(marker.getPosition().toString()); } catch (Exception e) { }
+    }
 
+    public void sendCord(View view) {
+        if (TextUtils.isEmpty(editText.getText())) {
+            Toast.makeText(MapsActivity.this, "Seleccione las cordenadas", Toast.LENGTH_LONG).show();
+            return;
         }
-        catch (Exception e)
-        {
+        else {
+         String s =   editText.getText().toString();
+            startActivity(new Intent(MapsActivity.this, CompanyInfo.class).putExtra("cordenadas",s));
+        }
 
-        }
     }
 }

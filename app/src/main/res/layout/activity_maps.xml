@@ -43,7 +43,9 @@
         android:layout_marginBottom="95sp"
         android:clickable="true"
         android:backgroundTint="@color/dodgerblue"
-        android:src="@drawable/ic_baseline_check_24" />
+        android:src="@drawable/ic_baseline_check_24"
+        android:onClick="sendCord"
+        />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonMyPosition"
         android:layout_width="wrap_content"
