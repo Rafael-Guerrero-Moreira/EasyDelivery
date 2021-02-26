@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.InternalFile;
-import com.example.easydelivery.menu.StoreForBusiness;
 import com.example.easydelivery.model.Delivery;
 import com.example.easydelivery.val.Validation;
 import com.example.easydelivery.views.activities.MainActivity;

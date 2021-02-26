@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.easydelivery.R;
+import com.example.easydelivery.generallist.ListProducts;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Category extends AppCompatActivity {
@@ -29,7 +30,7 @@ public class Category extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.fragmenProductsBusiness:
-                    intent = new Intent(Category.this, StoreForBusiness.class);
+                    intent = new Intent(Category.this, ListProducts.class);
                     startActivity(intent);
                     finish();
                     return true;

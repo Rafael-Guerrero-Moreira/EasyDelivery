@@ -22,7 +22,8 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyDeliver">
-        <activity android:name=".module.ClientInfo"></activity>
+        <activity android:name=".module.SendToCar"></activity>
+        <activity android:name=".module.ClientInfo" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -39,6 +40,7 @@
             android:name=".views.activities.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".module.CompanyInfo" />
+        <activity android:name=".generallist.ListBusinessforClient" />
         <activity android:name=".views.activities.startup.WelcomeScreenActivity" />
         <activity android:name=".module.ModuleProduct" />
         <activity android:name=".views.activities.auth.RegisterDeliveryScreenActivity" />
@@ -47,7 +49,7 @@
         <activity android:name=".views.activities.auth.ChangePasswordScreenActivity" />
         <activity android:name=".menu.Search" />
         <activity android:name=".menu.Category" />
-        <activity android:name=".menu.StoreForBusiness" />
+        <activity android:name=".generallist.ListProducts" />
         <activity android:name=".menu.SettingUser" />
         <activity android:name=".views.activities.auth.LoginScreenActivity" />
         <activity android:name=".views.activities.auth.RegisterClientScreenActivity" />

@@ -1,5 +1,6 @@
-package com.example.easydelivery.menu;
+package com.example.easydelivery.generallist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,17 +22,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoreClient extends AppCompatActivity {
+public class ListBusinessforClient extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-
     private Business businessSelct;
     private List<Business> businessList = new ArrayList<Business>();
     ListView listViewbusiness;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_store_client);
+        setContentView(R.layout.activity_list_business_for_client);
         businessSelct = new Business();
         listViewbusiness = findViewById(R.id.listViewbusiness);
         InicializarFirebase();
@@ -40,14 +40,14 @@ public class StoreClient extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 businessSelct = (Business) parent.getItemAtPosition(position);
-                //startActivity(new Intent(StoreForBusinnes.this, ModuleProduct.class).putExtra("idporduct",businessSelct.getId()));
+                startActivity(new Intent(ListBusinessforClient.this, ListProducts.class).putExtra("idBusiness",businessSelct.getId()));
             }
         });
     }
 
 
     private void ListarDatos() {
-        databaseReference.child("Bussines").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Business").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 businessList.clear();
@@ -59,7 +59,7 @@ public class StoreClient extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                                 InfoBusiness infoBusiness = objSnaptshot.getValue(InfoBusiness.class);
-                                AdapterBusiness adapterBusiness = new AdapterBusiness(StoreClient.this, (ArrayList<Business>) businessList,infoBusiness.getUrllogo());
+                                AdapterBusiness adapterBusiness = new AdapterBusiness(ListBusinessforClient.this, (ArrayList<Business>) businessList,infoBusiness.getUrllogo());
                                 listViewbusiness.setAdapter(adapterBusiness);
                             }
                         }

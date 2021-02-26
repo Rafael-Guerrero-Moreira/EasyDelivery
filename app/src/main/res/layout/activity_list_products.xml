@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".menu.StoreForBusiness">
+    tools:context=".generallist.ListProducts">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -43,7 +43,7 @@
         android:layout_height="match_parent" />
 </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/tab_float_button"
+        android:id="@+id/floatingBAddBusiness"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

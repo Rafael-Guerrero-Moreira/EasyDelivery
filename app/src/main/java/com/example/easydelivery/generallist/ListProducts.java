@@ -1,4 +1,4 @@
-package com.example.easydelivery.menu;
+package com.example.easydelivery.generallist;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +18,9 @@ import com.example.easydelivery.Adapter.AdapterProducts;
 import com.example.easydelivery.R;
 import com.example.easydelivery.model.Product;
 import com.example.easydelivery.module.ModuleProduct;
+import com.example.easydelivery.module.SendToCar;
 import com.example.easydelivery.views.activities.MainActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,13 +33,15 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoreForBusiness extends AppCompatActivity {
+public class ListProducts extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     StorageReference storage;
     ListView lisproducts;
     Product selectProduct;
     String id;
+    String userType;
+    private FloatingActionButton actionButtonAdd;
 
     private SharedPreferences prefs;
 
@@ -45,20 +49,27 @@ public class StoreForBusiness extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_storeforbusinnes);
-
+        setContentView(R.layout.activity_list_products);
         InicializarFirebase();
         selectProduct = new Product();
         lisproducts = findViewById(R.id.lisproductos);
+        actionButtonAdd = findViewById(R.id.floatingBAddBusiness);
         prefs = getSharedPreferences("shared_login_data",Context.MODE_PRIVATE);
         id = prefs.getString("id", "");
+        userType = prefs.getString("usertype", "");
+        if(userType.equals("Client")){
+            actionButtonAdd.hide(); actionButtonAdd.setEnabled(true);
+            id = getIntent().getExtras().getString("idBusiness");
+        }
         ListarDatos();
-
         lisproducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectProduct= (Product) parent.getItemAtPosition(position);
-                startActivity(new Intent(StoreForBusiness.this, ModuleProduct.class).putExtra("idporduct",selectProduct.getIdproduct()).putExtra("url",selectProduct.getUrlphoto()));
+                if(userType.equals("Business"))
+                startActivity(new Intent(ListProducts.this, ModuleProduct.class).putExtra("idporduct",selectProduct.getIdproduct()).putExtra("url",selectProduct.getUrlphoto()));
+                else if (userType.equals("Client")) startActivity(new Intent(ListProducts.this, SendToCar.class).putExtra("idporduct",selectProduct.getIdproduct()).putExtra("url",selectProduct.getUrlphoto()));
+
             }
         });
         Toolbar myToolbar =  findViewById(R.id.toolbarStoreBusines);
@@ -67,7 +78,7 @@ public class StoreForBusiness extends AppCompatActivity {
 
     public void createProdcut(View view)
     {
-        startActivity(new Intent(StoreForBusiness.this, ModuleProduct.class).putExtra("idporduct","").putExtra("url",""));
+        startActivity(new Intent(ListProducts.this, ModuleProduct.class).putExtra("idporduct","").putExtra("url",""));
 
     }
 
@@ -80,7 +91,7 @@ public class StoreForBusiness extends AppCompatActivity {
                     Product c = objSnaptshot.getValue(Product.class);
                     if (id.equals(c.getIdBuisnes())) {
                         productList.add(c);
-                        AdapterProducts adapterProducts = new AdapterProducts(StoreForBusiness.this, (ArrayList<Product>) productList);
+                        AdapterProducts adapterProducts = new AdapterProducts(ListProducts.this, (ArrayList<Product>) productList);
                         lisproducts.setAdapter(adapterProducts);
                     }
                 }
