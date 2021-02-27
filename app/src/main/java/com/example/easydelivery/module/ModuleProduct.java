@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,8 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.easydelivery.Adapter.AdapterCategory;
+import com.example.easydelivery.CreateCategory;
 import com.example.easydelivery.R;
 import com.example.easydelivery.generallist.ListProducts;
+import com.example.easydelivery.model.Category;
 import com.example.easydelivery.model.Product;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -33,6 +38,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class ModuleProduct extends AppCompatActivity {
@@ -54,6 +61,8 @@ public class ModuleProduct extends AppCompatActivity {
     private String idUser="";
     private String idproduct = "";
     private String urlPhoto="";
+    private List<Category> categoryList = new ArrayList<Category>();
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +72,14 @@ public class ModuleProduct extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         nameproduct = findViewById(R.id.txtproductname);
         descripction = findViewById(R.id.txtdescripcion);
+        spinner = findViewById(R.id.spinnerCategory);
         price = findViewById(R.id.txtprice);
         ivProduct = findViewById(R.id.ivProduct);
         prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
         idUser = prefs.getString("id", "");
         buttongallery = findViewById(R.id.floatingbutoonphoto);
         InicializarFirebase ();
+        seterSpinerCategory();
         buttongallery.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -165,6 +176,7 @@ public class ModuleProduct extends AppCompatActivity {
         p.setUrlphoto(url);
         p.setIdproduct(generateUid());
         p.setIdBuisnes(idUser);
+        p.setCategory(spinner.getSelectedItem().toString());
         databaseReference.child("Product").child(p.getIdproduct()).setValue(p);
         Toast.makeText(ModuleProduct.this, "Datos Guardados", Toast.LENGTH_LONG).show();
         finish();
@@ -187,12 +199,36 @@ public class ModuleProduct extends AppCompatActivity {
         }
 
     }
-
     private void InicializarFirebase (){
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         storage  = FirebaseStorage.getInstance().getReference("images");
+    }
+    private void seterSpinerCategory()
+    {
+        databaseReference.child("Category").child(idUser).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                categoryList.clear();
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                    Category category = objSnaptshot.getValue(Category.class);
+                    categoryList.add(category);
+                }
+                String [] categoryVector = new String[categoryList.size()];
+                for (int i=0; i<categoryVector.length;i++){
+                    categoryVector[i] = String.valueOf(categoryList.get(i).getName());
+                }
+                spinner.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,categoryVector));
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 }

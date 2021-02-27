@@ -7,6 +7,15 @@ public class Product {
     private String description;
     private String price;
     private String urlphoto;
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public String getProductname() {
         return productname;

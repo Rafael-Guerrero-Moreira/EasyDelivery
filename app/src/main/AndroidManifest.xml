@@ -22,7 +22,8 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyDeliver">
-        <activity android:name=".module.SendToCar"></activity>
+        <activity android:name=".CreateCategory"></activity>
+        <activity android:name=".module.SendToCar" />
         <activity android:name=".module.ClientInfo" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
