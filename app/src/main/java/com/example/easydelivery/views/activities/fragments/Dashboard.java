@@ -1,23 +1,18 @@
 package com.example.easydelivery.views.activities.fragments;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.easydelivery.Adapter.DashboardOptionsAdapter;
 import com.example.easydelivery.R;
 import com.example.easydelivery.menu.MenuOptions;
-import com.example.easydelivery.generallist.ListBusinessforClient;
-import com.example.easydelivery.generallist.ListProducts;
 
 import org.json.JSONArray;
 
@@ -63,7 +58,7 @@ public class Dashboard extends Fragment {
    /*private void StarActivityforBusiness(int position){
         switch (position){
             case 0:
-                startActivity(new Intent(getContext(), ListProducts.class));
+                startActivity(new Intent(getContext(), ProductsListScreenActivity.class));
                 break;
             case 1:
                 Toast.makeText(getContext(), String.valueOf(position) , Toast.LENGTH_LONG).show();

@@ -4,41 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateCategory">
+    android:background="?attr/alBackground"
+    tools:context=".views.activities.products.CreateCategoryScreenActivity">
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="?attr/alBackground"
+        android:tint="?attr/alText2"
+        android:scaleX="1.5"
+        android:onClick="goToPreviousActivity"
+        android:scaleY="1.5"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/ic_baseline_arrow_back_24"/>
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:layout_alignParentEnd="true"
+        android:background="?attr/alBackground"
+        android:tint="?attr/alText2"
+        android:scaleX="1.5"
+        android:onClick="goToHomeActivity"
+        android:scaleY="1.5"
+        android:src="@drawable/ic_baseline_home_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:text="Categorías"
+        android:textColor="?attr/alText2"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:textSize="38sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Agrega una nueva categoría"
+        android:textColor="?attr/alText2"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="135dp"
+        android:textSize="20sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <EditText
-        android:id="@+id/editTextCategoryName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="186dp" />
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg_rounded_1"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="185dp"
+        android:layout_marginBottom="-30dp">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Agregar"
-        android:onClick="addCaterogy"
-        />
-</LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ListView
-            android:id="@+id/listViewCategory"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:hint="Nombre">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/accTxtCategoryName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/layout_button_rounded_1"
+            android:textColor="?attr/awText2"
+            android:text="Agregar"
+            android:onClick="addCategory"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp">
+
+            <ListView
+                android:id="@+id/accListViewCategories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:dividerHeight="1px"
+                android:divider="@color/white"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.easydelivery.R;
-import com.example.easydelivery.generallist.ListProducts;
+import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 import com.example.easydelivery.module.CompanyInfo;
 import com.example.easydelivery.views.activities.startup.SplashScreenActivity;
 import com.example.easydelivery.helpers.InternalFile;
@@ -157,7 +157,7 @@ public class SettingUser extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.fragmenProductsBusiness:
-                    intent = new Intent(SettingUser.this, ListProducts.class);
+                    intent = new Intent(SettingUser.this, ProductsListScreenActivity.class);
                     startActivity(intent);
                     finish();
                     return true;

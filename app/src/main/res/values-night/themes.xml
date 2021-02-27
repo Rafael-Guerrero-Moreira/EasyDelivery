@@ -13,6 +13,8 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/toolbar1</item>
+        <item name="actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+        <!--<item name="colorControlNormal">@color/txt2</item>-->
 
         <!-- Activity Splash -->
         <item name="asBackground">@color/bg3</item>
@@ -42,6 +44,11 @@
         <item name="amText3">@color/txt2</item>
 
     </style>
+    <style name="MyOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/txt2</item>
+    </style>
+
+
     <style name="TextStyle" parent="@android:style/TextAppearance">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/txt2</item>

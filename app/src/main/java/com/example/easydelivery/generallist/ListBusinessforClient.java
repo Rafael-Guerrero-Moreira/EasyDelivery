@@ -12,6 +12,7 @@ import com.example.easydelivery.Adapter.AdapterBusiness;
 import com.example.easydelivery.R;
 import com.example.easydelivery.model.Business;
 import com.example.easydelivery.model.InfoBusiness;
+import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +41,7 @@ public class ListBusinessforClient extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 businessSelct = (Business) parent.getItemAtPosition(position);
-                startActivity(new Intent(ListBusinessforClient.this, ListProducts.class).putExtra("idBusiness",businessSelct.getId()));
+                startActivity(new Intent(ListBusinessforClient.this, ProductsListScreenActivity.class).putExtra("idBusiness",businessSelct.getId()));
             }
         });
     }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lclTxtCategoryName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre"
+        android:paddingVertical="15dp"
+        android:paddingStart="10dp"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/layout_bg_rounded_6"
+        android:textColor="?attr/alText" />
+</RelativeLayout>

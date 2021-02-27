@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
-import com.example.easydelivery.generallist.ListProducts;
 
 import org.json.JSONArray;
 import org.json.JSONException;

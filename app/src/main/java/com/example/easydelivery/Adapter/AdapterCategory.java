@@ -14,14 +14,14 @@ import java.util.ArrayList;
 
 public class AdapterCategory extends ArrayAdapter<Category> {
     public AdapterCategory(Context context, ArrayList<Category> datos) {
-        super(context, R.layout.category_list, datos);
+        super(context, R.layout.layout_categories_list, datos);
     }
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View item = inflater.inflate(R.layout.category_list, null);
+        View item = inflater.inflate(R.layout.layout_categories_list, null);
         TextView Name;
 
-        Name = item.findViewById(R.id.textViewCategoryName);
+        Name = item.findViewById(R.id.lclTxtCategoryName);
         Name.setText(getItem(position).getName());
         return(item);
     }

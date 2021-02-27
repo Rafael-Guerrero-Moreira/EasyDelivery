@@ -1,7 +1,7 @@
 package com.example.easydelivery.menu;
 
 import com.example.easydelivery.generallist.ListBusinessforClient;
-import com.example.easydelivery.generallist.ListProducts;
+import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +19,7 @@ public class MenuOptions {
             PRODUCTS = new JSONObject()
                     .put("title", "Mis Productos")
                     .put("image", "https://img.icons8.com/dusk/344/product.png")
-                    .put("activity", ListProducts.class);
+                    .put("activity", ProductsListScreenActivity.class);
             ORDERS = new JSONObject()
                     .put("title", "Pedidos")
                     .put("image", "https://img.icons8.com/dusk/344/purchase-order.png")

@@ -16,20 +16,20 @@ import java.util.ArrayList;
 
 public class AdapterProducts extends ArrayAdapter<Product> {
     public AdapterProducts(Context context, ArrayList<Product> datos) {
-        super(context, R.layout.product_list, datos);
+        super(context, R.layout.layout_products_list, datos);
     }
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View item = inflater.inflate(R.layout.product_list, null);
+        View item = inflater.inflate(R.layout.layout_products_list, null);
         TextView Name, description,price;
          ImageView img;
-        Name = item.findViewById(R.id.nameproduct );
-        img = item.findViewById(R.id.improduct);
-        description = item.findViewById(R.id.descriptionproduct);
-        price = item.findViewById(R.id.priceproduct);
+        Name = item.findViewById(R.id.lplTxtProductName);
+        img = item.findViewById(R.id.lplImageViewProduct);
+        description = item.findViewById(R.id.lplTxtProductDescription);
+        price = item.findViewById(R.id.lplTxtProductPrice);
         Name.setText(getItem(position).getProductname());
         description.setText(getItem(position).getDescription());
-        price.setText(getItem(position).getPrice());
+        price.setText("$ " + getItem(position).getPrice());
         Glide.with(getContext()).load(getItem(position).getUrlphoto()).into(img);
         return(item);
     }

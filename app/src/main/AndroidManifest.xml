@@ -22,7 +22,7 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyDeliver">
-        <activity android:name=".CreateCategory"></activity>
+        <activity android:name=".views.activities.products.CreateCategoryScreenActivity"></activity>
         <activity android:name=".module.SendToCar" />
         <activity android:name=".module.ClientInfo" />
         <!--
@@ -50,7 +50,7 @@
         <activity android:name=".views.activities.auth.ChangePasswordScreenActivity" />
         <activity android:name=".menu.Search" />
         <activity android:name=".menu.Category" />
-        <activity android:name=".generallist.ListProducts" />
+        <activity android:name=".views.activities.products.ProductsListScreenActivity" />
         <activity android:name=".menu.SettingUser" />
         <activity android:name=".views.activities.auth.LoginScreenActivity" />
         <activity android:name=".views.activities.auth.RegisterClientScreenActivity" />

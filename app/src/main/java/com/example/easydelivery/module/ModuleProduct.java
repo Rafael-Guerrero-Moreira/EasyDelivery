@@ -19,10 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
-import com.example.easydelivery.Adapter.AdapterCategory;
-import com.example.easydelivery.CreateCategory;
 import com.example.easydelivery.R;
-import com.example.easydelivery.generallist.ListProducts;
+import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 import com.example.easydelivery.model.Category;
 import com.example.easydelivery.model.Product;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -161,7 +159,7 @@ public class ModuleProduct extends AppCompatActivity {
                     break;
             }
             case R.id.icon_back: {
-                startActivity(new Intent(this, ListProducts.class));
+                startActivity(new Intent(this, ProductsListScreenActivity.class));
                 finish();
             }
             }

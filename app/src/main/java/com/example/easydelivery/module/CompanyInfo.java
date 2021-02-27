@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
-import com.example.easydelivery.generallist.ListProducts;
+import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 import com.example.easydelivery.model.InfoBusiness;
 import com.example.easydelivery.views.activities.MapsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -135,7 +135,7 @@ public class CompanyInfo extends AppCompatActivity {
                     break;
             }
             case R.id.icon_back: {
-                startActivity(new Intent(this, ListProducts.class));
+                startActivity(new Intent(this, ProductsListScreenActivity.class));
                 finish();
             }
         }
