@@ -58,7 +58,8 @@
                     android:layout_height="wrap_content"
                     android:footerDividersEnabled="false"
                     android:padding="1dp"
-                    android:numColumns="3" />
+                    android:numColumns="3"
+                    android:focusable="true"/>
 
             </LinearLayout>
 

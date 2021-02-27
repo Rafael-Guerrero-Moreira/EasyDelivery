@@ -42,7 +42,7 @@ public class Dashboard extends Fragment {
         gridView = view.findViewById(R.id.amGridView);
         DashboardOptionsAdapter customAdapter = new DashboardOptionsAdapter(view.getContext(), optionsList);
         gridView.setAdapter(customAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (usertype){
@@ -57,10 +57,10 @@ public class Dashboard extends Fragment {
 
 
             }
-        });
+        });*/
         return view;
     }
-   private void StarActivityforBusiness(int position){
+   /*private void StarActivityforBusiness(int position){
         switch (position){
             case 0:
                 startActivity(new Intent(getContext(), ListProducts.class));
@@ -79,5 +79,5 @@ public class Dashboard extends Fragment {
                 Toast.makeText(getContext(), String.valueOf(position) , Toast.LENGTH_LONG).show();
                 break;
         }
-    }
+    }*/
 }
