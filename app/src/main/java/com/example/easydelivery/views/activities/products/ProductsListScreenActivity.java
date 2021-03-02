@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,13 +13,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.easydelivery.Adapter.AdapterCategory;
 import com.example.easydelivery.Adapter.AdapterProducts;
 import com.example.easydelivery.R;
+import com.example.easydelivery.generallist.MyCarListScreenActivity;
+import com.example.easydelivery.model.Category;
 import com.example.easydelivery.model.Product;
 import com.example.easydelivery.module.ModuleProduct;
 import com.example.easydelivery.module.SendToCar;
@@ -46,7 +51,7 @@ public class ProductsListScreenActivity extends AppCompatActivity {
     private String id;
     private String userType;
     private FloatingActionMenu aplMenuSection;
-    private FloatingActionButton aplAddProduct, aplAddProductCategory;
+    private FloatingActionButton aplAddProduct, aplAddProductCategory,alpViewMyCar;
     private TextView aplTxtCategorySelected;
     private SharedPreferences prefs;
 
@@ -69,6 +74,17 @@ public class ProductsListScreenActivity extends AppCompatActivity {
 
     private void setupButtons() {
         aplTxtCategorySelected = findViewById(R.id.aplTxtCategorySelected);
+        aplAddProduct = findViewById(R.id.aplAddProduct);
+        aplAddProductCategory = findViewById(R.id.aplAddProductCategory);
+        alpViewMyCar = findViewById(R.id.aplviewMyCar);
+        if(userType.equals("Client")){
+            aplAddProduct.hideButtonInMenu(true);
+            aplAddProductCategory.hideButtonInMenu(true);
+            id = getIntent().getExtras().getString("idBusiness");
+        }
+        else if(userType.equals("Business")) {
+            alpViewMyCar.hideButtonInMenu(true);
+        }
         ////////////////////////////////////////////////
         aplMenuSection = findViewById(R.id.aplMenuSection);
         aplMenuSection.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
@@ -82,12 +98,8 @@ public class ProductsListScreenActivity extends AppCompatActivity {
             }
         });
         //
-        aplAddProduct = findViewById(R.id.aplAddProduct);
         ////////////////////////////////////////////////
-        if(userType.equals("Client")){
-            aplAddProduct.hide(false); aplAddProduct.setEnabled(true);
-            id = getIntent().getExtras().getString("idBusiness");
-        }
+
         ////////////////////////////////////////////////
         aplAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,15 +107,23 @@ public class ProductsListScreenActivity extends AppCompatActivity {
                 goToCreateProduct();
             }
         });
-        //
-        aplAddProductCategory = findViewById(R.id.aplAddProductCategory);
         aplAddProductCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToCreateCategory();
             }
         });
+
+        alpViewMyCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMyCar();
+            }
+        });
+
     }
+
+
 
     // TOOLBAR SETTINGS (hay que agregar entre las opciones las categorías automaticamente)
 
@@ -126,7 +146,9 @@ public class ProductsListScreenActivity extends AppCompatActivity {
                     startActivity(new Intent(ProductsListScreenActivity.this, ModuleProduct.class).putExtra("idporduct",selectProduct.getIdproduct()).putExtra("url",selectProduct.getUrlphoto()));
                 }
                 else if (userType.equals("Client")) {
-                    startActivity(new Intent(ProductsListScreenActivity.this, SendToCar.class).putExtra("idporduct",selectProduct.getIdproduct()).putExtra("url",selectProduct.getUrlphoto()));
+                    startActivity(new Intent(ProductsListScreenActivity.this, SendToCar.class).putExtra("idporduct",selectProduct.getIdproduct())
+                            .putExtra("idBusiness",selectProduct.getIdBuisnes())
+                            .putExtra("ulrphoto",selectProduct.getUrlphoto()));
                 }
 
             }
@@ -134,13 +156,28 @@ public class ProductsListScreenActivity extends AppCompatActivity {
     }
 
     private void hideButtons() {
-        aplAddProduct.setVisibility(View.GONE);
-        aplAddProductCategory.setVisibility(View.GONE);
+        if(userType.equals("Client")){
+            alpViewMyCar.setVisibility(View.GONE);
+        }
+        else if (userType.equals("Business"))
+        {
+            aplAddProduct.setVisibility(View.GONE);
+            aplAddProductCategory.setVisibility(View.GONE);
+        }
+
+
     }
 
     private void showButtons() {
-        aplAddProduct.setVisibility(View.VISIBLE);
-        aplAddProductCategory.setVisibility(View.VISIBLE);
+        if(userType.equals("Client")){
+            alpViewMyCar.setVisibility(View.VISIBLE);
+        }
+        else if (userType.equals("Business"))
+        {
+            aplAddProduct.setVisibility(View.VISIBLE);
+            aplAddProductCategory.setVisibility(View.VISIBLE);
+        }
+
     }
 
     // GO TO ACTIVITIES
@@ -163,6 +200,11 @@ public class ProductsListScreenActivity extends AppCompatActivity {
     {
         aplMenuSection.toggle(true);
         startActivity(new Intent(ProductsListScreenActivity.this, CreateCategoryScreenActivity.class));
+    }
+    private void goToMyCar() {
+        alpViewMyCar.toggle(true);
+        startActivity(new Intent(ProductsListScreenActivity.this, MyCarListScreenActivity.class));
+
     }
 
     // LIST DATA
@@ -208,24 +250,78 @@ public class ProductsListScreenActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
         getMenuInflater().inflate(R.menu.menu_search_products, menu);
-        //MenuItem searchItem = menu.findItem(R.id.mspSearch);
+        MenuItem categoryItem = menu.findItem(R.id.mspProductCategories);
+        databaseReference.child("Category").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                    Category category = objSnaptshot.getValue(Category.class);
+                    categoryItem.getSubMenu().add(category.getId()).setTitle(category.getName());
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getTitle().toString()){
+        databaseReference.child("Product").removeEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        switch (item.getTitle().toString())
+        {
             case "mspProductCategories":
                 break;
             case "- Todas las categorías -":
-                Toast.makeText(ProductsListScreenActivity.this, "Elegiste todas las categorías", Toast.LENGTH_SHORT).show();
-                aplTxtCategorySelected.setText("Todas las categorías");
+                listData();
                 break;
             default:
-                aplTxtCategorySelected.setText("Categoría: " + item.getTitle().toString());
+                aplTxtCategorySelected.setText(item.getTitle().toString());
+                filterdata(item.getTitle().toString());
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+    private void filterdata(String categoryselect) {
+        databaseReference.child("Product").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                productList.clear();
+
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                    Product c = objSnaptshot.getValue(Product.class);
+                    if (id.equals(c.getIdBuisnes())&&categoryselect.equals(c.getCategory())) {
+                        productList.add(c);
+                    }
+                }
+                AdapterProducts adapterProducts = new AdapterProducts(ProductsListScreenActivity.this, (ArrayList<Product>) productList);
+                lisproducts.setAdapter(adapterProducts);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
+import com.example.easydelivery.helpers.FireBaseRealtime;
 import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 import com.example.easydelivery.model.InfoBusiness;
 import com.example.easydelivery.views.activities.MapsActivity;
@@ -60,19 +61,9 @@ public class CompanyInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_info);
         inicializarFirebase ();
-         prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
-        idUser = prefs.getString("id", "");
-        textphone = findViewById(R.id.txtphone);
-        sptype = findViewById(R.id.sptype);
-        textadress = findViewById(R.id.txtadress);
-        ivlogo = findViewById(R.id.ivlogonegocio);
-        buttonlogo = findViewById(R.id.floatingbutoonlogo);
-        cordBusiness = findViewById(R.id.txtcord);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolcompanyinf);
-        setSupportActionBar(myToolbar);
+        instanceVariable();
         try {
             cordenadas = getIntent().getStringExtra("cordenadas");
-
             cordBusiness.setText(cordenadas);
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,6 +81,20 @@ public class CompanyInfo extends AppCompatActivity {
         verifydata();
 
     }
+
+    private void instanceVariable() {
+        prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
+        idUser = prefs.getString("id", "");
+        textphone = findViewById(R.id.txtphone);
+        sptype = findViewById(R.id.sptype);
+        textadress = findViewById(R.id.txtadress);
+        ivlogo = findViewById(R.id.ivlogonegocio);
+        buttonlogo = findViewById(R.id.floatingbutoonlogo);
+        cordBusiness = findViewById(R.id.txtcord);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolcompanyinf);
+        setSupportActionBar(myToolbar);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -120,18 +125,22 @@ public class CompanyInfo extends AppCompatActivity {
                             inf.setAddress(textadress.getText().toString());
                             inf.setIdBuissnes(idUser);
                             inf.setUrllogo(imageselect(url));
-                            databaseReference.child("Comerce").child(inf.getIdBuissnes()).setValue(inf).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful())
-                                    { Toast.makeText(CompanyInfo.this, "Datos Guardados", Toast.LENGTH_LONG).show(); }
-                                    else
-                                    { Toast.makeText(CompanyInfo.this, "Error al Guardar los Datos", Toast.LENGTH_LONG).show();
-                                        storage.delete();}
-                                }
-                            });
+                            FireBaseRealtime realtime = new FireBaseRealtime();
+                            realtime.RegisterInfoBusiness(inf,CompanyInfo.this);
                         }
                     });
+                    else
+                    {
+
+                        InfoBusiness inf = new InfoBusiness();
+                        inf.setPhone(textphone.getText().toString());
+                        inf.setTypecomerce(sptype.getSelectedItem().toString());
+                        inf.setAddress(textadress.getText().toString());
+                        inf.setIdBuissnes(idUser);
+                        inf.setUrllogo((buisnes.getUrllogo()));
+                        FireBaseRealtime realtime = new FireBaseRealtime();
+                        realtime.RegisterInfoBusiness(inf,CompanyInfo.this);
+                    }
                     break;
             }
             case R.id.icon_back: {

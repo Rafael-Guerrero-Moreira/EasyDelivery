@@ -8,13 +8,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="207dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imvPhotoProduct"
             android:layout_width="154dp"
-            android:layout_height="170dp"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_templatephoto"
             tools:layout_editor_absoluteX="21dp"
             tools:layout_editor_absoluteY="21dp" />
@@ -23,39 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/idEditablePrice"
-                android:layout_width="197dp"
-                android:layout_height="26dp"
-                android:text="Price"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="159dp" />
-
-            <TextView
-                android:id="@+id/textViewPrice"
-                android:layout_width="197dp"
-                android:layout_height="25dp"
-                android:text="Precio"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="134dp" />
-
-            <TextView
-                android:id="@+id/idEditableDescription"
-                android:layout_width="197dp"
-                android:layout_height="26dp"
-                android:text="Desciption"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="106dp" />
-
-            <TextView
-                android:id="@+id/textViewDescription"
-                android:layout_width="197dp"
-                android:layout_height="25dp"
-                android:text="Descripcion"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="81dp" />
-
-
 
             <TextView
                 android:id="@+id/textViewnameforcar"
@@ -73,9 +40,65 @@
                 tools:layout_editor_absoluteX="174dp"
                 tools:layout_editor_absoluteY="53dp" />
 
+            <TextView
+                android:id="@+id/textViewPrice"
+                android:layout_width="197dp"
+                android:layout_height="25dp"
+                android:text="Precio"
+                tools:layout_editor_absoluteX="174dp"
+                tools:layout_editor_absoluteY="134dp" />
+
+            <TextView
+                android:id="@+id/idEditablePrice"
+                android:layout_width="197dp"
+                android:layout_height="26dp"
+                android:text="Price"
+                tools:layout_editor_absoluteX="174dp"
+                tools:layout_editor_absoluteY="159dp" />
+
+            <TextView
+                android:id="@+id/textViewDescription"
+                android:layout_width="197dp"
+                android:layout_height="25dp"
+                android:text="Descripcion"
+                tools:layout_editor_absoluteX="174dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <TextView
+                android:id="@+id/idEditableDescription"
+                android:layout_width="197dp"
+                android:layout_height="26dp"
+                android:text="Desciption"
+                tools:layout_editor_absoluteX="174dp"
+                tools:layout_editor_absoluteY="106dp" />
+
+            <TextView
+                android:id="@+id/textViewCategory"
+                android:layout_width="197dp"
+                android:layout_height="25dp"
+                android:text="Categoria"
+                tools:layout_editor_absoluteX="174dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <TextView
+                android:id="@+id/idEditableCaregory"
+                android:layout_width="197dp"
+                android:layout_height="26dp"
+                android:text="Category"
+                tools:layout_editor_absoluteX="174dp"
+                tools:layout_editor_absoluteY="106dp" />
+
 
         </LinearLayout>
     </LinearLayout>
+
+    <NumberPicker
+        android:id="@+id/npQuantity"
+        android:layout_width="211dp"
+        android:layout_height="49dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="284dp" />
 
     <Button
         android:id="@+id/btnAddToCar"
@@ -83,7 +106,9 @@
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="202dp"
         android:text="Agregar al carrito"
+        android:onClick="onclickSendCar"
         tools:layout_editor_absoluteY="551dp" />
 
 

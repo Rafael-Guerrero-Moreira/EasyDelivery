@@ -15,10 +15,10 @@ import com.example.easydelivery.model.Business;
 import java.util.ArrayList;
 
 public class AdapterBusiness extends ArrayAdapter<Business> {
-    String urlFoto;
-    public AdapterBusiness(Context context, ArrayList<Business> datos, String UrlFoto) {
+
+    public AdapterBusiness(Context context, ArrayList<Business> datos) {
         super(context, R.layout.business_list, datos);
-        urlFoto = UrlFoto;
+
     }
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -28,7 +28,7 @@ public class AdapterBusiness extends ArrayAdapter<Business> {
         Name = item.findViewById(R.id.textnameBusiness);
         img = item.findViewById(R.id.imbusiness);
         Name.setText(getItem(position).getName());
-        Glide.with(getContext()).load(urlFoto).into(img);
+        Glide.with(getContext()).load(getItem(position).getUrlLogo()).into(img);
         return(item);
     }
 }

@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:background="?attr/amBackground2"
-    tools:context=".views.activities.products.ProductsListScreenActivity">
-
+    tools:context=".generallist.ListOrders">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/aplAppBarLayout"
         android:layout_width="match_parent"
@@ -34,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Productos"
+                android:text="Ordenes"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:textSize="30sp"
@@ -71,19 +70,10 @@
         android:background="?attr/amBackground2"
         android:layout_below="@+id/aplAppBarLayout">
 
-        <TextView
-            android:id="@+id/aplTxtCategorySelected"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/amBackground2"
-            android:text="Todas las categorías"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:paddingStart="10dp"
-            android:layout_marginVertical="5dp"/>
 
-        <GridView
-            android:id="@+id/aplProductsList"
+
+        <ListView
+            android:id="@+id/aplOrdersList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:footerDividersEnabled="false"
@@ -144,47 +134,7 @@
         fab:menu_backgroundColor="@android:color/transparent"
         fab:menu_fab_label="">
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/aplAddProduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_baseline_add_circle_24"
-            app:fab_colorNormal="?attr/amBackground"
-            app:fab_colorPressed="?attr/amBackground"
-            app:fab_colorRipple="#99FFFFFF"
-            app:fab_showShadow="true"
-            app:fab_shadowColor="#66000000"
-            app:fab_shadowRadius="4dp"
-            app:fab_shadowXOffset="1dp"
-            app:fab_shadowYOffset="3dp"
-            app:fab_size="mini"
-            app:fab_showAnimation="@anim/fab_slide_in_from_right"
-            app:fab_hideAnimation="@anim/fab_slide_out_to_right"
-            app:fab_label="Agregar Producto"/>
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/aplAddProductCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_baseline_add_circle_24"
-            app:fab_colorNormal="?attr/amBackground"
-            app:fab_colorPressed="?attr/amBackground"
-            app:fab_colorRipple="#99FFFFFF"
-            app:fab_showShadow="true"
-            app:fab_shadowColor="#66000000"
-            app:fab_shadowRadius="4dp"
-            app:fab_shadowXOffset="1dp"
-            app:fab_shadowYOffset="3dp"
-            app:fab_size="mini"
-            app:fab_showAnimation="@anim/fab_slide_in_from_right"
-            app:fab_hideAnimation="@anim/fab_slide_out_to_right"
-            app:fab_label="Agregar Categoría"/>
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/aplviewMyCar"
             android:layout_width="wrap_content"
@@ -204,7 +154,8 @@
             app:fab_size="mini"
             app:fab_showAnimation="@anim/fab_slide_in_from_right"
             app:fab_hideAnimation="@anim/fab_slide_out_to_right"
-            app:fab_label="Carrito"/>
+            app:fab_label="Carrito"
+            android:onClick="refesh"/>
     </com.github.clans.fab.FloatingActionMenu>
 
 </RelativeLayout>

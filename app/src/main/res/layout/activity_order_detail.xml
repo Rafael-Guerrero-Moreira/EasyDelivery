@@ -1,0 +1,102 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/amBackground2"
+    tools:context=".generallist.OrderDetail">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/aplAppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:background="?attr/amBackground">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:title="Regresar"
+                android:layout_margin="10dp"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:onClick="goToPreviousActivity"
+                android:background="?attr/amBackground"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detalle de Orden"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_home_24"
+                android:title="Inicio"
+                android:layout_gravity="end"
+                android:layout_margin="10dp"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:onClick="goToHomeActivity"
+                android:background="?attr/amBackground" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/aplToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:subtitleTextColor="@color/white">
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/amBackground2"
+        android:layout_below="@+id/aplAppBarLayout">
+
+        <Button
+            android:id="@+id/btnCondfir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/amBackground2"
+            android:text="Entregado"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:paddingStart="10dp"
+            android:layout_marginVertical="5dp"/>
+
+        <ListView
+            android:id="@+id/adtOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:footerDividersEnabled="false"
+            android:padding="1dp"
+            android:numColumns="2"
+            android:focusable="true"/>
+
+        <!--<ListView
+            android:id="@+id/aplProductsList"
+            android:layout_width="match_parent"
+            android:background="?attr/amBackground2"
+            android:layout_height="match_parent" />-->
+
+    </LinearLayout>
+
+
+</RelativeLayout>

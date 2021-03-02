@@ -102,7 +102,6 @@ public class ModuleProduct extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                     Product p  = objSnaptshot.getValue(Product.class);
-
                     if (idproduct.equals(p.getIdproduct()))
                     {
                         nameproduct.setText(p.getProductname());
@@ -110,6 +109,7 @@ public class ModuleProduct extends AppCompatActivity {
                         price.setText(p.getPrice());
                         Glide.with(ModuleProduct.this).load(p.getUrlphoto()).into(ivProduct);
                         ivProduct.setBackground(null);
+                        spinner.setSelection(spinerselect(p.getCategory()));
                         break;
                     }
                 }
@@ -119,6 +119,20 @@ public class ModuleProduct extends AppCompatActivity {
 
             }
         });
+    }
+    private int spinerselect(String categoryname)
+    {
+        int i;
+        for (i=0;i<spinner.getCount();i++)
+        {
+            String s = String.valueOf(spinner.getItemAtPosition(i).toString());
+            if (categoryname.equals(s))
+            {
+                break;
+            }
+
+        }
+        return i;
     }
 
     @Override

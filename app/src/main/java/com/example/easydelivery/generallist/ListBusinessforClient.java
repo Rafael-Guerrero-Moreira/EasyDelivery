@@ -55,26 +55,11 @@ public class ListBusinessforClient extends AppCompatActivity {
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                     Business business = objSnaptshot.getValue(Business.class);
                     businessList.add(business);
-                    databaseReference.child("Comerce").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                                InfoBusiness infoBusiness = objSnaptshot.getValue(InfoBusiness.class);
-                                AdapterBusiness adapterBusiness = new AdapterBusiness(ListBusinessforClient.this, (ArrayList<Business>) businessList,infoBusiness.getUrllogo());
-                                listViewbusiness.setAdapter(adapterBusiness);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
+                    AdapterBusiness adapterBusiness = new AdapterBusiness(ListBusinessforClient.this, (ArrayList<Business>) businessList);
+                    listViewbusiness.setAdapter(adapterBusiness);
 
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

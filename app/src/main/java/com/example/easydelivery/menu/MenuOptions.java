@@ -1,6 +1,10 @@
 package com.example.easydelivery.menu;
 
 import com.example.easydelivery.generallist.ListBusinessforClient;
+import com.example.easydelivery.generallist.ListOrders;
+import com.example.easydelivery.generallist.MyCarListScreenActivity;
+import com.example.easydelivery.model.MyCar;
+import com.example.easydelivery.module.ShopActivity;
 import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 
 import org.json.JSONArray;
@@ -13,6 +17,7 @@ public class MenuOptions {
     private static JSONObject REPORTS;
     private static JSONObject BUSINESS;
     private static JSONObject DELIVER;
+    private static JSONObject MYCAR;
 
     static {
         try {
@@ -23,7 +28,7 @@ public class MenuOptions {
             ORDERS = new JSONObject()
                     .put("title", "Pedidos")
                     .put("image", "https://img.icons8.com/dusk/344/purchase-order.png")
-                    .put("activity", null);
+                    .put("activity", ListOrders.class);
             REPORTS = new JSONObject()
                     .put("title", "Reportes")
                     .put("image", "https://img.icons8.com/dusk/344/fine-print.png")
@@ -35,7 +40,12 @@ public class MenuOptions {
             DELIVER = new JSONObject()
                     .put("title", "Repartidores")
                     .put("image", "https://img.icons8.com/dusk/344/paper-plane.png")
-                    .put("activity", null);
+                    .put("activity", ShopActivity.class);
+            MYCAR   = new JSONObject()
+                    .put("title", "Mi Carrito")
+                    .put("image", "https://img.icons8.com/dusk/344/paper-plane.png")
+                    .put("activity", MyCarListScreenActivity.class);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -47,7 +57,7 @@ public class MenuOptions {
             case "Business":
                 return result.put(PRODUCTS).put(ORDERS).put(REPORTS);
             case "Client":
-                return result.put(BUSINESS).put(DELIVER);
+                return result.put(BUSINESS).put(MYCAR).put(DELIVER);
             case "Delivery":
                 return result.put(ORDERS);
         }

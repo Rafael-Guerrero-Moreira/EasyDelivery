@@ -22,7 +22,11 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyDeliver">
-        <activity android:name=".views.activities.products.CreateCategoryScreenActivity"></activity>
+        <activity android:name=".generallist.OrderDetail"></activity>
+        <activity android:name=".generallist.ListOrders" />
+        <activity android:name=".module.ShopActivity" />
+        <activity android:name=".generallist.MyCarListScreenActivity" />
+        <activity android:name=".views.activities.products.CreateCategoryScreenActivity" />
         <activity android:name=".module.SendToCar" />
         <activity android:name=".module.ClientInfo" />
         <!--

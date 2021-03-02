@@ -8,6 +8,15 @@ public class Business {
     private String identification;
     private String type;
     private String token;
+    private String urlLogo;
+
+    public String getUrlLogo() {
+        return urlLogo;
+    }
+
+    public void setUrlLogo(String urlLogo) {
+        this.urlLogo = urlLogo;
+    }
 
     public String getType() {
         return type;
