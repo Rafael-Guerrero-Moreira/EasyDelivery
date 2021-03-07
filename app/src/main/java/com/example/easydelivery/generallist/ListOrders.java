@@ -7,23 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ListView;
 
-import com.example.easydelivery.Adapter.AdapterBusiness;
-import com.example.easydelivery.Adapter.AdapterMyCar;
 import com.example.easydelivery.Adapter.AdapterOrder;
 import com.example.easydelivery.R;
-import com.example.easydelivery.helpers.FireBaseRealtime;
-import com.example.easydelivery.model.MyCar;
-import com.example.easydelivery.model.OrderView;
-import com.example.easydelivery.model.Orders;
+import com.example.easydelivery.model.Order;
 import com.example.easydelivery.model.Product;
-import com.example.easydelivery.module.ModuleProduct;
-import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,11 +30,12 @@ public class ListOrders extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private   ArrayList<Product> productsList = new ArrayList<>();
     private List<String> orderList = new ArrayList<>();
-    private List<OrderView> ordersListView = new ArrayList<>();
+    private List<Order> ordersListView = new ArrayList<>();
     private SharedPreferences prefs;
     private String id;
     private ListView listorder;
-    private OrderView ordersSelect;
+    private Order ordersSelect;
+    private String usertype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +49,7 @@ public class ListOrders extends AppCompatActivity {
         listorder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ordersSelect = (OrderView) parent.getItemAtPosition(position);
+                ordersSelect = (Order) parent.getItemAtPosition(position);
                 startActivity(new Intent(ListOrders.this, OrderDetail.class)
                         .putExtra("idorder",ordersSelect.getIdOrder()));
 
@@ -97,10 +89,13 @@ public class ListOrders extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ordersListView.clear();
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    OrderView order = objSnaptshot.getValue(OrderView.class);
-                    ordersListView.add(order);
-                    AdapterOrder adapterOrder =  new AdapterOrder(ListOrders.this, (ArrayList<OrderView>) ordersListView);
-                    listorder.setAdapter(adapterOrder);
+                    Order order = objSnaptshot.getValue(Order.class);
+                    if(userView(order)){
+                        ordersListView.add(order);
+                        AdapterOrder adapterOrder =  new AdapterOrder(ListOrders.this, (ArrayList<Order>) ordersListView);
+                        listorder.setAdapter(adapterOrder);
+                    }
+
                     //String orderid = objSnaptshot.getKey();
                    // orderList.add(orderid);
                 }
@@ -111,9 +106,32 @@ public class ListOrders extends AppCompatActivity {
             }
         });
     }
+
+    private Boolean userView(Order order) {
+        if(usertype.equals("Client"))
+        {
+            if(order.getIdClient().equals(id))
+            return true;
+        }
+
+        if (usertype.equals("Delivery"))
+        {
+            if(order.getIdDelivery().equals(id))
+                return true;
+        }
+        if (usertype.equals("Business"))
+        {
+            if(order.getIdBusiness().equals(id))
+                return true;
+        }
+
+        return false;
+    }
+
     private void getVariableGlogal() {
         prefs = getSharedPreferences("shared_login_data",   Context.MODE_PRIVATE);
         id = prefs.getString("id", "");
+        usertype = prefs.getString("usertype", "");
     }
 
     public void refesh(View view) {
@@ -123,9 +141,9 @@ public class ListOrders extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     ordersListView.clear();
                     for (DataSnapshot objSnaptshot : snapshot.getChildren()) {
-                        OrderView order = objSnaptshot.getValue(OrderView.class);
+                        Order order = objSnaptshot.getValue(Order.class);
                         ordersListView.add(order);
-                        AdapterOrder adapterOrder =  new AdapterOrder(ListOrders.this, (ArrayList<OrderView>) ordersListView);
+                        AdapterOrder adapterOrder =  new AdapterOrder(ListOrders.this, (ArrayList<Order>) ordersListView);
                         listorder.setAdapter(adapterOrder);
                     }
                 }

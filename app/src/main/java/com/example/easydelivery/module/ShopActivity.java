@@ -4,11 +4,9 @@ package com.example.easydelivery.module;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -20,7 +18,8 @@ import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.FireBaseRealtime;
 import com.example.easydelivery.model.Delivery;
 import com.example.easydelivery.model.MyCar;
-import com.example.easydelivery.model.Orders;
+import com.example.easydelivery.model.Order;
+import com.example.easydelivery.model.OrderDatail;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.UUID;
 
 public class ShopActivity extends AppCompatActivity {
 
@@ -42,7 +40,7 @@ public class ShopActivity extends AppCompatActivity {
     private String id;
     private ArrayList<Delivery> deliveryArrayList = new ArrayList<Delivery>();
     private ArrayList<MyCar> myCarList = new ArrayList<MyCar>();
-    private ArrayList<Orders> ordersList = new ArrayList<Orders>();
+    private ArrayList<OrderDatail> orderDatailList = new ArrayList<OrderDatail>();
     private Spinner spinner;
     private FirebaseDatabase firebaseDatabase;
     String [] deliveryVector;
@@ -134,38 +132,40 @@ public class ShopActivity extends AppCompatActivity {
     public void addOrders(View view) {
         String key =  databaseReference.push().getKey();
         String nameDeliver = spinner.getSelectedItem().toString();
-        String idDeliver = deliveryVector[spinner.getSelectedItemPosition()];
         String dateAndTime =  obtenerFechaConFormato("yyyy-MM-dd","GMT-5")+":"+ obtenerFechaConFormato("HH:mm:ss","GMT-5");
-
+        String idDeliver = deliveryArrayList.get(spinner.getSelectedItemPosition()).getId();
+        Order order = new Order();
+        order.setIdOrder(key);
+        order.setStatus("Pedido Sin Entregar");
         for (int i = 0;i<myCarList.size();i++)
         {
-            Orders orders = new Orders();
+            OrderDatail orderDatail = new OrderDatail();
+            orderDatail.setIdProduct(myCarList.get(i).getIdProduct());
+            orderDatail.setProductname(myCarList.get(i).getProductname());
+            orderDatail.setPhotoProduct(myCarList.get(i).getPhotoProduct());
 
-            orders.setIdProduct(myCarList.get(i).getIdProduct());
-            orders.setProductname(myCarList.get(i).getProductname());
-            orders.setPhotoProduct(myCarList.get(i).getPhotoProduct());
+            order.setIdBusiness(myCarList.get(i).getIdBusiness());
+            order.setBusinessname(myCarList.get(i).getBusinessname());
 
-            orders.setIdBusiness(myCarList.get(i).getIdBusiness());
-            orders.setBusinessname(myCarList.get(i).getBusinessname());
+            order.setIdClient(myCarList.get(i).getIdClient());
+            order.setClientName(myCarList.get(i).getClientName());
 
-            orders.setIdClient(myCarList.get(i).getIdClient());
-            orders.setClientName(myCarList.get(i).getClientName());
+            orderDatail.setPrice(myCarList.get(i).getPrice());
+            orderDatail.setQuantity(myCarList.get(i).getQuantity());
+            orderDatail.setSubTotal(myCarList.get(i).getSubTotal());
 
-            orders.setPrice(myCarList.get(i).getPrice());
-            orders.setQuantity(myCarList.get(i).getQuantity());
-            orders.setSubTotal(myCarList.get(i).getSubTotal());
 
-            orders.setEstado("Pedido Sin Entregar");
-            orders.setIdOrder(key);
-            orders.setDeliveryname(nameDeliver);
-            orders.setIdDelivery(idDeliver);
-            orders.setDate(dateAndTime);
-            ordersList.add(orders);
+            orderDatail.setIdOrder(key);
+            order.setIdOrder(key);
+            order.setDeliveryname(nameDeliver);
+            order.setIdDelivery(idDeliver);
+            order.setDate(dateAndTime);
+            orderDatailList.add(orderDatail);
         }
         FireBaseRealtime realtime = new FireBaseRealtime();
 
-        for (int i = 0;i<ordersList.size();i++) {
-            realtime.registerShop(ordersList.get(i), this);
+        for (int i = 0; i< orderDatailList.size(); i++) {
+            realtime.registerShop(orderDatailList.get(i),order, id,this);
         }
     }
     @SuppressLint("SimpleDateFormat")

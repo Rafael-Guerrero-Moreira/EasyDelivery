@@ -5,7 +5,16 @@ public class InfoBusiness {
    private String phone;
    private String typecomerce;
    private String address;
+   private String coordinates;
    private String urllogo;
+
+    public String getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
+    }
 
     public String getIdBuissnes() {
         return idBuissnes;

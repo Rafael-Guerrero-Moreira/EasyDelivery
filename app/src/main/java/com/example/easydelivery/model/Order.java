@@ -1,6 +1,6 @@
 package com.example.easydelivery.model;
 
-public class OrderView {
+public class Order {
     private String idOrder;
     private String idClient;
     private String clientName;

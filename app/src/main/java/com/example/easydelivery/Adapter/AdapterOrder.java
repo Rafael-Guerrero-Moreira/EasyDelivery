@@ -8,12 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.easydelivery.R;
-import com.example.easydelivery.model.OrderView;
+import com.example.easydelivery.model.Order;
 
 import java.util.ArrayList;
 
-public class AdapterOrder  extends ArrayAdapter<OrderView>  {
-    public AdapterOrder(Context context, ArrayList<OrderView> datos) {
+public class AdapterOrder  extends ArrayAdapter<Order>  {
+    public AdapterOrder(Context context, ArrayList<Order> datos) {
         super(context, R.layout.layout_orders, datos);
 
     }

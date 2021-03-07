@@ -57,7 +57,7 @@ public class MenuOptions {
             case "Business":
                 return result.put(PRODUCTS).put(ORDERS).put(REPORTS);
             case "Client":
-                return result.put(BUSINESS).put(MYCAR).put(DELIVER);
+                return result.put(BUSINESS).put(MYCAR).put(ORDERS);
             case "Delivery":
                 return result.put(ORDERS);
         }

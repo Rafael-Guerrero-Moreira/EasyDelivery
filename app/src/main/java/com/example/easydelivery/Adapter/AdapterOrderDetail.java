@@ -10,13 +10,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
-import com.example.easydelivery.model.OrderView;
-import com.example.easydelivery.model.Orders;
+import com.example.easydelivery.model.OrderDatail;
 
 import java.util.ArrayList;
 
-public class AdapterOrderDetail  extends ArrayAdapter<Orders> {
-        public AdapterOrderDetail(Context context, ArrayList<Orders> datos) {
+public class AdapterOrderDetail  extends ArrayAdapter<OrderDatail> {
+        public AdapterOrderDetail(Context context, ArrayList<OrderDatail> datos) {
             super(context, R.layout.layout_order_detail_list, datos);
 
         }
@@ -32,10 +31,10 @@ public class AdapterOrderDetail  extends ArrayAdapter<Orders> {
             quantity = item.findViewById(R.id.lodTxtProductQuantity);
             subtotal = item.findViewById(R.id.lodTxtSbtotal);
 
-            name.setText(getItem(position).getProductname());
-            price.setText(getItem(position).getPrice());
-            quantity.setText(getItem(position).getQuantity());
-            subtotal.setText(getItem(position).getSubTotal());
+            name.setText("Producto: "+getItem(position).getProductname());
+            price.setText("P.U.: $ "+getItem(position).getPrice());
+            quantity.setText("Cantidad: "+getItem(position).getQuantity());
+            subtotal.setText("Subtotal: "+getItem(position).getSubTotal());
             Glide.with(getContext()).load(getItem(position).getPhotoProduct()).into(ivproduct);
 
             return(item);

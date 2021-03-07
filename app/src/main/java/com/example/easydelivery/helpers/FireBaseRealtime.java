@@ -11,18 +11,14 @@ import androidx.annotation.NonNull;
 import com.example.easydelivery.model.Category;
 import com.example.easydelivery.model.InfoBusiness;
 import com.example.easydelivery.model.MyCar;
-import com.example.easydelivery.model.Orders;
-import com.example.easydelivery.model.Product;
+import com.example.easydelivery.model.Order;
+import com.example.easydelivery.model.OrderDatail;
 import com.example.easydelivery.views.activities.auth.LoginScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class FireBaseRealtime extends LoginScreenActivity {
@@ -75,18 +71,18 @@ public class FireBaseRealtime extends LoginScreenActivity {
         });
         return true;
     }
-    public boolean registerShop(Orders orders , Activity activity) {
+    public boolean registerShop(OrderDatail orderDatail, Order order,String id, Activity activity) {
         setupFirebase();
-        databaseReference.child("OrdersDetail").child(orders.getIdOrder()).child(orders.getIdProduct()).setValue(orders);
-        databaseReference.child("Orders").child(orders.getIdOrder()).child("idOrder").setValue(orders.getIdOrder());
-        databaseReference.child("Orders").child(orders.getIdOrder()).child("idClient").setValue(orders.getIdClient());
-        databaseReference.child("Orders").child(orders.getIdOrder()).child("clientName").setValue(orders.getClientName());
-        databaseReference.child("Orders").child(orders.getIdOrder()).child("idDelivery").setValue(orders.getIdDelivery());
-        databaseReference.child("Orders").child(orders.getIdOrder()).child("deliveryname").setValue(orders.getBusinessname());
-        databaseReference.child("Orders").child(orders.getIdOrder()).child("idBusiness").setValue(orders.getIdBusiness());
-        databaseReference.child("Orders").child(orders.getIdOrder()).child("businessname").setValue(orders.getBusinessname());
-        databaseReference.child("Orders").child(orders.getIdOrder()).child("date").setValue(orders.getDate());
-        databaseReference.child("Orders").child(orders.getIdOrder()).child("status").setValue(orders.getEstado());
+        databaseReference.child("OrdersDetail").child(orderDatail.getIdOrder()).child(orderDatail.getIdProduct()).setValue(orderDatail);
+        databaseReference.child("Orders").child(order.getIdOrder()).setValue(order);
+        databaseReference.child("MyCar").child(id).removeValue();
+
+        return true;
+    }
+    public boolean updateSatusOrder( String order, Activity activity) {
+        setupFirebase();
+        databaseReference.child("Orders").child(order).child("status").setValue("Enviado");
+
         return true;
     }
 

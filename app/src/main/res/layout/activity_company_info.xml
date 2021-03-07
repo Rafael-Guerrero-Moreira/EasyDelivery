@@ -4,132 +4,160 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/alBackground"
     tools:context=".module.CompanyInfo">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingbutoonlogo"
-        android:layout_width="99dp"
-        android:layout_height="96dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="254dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/dodgerblue"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:title="Regresar"
+            android:layout_margin="10dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:onClick="goToPreviousActivity"
+            android:background="?attr/amBackground"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Informacion"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_home_24"
+            android:title="Inicio"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:onClick="goToHomeActivity"
+            android:background="?attr/amBackground" />
+
+    </androidx.appcompat.widget.Toolbar>
+
 
     <LinearLayout
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient_toolbar"
-        android:gravity="bottom"
-        android:padding="0dp"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="599dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="89dp"
+        android:layout_marginBottom="-30dp"
+        android:background="@drawable/layout_bg_rounded_1"
+        android:orientation="vertical"
+        android:paddingEnd="5dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolcompanyinf"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="0dp"
-            app:title="Datos del Negocio"
-            app:titleTextColor="@color/white"
-            />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingEnd="25dp">
+
+                <ImageView
+                    android:id="@+id/ivlogonegocio"
+                    android:layout_width="363dp"
+                    android:layout_height="193dp"
+                    android:background="@drawable/ic_templatephoto" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingbutoonlogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/dodgerblue"
+                    android:clickable="true"
+                    android:layout_gravity="end"
+                    app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:hint="Telefono">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtphone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Spinner
+                    android:id="@+id/sptype"
+                    android:layout_width="345dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"/>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:hint="Direccion">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtadress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPostalAddress" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:hint="Cordenadas"
+                    app:helperTextTextColor="?attr/alText">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtcord"
+                            android:layout_width="291dp"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="41dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="38dp"
+                    android:layout_marginBottom="76dp"
+                    android:background="@color/white"
+                    android:onClick="goToMap"
+                    app:srcCompat="@drawable/ic_baseline_my_location_24" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/layout_button_rounded_1"
+                    android:onClick="insertInfo"
+                    android:text="Crear"
+                    android:textColor="?attr/awText2"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_imputProuctname"
-        android:layout_width="238dp"
-        android:layout_height="68dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="313dp"
-        android:hint="Numero de telefono">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtphone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Spinner
-        android:id="@+id/sptype"
-        android:layout_width="238dp"
-        android:layout_height="68dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="87dp"
-        android:layout_marginBottom="217dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_adress"
-        android:layout_width="238dp"
-        android:layout_height="68dp"
-
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="445dp"
-        android:hint="Direccion">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtadress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_cord"
-        android:layout_width="238dp"
-        android:layout_height="68dp"
-
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="519dp"
-        android:hint="Cordenadas">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtcord"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/ivlogonegocio"
-        android:layout_width="301dp"
-        android:layout_height="194dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="98dp"
-        android:layout_marginEnd="48dp"
-        android:background="@drawable/ic_templatephoto" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="76dp"
-        android:background="@color/white"
-        app:srcCompat="@drawable/ic_baseline_my_location_24"
-        android:onClick="goToMap"
-        />
-
 
 </RelativeLayout>

@@ -66,8 +66,6 @@ public class ModuleProduct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_module_product);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarproduct);
-        setSupportActionBar(myToolbar);
         nameproduct = findViewById(R.id.txtproductname);
         descripction = findViewById(R.id.txtdescripcion);
         spinner = findViewById(R.id.spinnerCategory);
@@ -144,41 +142,7 @@ public class ModuleProduct extends AppCompatActivity {
             ivProduct.setBackground(null);
         }
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menuproductcreate,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.icon_add: {
-                try
-                {
-                    storage.child("Products").child(idUser+"/"+ uri.getLastPathSegment()).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                            while(!uri.isComplete());
-                            Uri url = uri.getResult();
-                            saveProduct(imageselect(url));
-                        }
-                    });
-                }
-                catch (Exception e )
-                {
-                    saveProduct(urlPhoto);
-                }
 
-                    break;
-            }
-            case R.id.icon_back: {
-                startActivity(new Intent(this, ProductsListScreenActivity.class));
-                finish();
-            }
-            }
-            return true;
-    }
     private void saveProduct(String url)
     {
         Product p = new Product();
@@ -243,4 +207,28 @@ public class ModuleProduct extends AppCompatActivity {
 
     }
 
+    public void goToPreviousActivity(View view) {
+    }
+
+    public void goToHomeActivity(View view) {
+    }
+
+    public void insertProduct(View view) {
+        try
+        {
+            storage.child("Products").child(idUser+"/"+ uri.getLastPathSegment()).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                    while(!uri.isComplete());
+                    Uri url = uri.getResult();
+                    saveProduct(imageselect(url));
+                }
+            });
+        }
+        catch (Exception e )
+        {
+            saveProduct(urlPhoto);
+        }
+    }
 }

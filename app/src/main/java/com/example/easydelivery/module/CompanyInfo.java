@@ -103,53 +103,8 @@ public class CompanyInfo extends AppCompatActivity {
             ivlogo.setImageURI(imageUri);
         }
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menuinfouser,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.icon_add: {
-                    if (!imageselect(imageUri).equals("null"))
-                    storage.child("LogoBuissnes").child(idUser +"/"+imageUri.getLastPathSegment()).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                            while(!uri.isComplete());
-                            Uri url = uri.getResult();
-                            InfoBusiness inf = new InfoBusiness();
-                            inf.setPhone(textphone.getText().toString());
-                            inf.setTypecomerce(sptype.getSelectedItem().toString());
-                            inf.setAddress(textadress.getText().toString());
-                            inf.setIdBuissnes(idUser);
-                            inf.setUrllogo(imageselect(url));
-                            FireBaseRealtime realtime = new FireBaseRealtime();
-                            realtime.RegisterInfoBusiness(inf,CompanyInfo.this);
-                        }
-                    });
-                    else
-                    {
 
-                        InfoBusiness inf = new InfoBusiness();
-                        inf.setPhone(textphone.getText().toString());
-                        inf.setTypecomerce(sptype.getSelectedItem().toString());
-                        inf.setAddress(textadress.getText().toString());
-                        inf.setIdBuissnes(idUser);
-                        inf.setUrllogo((buisnes.getUrllogo()));
-                        FireBaseRealtime realtime = new FireBaseRealtime();
-                        realtime.RegisterInfoBusiness(inf,CompanyInfo.this);
-                    }
-                    break;
-            }
-            case R.id.icon_back: {
-                startActivity(new Intent(this, ProductsListScreenActivity.class));
-                finish();
-            }
-        }
-        return true;
-    }
+
     private void inicializarFirebase (){
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -172,6 +127,7 @@ public class CompanyInfo extends AppCompatActivity {
                             if(buisnes.getUrllogo().isEmpty()) return;
                             Glide.with(CompanyInfo.this).load(buisnes.getUrllogo()).into(ivlogo);
                             sptype.setSelection(valueselect(buisnes.getTypecomerce()));
+                            cordBusiness.setText(buisnes.getCoordinates());
                             break;
                         }
                 }
@@ -204,5 +160,50 @@ public class CompanyInfo extends AppCompatActivity {
     public void goToMap(View view) {
         startActivity(new Intent(this, MapsActivity.class));
         finish();
+    }
+
+    public void goToPreviousActivity(View view) {
+    }
+
+    public void goToHomeActivity(View view) {
+    }
+
+    public void insertInfo(View view) {
+        try {
+            if (!imageselect(imageUri).equals("null"))
+                storage.child("LogoBuissnes").child(idUser +"/"+imageUri.getLastPathSegment()).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                        while(!uri.isComplete());
+                        Uri url = uri.getResult();
+                        InfoBusiness inf = new InfoBusiness();
+                        inf.setPhone(textphone.getText().toString());
+                        inf.setTypecomerce(sptype.getSelectedItem().toString());
+                        inf.setAddress(textadress.getText().toString());
+                        inf.setIdBuissnes(idUser);
+                        inf.setUrllogo(imageselect(url));
+                        FireBaseRealtime realtime = new FireBaseRealtime();
+                        realtime.RegisterInfoBusiness(inf,CompanyInfo.this);
+                    }
+                });
+            else
+            {
+
+                InfoBusiness inf = new InfoBusiness();
+                inf.setPhone(textphone.getText().toString());
+                inf.setTypecomerce(sptype.getSelectedItem().toString());
+                inf.setAddress(textadress.getText().toString());
+                inf.setIdBuissnes(idUser);
+                inf.setUrllogo((buisnes.getUrllogo()));
+                inf.setCoordinates(cordBusiness.getText().toString());
+                FireBaseRealtime realtime = new FireBaseRealtime();
+                realtime.RegisterInfoBusiness(inf,CompanyInfo.this);
+            }
+        } catch (Exception e)
+        {
+
+        }
+
     }
 }
