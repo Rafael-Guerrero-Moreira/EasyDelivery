@@ -4,6 +4,7 @@ import com.example.easydelivery.generallist.ListBusinessforClient;
 import com.example.easydelivery.generallist.ListOrders;
 import com.example.easydelivery.generallist.MyCarListScreenActivity;
 import com.example.easydelivery.model.MyCar;
+import com.example.easydelivery.module.RatingsActivity;
 import com.example.easydelivery.module.ShopActivity;
 import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 import com.example.easydelivery.views.activities.reports.ReportPie;
@@ -19,7 +20,7 @@ public class MenuOptions {
     private static JSONObject BUSINESS;
     private static JSONObject DELIVER;
     private static JSONObject MYCAR;
-
+    private static JSONObject RATINGS;
     static {
         try {
             PRODUCTS = new JSONObject()
@@ -46,7 +47,10 @@ public class MenuOptions {
                     .put("title", "Mi Carrito")
                     .put("image", "https://img.icons8.com/dusk/344/paper-plane.png")
                     .put("activity", MyCarListScreenActivity.class);
-
+            RATINGS = new JSONObject()
+                    .put("title", "Calificacion")
+                    .put("image", "https://img.icons8.com/dusk/344/product.png")
+                    .put("activity", RatingsActivity.class);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -56,11 +60,11 @@ public class MenuOptions {
         JSONArray result = new JSONArray();
         switch (userType) {
             case "Business":
-                return result.put(PRODUCTS).put(ORDERS).put(REPORTS);
+                return result.put(PRODUCTS).put(ORDERS).put(REPORTS).put(RATINGS);
             case "Client":
-                return result.put(BUSINESS).put(MYCAR).put(ORDERS);
+                return result.put(BUSINESS).put(MYCAR).put(ORDERS).put(RATINGS);
             case "Delivery":
-                return result.put(ORDERS);
+                return result.put(ORDERS).put(RATINGS);
         }
         return result;
     }
