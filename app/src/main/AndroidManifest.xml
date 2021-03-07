@@ -22,7 +22,8 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyDeliver">
-        <activity android:name=".generallist.OrderDetail"></activity>
+        <activity android:name=".views.activities.reports.ReportPie"></activity>
+        <activity android:name=".generallist.OrderDetail" />
         <activity android:name=".generallist.ListOrders" />
         <activity android:name=".module.ShopActivity" />
         <activity android:name=".generallist.MyCarListScreenActivity" />

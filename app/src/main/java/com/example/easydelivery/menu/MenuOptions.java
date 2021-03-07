@@ -6,6 +6,7 @@ import com.example.easydelivery.generallist.MyCarListScreenActivity;
 import com.example.easydelivery.model.MyCar;
 import com.example.easydelivery.module.ShopActivity;
 import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
+import com.example.easydelivery.views.activities.reports.ReportPie;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +33,7 @@ public class MenuOptions {
             REPORTS = new JSONObject()
                     .put("title", "Reportes")
                     .put("image", "https://img.icons8.com/dusk/344/fine-print.png")
-                    .put("activity", null);
+                    .put("activity", ReportPie.class);
             BUSINESS = new JSONObject()
                     .put("title", "Negocios")
                     .put("image", "https://img.icons8.com/dusk/344/small-business.png")
