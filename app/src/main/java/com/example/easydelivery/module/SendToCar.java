@@ -3,6 +3,7 @@ package com.example.easydelivery.module;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.FireBaseRealtime;
 import com.example.easydelivery.model.MyCar;
 import com.example.easydelivery.model.Product;
+import com.example.easydelivery.views.activities.MainActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -117,5 +119,14 @@ public class SendToCar extends AppCompatActivity {
         myCar.setSubTotal(String.valueOf(sb));
         FireBaseRealtime realtime = new FireBaseRealtime();
         realtime.RegisterMycar(myCar,SendToCar.this);
+    }
+
+    public void goToPreviousActivity(View view) {
+        finish();
+    }
+
+    public void goToHomeActivity(View view) {
+        startActivity(new Intent( this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+
     }
 }

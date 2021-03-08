@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.RatingBar;
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.FireBaseRealtime;
 import com.example.easydelivery.model.ReportProduct;
+import com.example.easydelivery.views.activities.MainActivity;
+import com.example.easydelivery.views.activities.auth.LoginScreenActivity;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -56,10 +59,10 @@ public class RatingsActivity extends AppCompatActivity {
     }
 
     public void goToPreviousActivity(View view) {
+        finish();
     }
 
-    public void goToLoginActivity(View view) {
-    }
+
 
     public void SendRatings(View view) {
         FireBaseRealtime realtime = new FireBaseRealtime();
@@ -157,5 +160,10 @@ public class RatingsActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         // firebaseDatabase.setPersistenceEnabled(true);
         databaseReference = firebaseDatabase.getReference();
+    }
+
+    public void goToHomeActivity(View view) {
+        startActivity(new Intent( RatingsActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+
     }
 }

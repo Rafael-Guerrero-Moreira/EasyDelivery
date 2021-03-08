@@ -4,17 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/alBackground"
     tools:context=".module.SendToCar">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp"
+            android:background="?attr/amBackground"
+            android:onClick="goToPreviousActivity"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:title="Regresar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Calificanos"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:background="?attr/amBackground"
+            android:onClick="goToHomeActivity"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_baseline_home_24"
+            android:title="Inicio" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="207dp"
+        android:layout_height="265dp"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imvPhotoProduct"
             android:layout_width="154dp"
-            android:layout_height="match_parent"
+            android:layout_height="267dp"
             app:srcCompat="@drawable/ic_templatephoto"
             tools:layout_editor_absoluteX="21dp"
             tools:layout_editor_absoluteY="21dp" />
@@ -26,90 +71,108 @@
 
             <TextView
                 android:id="@+id/textViewnameforcar"
-                android:layout_width="197dp"
-                android:layout_height="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Nombre"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="28dp" />
+                android:textColor="?attr/alText2"
+                android:textSize="23sp" />
 
             <TextView
                 android:id="@+id/idEditableName"
-                android:layout_width="197dp"
-                android:layout_height="26dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Name"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="53dp" />
+                android:textColor="?attr/alText2"
+                android:textSize="23sp" />
 
             <TextView
                 android:id="@+id/textViewPrice"
-                android:layout_width="197dp"
-                android:layout_height="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Precio"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="134dp" />
+                android:textColor="?attr/alText2"
+                android:textSize="23sp" />
 
             <TextView
                 android:id="@+id/idEditablePrice"
-                android:layout_width="197dp"
-                android:layout_height="26dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Price"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="159dp" />
+                android:textColor="?attr/alText2"
+                android:textSize="23sp" />
 
             <TextView
                 android:id="@+id/textViewDescription"
-                android:layout_width="197dp"
-                android:layout_height="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Descripcion"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="81dp" />
+                android:textColor="?attr/alText2"
+                android:textSize="23sp" />
 
             <TextView
                 android:id="@+id/idEditableDescription"
-                android:layout_width="197dp"
-                android:layout_height="26dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Desciption"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="106dp" />
+                android:textColor="?attr/alText2"
+                android:textSize="23sp" />
 
             <TextView
                 android:id="@+id/textViewCategory"
-                android:layout_width="197dp"
-                android:layout_height="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Categoria"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="81dp" />
+                android:textColor="?attr/alText2"
+                android:textSize="23sp" />
 
             <TextView
                 android:id="@+id/idEditableCaregory"
-                android:layout_width="197dp"
-                android:layout_height="26dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Category"
-                tools:layout_editor_absoluteX="174dp"
-                tools:layout_editor_absoluteY="106dp" />
+                android:textColor="?attr/alText2"
+                android:textSize="23sp" />
 
 
         </LinearLayout>
     </LinearLayout>
 
-    <NumberPicker
-        android:id="@+id/npQuantity"
-        android:layout_width="211dp"
-        android:layout_height="49dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="284dp" />
+</LinearLayout>
 
-    <Button
-        android:id="@+id/btnAddToCar"
-        android:layout_width="211dp"
-        android:layout_height="49dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="202dp"
-        android:text="Agregar al carrito"
-        android:onClick="onclickSendCar"
-        tools:layout_editor_absoluteY="551dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="361dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="327dp"
+        android:layout_marginBottom="-30dp"
+        android:background="@drawable/layout_bg_rounded_1"
+        android:orientation="vertical"
+        android:paddingEnd="5dp">
+
+
+        <NumberPicker
+            android:id="@+id/npQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/layout_button_rounded_1"
+            android:onClick="onclickSendCar"
+            android:textColor="?attr/awText2"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnAddToCar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/layout_button_rounded_1"
+            android:onClick="onclickSendCar"
+            android:text="Envia"
+            android:textColor="?attr/awText2"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </RelativeLayout>
