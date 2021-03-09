@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -15,11 +16,13 @@ import android.widget.Spinner;
 import com.example.easydelivery.Adapter.AdapterShopList;
 import com.example.easydelivery.R;
 
+import com.example.easydelivery.generallist.ListOrders;
 import com.example.easydelivery.helpers.FireBaseRealtime;
 import com.example.easydelivery.model.Delivery;
 import com.example.easydelivery.model.MyCar;
 import com.example.easydelivery.model.Order;
 import com.example.easydelivery.model.OrderDatail;
+import com.example.easydelivery.views.activities.MainActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -123,10 +126,13 @@ public class ShopActivity extends AppCompatActivity {
 
     }
 
-    public void goToHomeActivity(View view) {
+    public void goToPreviousActivity(View view) {
+        finish();
     }
 
-    public void goToPreviousActivity(View view) {
+    public void goToHomeActivity(View view) {
+        startActivity(new Intent( this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+
     }
 
     public void addOrders(View view) {
@@ -167,6 +173,8 @@ public class ShopActivity extends AppCompatActivity {
         for (int i = 0; i< orderDatailList.size(); i++) {
             realtime.registerShop(orderDatailList.get(i),order, id,this);
         }
+        startActivity(new Intent( this, ListOrders.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+
     }
     @SuppressLint("SimpleDateFormat")
     public static String obtenerFechaConFormato(String formato, String zonaHoraria) {
