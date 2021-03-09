@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -89,7 +90,9 @@ public class OrderDetail extends AppCompatActivity {
 
     public void sendOrder(View view) {
        FireBaseRealtime realtime = new FireBaseRealtime();
-        realtime.updateSatusOrder(orderID,OrderDetail.this);
+        realtime.updateSatusOrder(orderID,usertype,OrderDetail.this);
+        startActivity(new Intent( this, ListOrders.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+
     }
     private Boolean userView() {
        databaseReference.child("Orders/"+orderID+"/status").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -100,6 +103,10 @@ public class OrderDetail extends AppCompatActivity {
               {
                   btnconfirm.setText("Recibido");
                   btnconfirm.setEnabled(true);
+              }
+              else if(usertype.equals("Client")&&status.equals("Pedido Sin Entregar"))
+              {
+                  btnconfirm.setVisibility(View.INVISIBLE);
               }
               if (usertype.equals("Delivery"))
               {

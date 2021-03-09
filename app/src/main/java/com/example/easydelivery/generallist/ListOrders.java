@@ -84,7 +84,7 @@ public class ListOrders extends AppCompatActivity {
     }
     public void resultQueryOrders()
     {
-        databaseReference.child("Orders").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Orders").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ordersListView.clear();

@@ -84,9 +84,13 @@
                     android:id="@+id/ratingBar2"
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
-                    android:numStars="5"
 
-                    android:rating="2" />
+                    android:duplicateParentState="false"
+                    android:indeterminate="false"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:padding="60sp"
+                    android:rating="0" />
 
                 <Button
                     android:id="@+id/btnSendRatings"

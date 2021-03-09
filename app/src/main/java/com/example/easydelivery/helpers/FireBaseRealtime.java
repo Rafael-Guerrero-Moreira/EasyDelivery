@@ -79,9 +79,12 @@ public class FireBaseRealtime extends LoginScreenActivity {
 
         return true;
     }
-    public boolean updateSatusOrder( String order, Activity activity) {
+    public boolean updateSatusOrder( String order,String usertype, Activity activity) {
         setupFirebase();
+        if(usertype.equals("Business"))
         databaseReference.child("Orders").child(order).child("status").setValue("Enviado");
+        if(usertype.equals("Client"))
+            databaseReference.child("Orders").child(order).child("status").setValue("Recibido");
         return true;
     }
 
