@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -164,8 +165,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         else {
+
          String s =   editText.getText().toString();
-            startActivity(new Intent(MapsActivity.this, CompanyInfo.class).putExtra("cordenadas",s));
+         Bundle bundle = getIntent().getExtras();
+         String phone =getIntent().getStringExtra("phone");
+         String adress =getIntent().getStringExtra("adress");
+         Uri url = Uri.parse(bundle.getString("urlphoto"));
+         String spiner =getIntent().getStringExtra("slect");
+         startActivity(new Intent(MapsActivity.this, CompanyInfo.class)
+                    .putExtra("cordenadas",s).putExtra("phone",phone
+                    ).putExtra("adress",adress).putExtra("urlphoto",url.toString()).putExtra("slect",spiner));
+        finish();
         }
 
     }

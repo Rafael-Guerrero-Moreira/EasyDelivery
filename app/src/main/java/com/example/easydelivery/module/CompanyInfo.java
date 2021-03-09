@@ -64,7 +64,18 @@ public class CompanyInfo extends AppCompatActivity {
         inicializarFirebase ();
         instanceVariable();
         try {
+            Bundle bundle= getIntent().getExtras();
             cordenadas = getIntent().getStringExtra("cordenadas");
+            String phone =getIntent().getStringExtra("phone");
+            String adress =getIntent().getStringExtra("adress");
+            imageUri = Uri.parse(bundle.getString("urlphoto"));
+            String spiner =getIntent().getStringExtra("slect");
+
+            textphone.setText(phone);
+            textadress.setText(adress);
+            ivlogo.setImageURI(imageUri);
+            sptype.setSelection(Integer.parseInt(spiner));
+            cordBusiness.setText(buisnes.getCoordinates());
             cordBusiness.setText(cordenadas);
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,7 +170,9 @@ public class CompanyInfo extends AppCompatActivity {
         }
     }
     public void goToMap(View view) {
-        startActivity(new Intent(this, MapsActivity.class));
+        startActivity(new Intent(this, MapsActivity.class).putExtra("phone",textphone.getText().toString()
+        ).putExtra("adress",textadress.getText().toString()).putExtra("urlphoto",imageUri.toString()).putExtra("slect",sptype.getSelectedItemId()
+        ));
         finish();
     }
 
