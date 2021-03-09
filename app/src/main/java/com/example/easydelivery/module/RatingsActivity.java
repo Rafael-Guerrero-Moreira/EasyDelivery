@@ -166,4 +166,6 @@ public class RatingsActivity extends AppCompatActivity {
         startActivity(new Intent( RatingsActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
 
     }
+
+
 }

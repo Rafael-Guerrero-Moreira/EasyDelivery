@@ -17,6 +17,7 @@ import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.FireBaseRealtime;
 import com.example.easydelivery.model.Order;
 import com.example.easydelivery.model.OrderDatail;
+import com.example.easydelivery.views.activities.MainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,9 +84,11 @@ public class OrderDetail extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
     }
     public void goToHomeActivity(View view) {
-    }
+        startActivity(new Intent( this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
 
+    }
     public void goToPreviousActivity(View view) {
+        finish();
     }
 
     public void sendOrder(View view) {

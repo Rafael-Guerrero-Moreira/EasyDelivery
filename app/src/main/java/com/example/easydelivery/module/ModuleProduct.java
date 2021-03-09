@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
+import com.example.easydelivery.views.activities.MainActivity;
 import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 import com.example.easydelivery.model.Category;
 import com.example.easydelivery.model.Product;
@@ -207,12 +208,13 @@ public class ModuleProduct extends AppCompatActivity {
 
     }
 
-    public void goToPreviousActivity(View view) {
-    }
-
     public void goToHomeActivity(View view) {
-    }
+        startActivity(new Intent( this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
 
+    }
+    public void goToPreviousActivity(View view) {
+        finish();
+    }
     public void insertProduct(View view) {
         try
         {

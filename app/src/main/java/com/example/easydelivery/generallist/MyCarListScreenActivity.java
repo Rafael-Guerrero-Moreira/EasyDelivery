@@ -17,6 +17,7 @@ import com.example.easydelivery.model.MyCar;
 import com.example.easydelivery.model.Product;
 import com.example.easydelivery.module.ModuleProduct;
 import com.example.easydelivery.module.ShopActivity;
+import com.example.easydelivery.views.activities.MainActivity;
 import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -122,9 +123,11 @@ public class MyCarListScreenActivity extends AppCompatActivity {
 
 
     public void goToHomeActivity(View view) {
-    }
+        startActivity(new Intent( this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
 
+    }
     public void goToPreviousActivity(View view) {
+        finish();
     }
     private void InicializarFirebase (){
         FirebaseApp.initializeApp(this);

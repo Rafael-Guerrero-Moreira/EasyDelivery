@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.FireBaseRealtime;
+import com.example.easydelivery.views.activities.MainActivity;
 import com.example.easydelivery.views.activities.products.ProductsListScreenActivity;
 import com.example.easydelivery.model.InfoBusiness;
 import com.example.easydelivery.views.activities.MapsActivity;
@@ -162,10 +163,12 @@ public class CompanyInfo extends AppCompatActivity {
         finish();
     }
 
-    public void goToPreviousActivity(View view) {
-    }
-
     public void goToHomeActivity(View view) {
+        startActivity(new Intent( this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+
+    }
+    public void goToPreviousActivity(View view) {
+        finish();
     }
 
     public void insertInfo(View view) {
