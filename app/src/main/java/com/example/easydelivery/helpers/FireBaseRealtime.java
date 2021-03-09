@@ -13,6 +13,7 @@ import com.example.easydelivery.model.InfoBusiness;
 import com.example.easydelivery.model.MyCar;
 import com.example.easydelivery.model.Order;
 import com.example.easydelivery.model.OrderDatail;
+import com.example.easydelivery.model.RatingBusiness;
 import com.example.easydelivery.views.activities.auth.LoginScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -92,6 +93,21 @@ public class FireBaseRealtime extends LoginScreenActivity {
     public boolean Ratings(String id,String ratings) {
         setupFirebase();
         databaseReference.child("Ratings").child(id).setValue(ratings);
+        return true;
+    }
+    public boolean RatingForBusiness(RatingBusiness ratings, Activity activity) {
+        setupFirebase();
+        databaseReference.child("RatingsBusiness").child(ratings.getIdBusiness()).child(ratings.getIdClient()).setValue(ratings).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(activity, "Agregado ", Toast.LENGTH_LONG).show();
+                   // activity.finish();
+                } else {
+                    Toast.makeText(activity, "Error al  Guardar datos", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
         return true;
     }
 

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/alBackground"
+    tools:context=".views.activities.reports.RatingForBusiness">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp"
+            android:background="?attr/amBackground"
+            android:onClick="goToPreviousActivity"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:title="Regresar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Calificanos"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:background="?attr/amBackground"
+            android:onClick="goToHomeActivity"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_baseline_home_24"
+            android:title="Inicio" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="135dp"
+        android:layout_marginEnd="3dp"
+        android:text="Usa las Estrellas para marcar tu grado de satisfaccion"
+        android:textColor="?attr/alText2"
+        android:textSize="23sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="187dp"
+        android:layout_marginBottom="-30dp"
+        android:background="@drawable/layout_bg_rounded_1"
+        android:orientation="vertical"
+        android:paddingEnd="5dp">
+
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingEnd="25dp">
+
+                <RatingBar
+                    android:id="@+id/rBarBusiness"
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:duplicateParentState="false"
+                    android:indeterminate="false"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:padding="60sp"
+                    android:rating="0" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtcontentComents"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:hint="Escriba un comentario">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtcoment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <Button
+                    android:id="@+id/btnSendRatingsBusiness"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/layout_button_rounded_1"
+                    android:onClick="SendRatings"
+                    android:text="Enviar"
+                    android:textColor="?attr/awText2"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/PieChartRatings"
+                    android:layout_width="match_parent"
+                    android:layout_height="312dp"
+                    android:scrollbars="horizontal" />
+                <ListView
+                    android:id="@+id/listComents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</RelativeLayout>

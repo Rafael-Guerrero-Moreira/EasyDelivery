@@ -63,6 +63,8 @@ public class CompanyInfo extends AppCompatActivity {
         setContentView(R.layout.activity_company_info);
         inicializarFirebase ();
         instanceVariable();
+        sptype.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,Opciones));
+
         try {
             Bundle bundle= getIntent().getExtras();
             cordenadas = getIntent().getStringExtra("cordenadas");
@@ -89,7 +91,6 @@ public class CompanyInfo extends AppCompatActivity {
                 startActivityForResult(intent,Gallery_Intent);
             }
         });
-        sptype.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,Opciones));
         verifydata();
 
     }

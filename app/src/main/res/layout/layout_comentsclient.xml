@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/lnameClient"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:paddingVertical="15dp"
+            android:paddingStart="10dp"
+            android:text="Nombre"
+            android:textColor="?attr/alText"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <RatingBar
+            android:id="@+id/rBarView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminate="false"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:saveEnabled="false"
+            android:rating="0" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lComents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Comentario"
+        android:paddingVertical="15dp"
+        android:paddingStart="10dp"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/layout_bg_rounded_6"
+        android:textColor="?attr/alText" />
+
+</LinearLayout>
+
+</RelativeLayout>

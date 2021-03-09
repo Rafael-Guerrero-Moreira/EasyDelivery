@@ -205,6 +205,27 @@
             app:fab_showAnimation="@anim/fab_slide_in_from_right"
             app:fab_hideAnimation="@anim/fab_slide_out_to_right"
             app:fab_label="Carrito"/>
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/aplviewRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_baseline_star_24"
+            app:fab_colorNormal="?attr/amBackground"
+            app:fab_colorPressed="?attr/amBackground"
+            app:fab_colorRipple="#99FFFFFF"
+            app:fab_showShadow="true"
+            app:fab_shadowColor="#66000000"
+            app:fab_shadowRadius="4dp"
+            app:fab_shadowXOffset="1dp"
+            app:fab_shadowYOffset="3dp"
+            app:fab_size="mini"
+            app:fab_showAnimation="@anim/fab_slide_in_from_right"
+            app:fab_hideAnimation="@anim/fab_slide_out_to_right"
+            app:fab_label="Calificacion"/>
+
     </com.github.clans.fab.FloatingActionMenu>
 
 </RelativeLayout>

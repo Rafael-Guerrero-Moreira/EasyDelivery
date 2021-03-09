@@ -28,6 +28,7 @@ import com.example.easydelivery.model.Product;
 import com.example.easydelivery.module.ModuleProduct;
 import com.example.easydelivery.module.SendToCar;
 import com.example.easydelivery.views.activities.MainActivity;
+import com.example.easydelivery.views.activities.reports.RatingForBusiness;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.FirebaseApp;
@@ -51,7 +52,7 @@ public class ProductsListScreenActivity extends AppCompatActivity {
     private String id;
     private String userType;
     private FloatingActionMenu aplMenuSection;
-    private FloatingActionButton aplAddProduct, aplAddProductCategory,alpViewMyCar;
+    private FloatingActionButton aplAddProduct, aplAddProductCategory,alpViewMyCar,alpViewRating ;
     private TextView aplTxtCategorySelected;
     private SharedPreferences prefs;
 
@@ -76,6 +77,7 @@ public class ProductsListScreenActivity extends AppCompatActivity {
         aplTxtCategorySelected = findViewById(R.id.aplTxtCategorySelected);
         aplAddProduct = findViewById(R.id.aplAddProduct);
         aplAddProductCategory = findViewById(R.id.aplAddProductCategory);
+        alpViewRating = findViewById(R.id.aplviewRating);
         alpViewMyCar = findViewById(R.id.aplviewMyCar);
         if(userType.equals("Client")){
             aplAddProduct.hideButtonInMenu(true);
@@ -120,9 +122,18 @@ public class ProductsListScreenActivity extends AppCompatActivity {
                 goToMyCar();
             }
         });
+        alpViewRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoRatings();
+            }
+        });
 
     }
 
+    private void gotoRatings() {
+        startActivity(new Intent(this, RatingForBusiness.class).putExtra("idBusiness",id).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
 
 
     // TOOLBAR SETTINGS (hay que agregar entre las opciones las categorías automaticamente)
@@ -164,6 +175,7 @@ public class ProductsListScreenActivity extends AppCompatActivity {
             aplAddProduct.setVisibility(View.GONE);
             aplAddProductCategory.setVisibility(View.GONE);
         }
+        alpViewRating.setVisibility(View.GONE);
 
 
     }
@@ -177,7 +189,7 @@ public class ProductsListScreenActivity extends AppCompatActivity {
             aplAddProduct.setVisibility(View.VISIBLE);
             aplAddProductCategory.setVisibility(View.VISIBLE);
         }
-
+        alpViewRating.setVisibility(View.VISIBLE);
     }
 
     // GO TO ACTIVITIES
