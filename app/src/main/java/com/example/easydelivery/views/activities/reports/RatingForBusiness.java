@@ -101,7 +101,7 @@ public class RatingForBusiness extends AppCompatActivity {
             btnSendRatingsBusiness = findViewById(R.id.btnSendRatingsBusiness);
             listViewComets = findViewById(R.id.listComents);
             textViewmsg = findViewById(R.id.tvMessage);
-        pieChartRatings = findViewById(R.id.PieChartRatings);
+            pieChartRatings = findViewById(R.id.PieChartRatings);
         if(userType.equals("Client"))
         {
             inputLayout.setVisibility(View.VISIBLE);
@@ -134,6 +134,7 @@ public class RatingForBusiness extends AppCompatActivity {
     public void goToPreviousActivity(View view) {
     }
     private void buildDataForReport() {
+        pieEntries.clear();
         String [] strings = new String[businessArrayList.size()];
         for (int i = 0; i<businessArrayList.size();i++)
         {
@@ -170,6 +171,7 @@ public class RatingForBusiness extends AppCompatActivity {
 
     }
     private void createPieChartGrafit() {
+        pieChartRatings.clear();
         Description description = new Description();
         description.setText("Estadisticas de Aceptacion");
         pieChartRatings.setDescription(description);

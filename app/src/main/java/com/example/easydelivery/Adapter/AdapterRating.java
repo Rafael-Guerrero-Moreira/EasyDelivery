@@ -23,7 +23,6 @@ public class AdapterRating extends ArrayAdapter<RatingBusiness> {
         View item = inflater.inflate(R.layout.layout_comentsclient, null);
         TextView name,coments;
         RatingBar start;
-
         name = item.findViewById(R.id.lnameClient);
         coments = item.findViewById(R.id.lComents);
         start = item.findViewById(R.id.rBarView);
