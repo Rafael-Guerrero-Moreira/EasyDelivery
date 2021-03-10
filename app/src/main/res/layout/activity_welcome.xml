@@ -9,12 +9,14 @@
 
     <ImageView
         android:id="@+id/awIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_width="252dp"
+        android:layout_height="272dp"
         android:layout_above="@+id/awLayout"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="140dp"
-        android:src="@drawable/logo_white" />
+        android:layout_marginTop="53dp"
+        android:layout_marginBottom="63dp"
+        android:src="@drawable/logo_ltvaca" />
 
     <LinearLayout
         android:id="@+id/awLayout"

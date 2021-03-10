@@ -7,9 +7,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="violet">#8A2BE2</color>
-    <color name="dodgerblue">#1E90FF</color>
+    <color name="orange">#E55c30</color>
 
-    <color name="toolbar1">#6A1B9A</color>
+    <color name="dodgerblue">#E55c30</color>
+
+    <color name="toolbar1">#E55c30</color>
     <color name="bg1">#9C28B1</color>
     <color name="bg2">#FFFFFF</color>
     <color name="bg3">#212121</color>

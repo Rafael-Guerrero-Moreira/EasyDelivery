@@ -3,7 +3,7 @@
     <style name="Theme.EasyDeliver" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/dodgerblue</item>
-        <item name="colorPrimaryVariant">@color/violet</item>
+        <item name="colorPrimaryVariant">@color/orange</item>
         <item name="colorOnPrimary">@color/white</item>
 
         <!-- Secondary brand color. -->
@@ -17,26 +17,26 @@
 
 
         <!-- Activity Splash -->
-        <item name="asBackground">@color/bg1</item>
-        <item name="asSpinner">@color/spinner1</item>
+        <item name="asBackground">@color/orange</item>
+        <item name="asSpinner">@color/orange</item>
 
         <!-- Activity Welcome -->
-        <item name="awBackground">@color/bg1</item>
+        <item name="awBackground">@color/orange</item>
         <item name="awLayoutRounded">@color/bg2</item>
         <item name="awText">@color/txt1</item>
         <item name="awText2">@color/txt3</item>
-        <item name="awButton">@color/btn1</item>
+        <item name="awButton">@color/orange</item>
 
         <!-- Activity Login, Register and Recover Password -->
-        <item name="alBackground">@color/bg1</item>
+        <item name="alBackground">@color/orange</item>
         <item name="alLayoutRounded">@color/bg2</item>
         <item name="alText">@color/txt1</item>
         <item name="alText2">@color/txt3</item>
         <item name="alText3">@color/txt4</item>
-        <item name="alButton">@color/btn1</item>
+        <item name="alButton">@color/orange</item>
 
         <!-- Activity Dashboard and Others -->
-        <item name="amBackground">@color/bg1</item>
+        <item name="amBackground">@color/orange</item>
         <item name="amBackground2">@color/bg5</item>
         <item name="amBackground3">@color/bg2</item>
         <item name="amText">@color/txt3</item>
@@ -54,7 +54,7 @@
         <item name="android:textColor">@color/txt1</item>
     </style>
     <style name="BottonNavigation">
-        <item name="background">@color/violet</item>
+        <item name="background">@color/orange</item>
         <item name="itemIconTint">@color/white</item>
         <item name="itemTextColor">@color/white</item>
     </style>
