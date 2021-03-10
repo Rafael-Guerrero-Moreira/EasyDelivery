@@ -82,7 +82,6 @@ public class ProductsListScreenActivity extends AppCompatActivity {
         if(userType.equals("Client")){
             aplAddProduct.hideButtonInMenu(true);
             aplAddProductCategory.hideButtonInMenu(true);
-            id = getIntent().getExtras().getString("idBusiness");
         }
         else if(userType.equals("Business")) {
             alpViewMyCar.hideButtonInMenu(true);
@@ -132,7 +131,7 @@ public class ProductsListScreenActivity extends AppCompatActivity {
     }
 
     private void gotoRatings() {
-        startActivity(new Intent(this, RatingForBusiness.class).putExtra("idBusiness",id).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+        startActivity(new Intent(this, RatingForBusiness.class).putExtra("idBusiness",id));
     }
 
 
@@ -228,7 +227,7 @@ public class ProductsListScreenActivity extends AppCompatActivity {
                 productList.clear();
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
                     Product c = objSnaptshot.getValue(Product.class);
-                    if (id.equals(c.getIdBuisnes())) {
+                    if (c.getIdBuisnes().equals("XVFeFqfq9jb4UYhjX8ZNXEOkxhm1")) {
                         productList.add(c);
                         AdapterProducts adapterProducts = new AdapterProducts(ProductsListScreenActivity.this, (ArrayList<Product>) productList);
                         lisproducts.setAdapter(adapterProducts);
@@ -254,7 +253,7 @@ public class ProductsListScreenActivity extends AppCompatActivity {
 
     private void getFirebaseData() {
         prefs = getSharedPreferences("shared_login_data",Context.MODE_PRIVATE);
-        id = prefs.getString("id", "");
+        id = "XVFeFqfq9jb4UYhjX8ZNXEOkxhm1";
         userType = prefs.getString("usertype", "");
     }
 
@@ -265,7 +264,7 @@ public class ProductsListScreenActivity extends AppCompatActivity {
         menu.clear();
         getMenuInflater().inflate(R.menu.menu_search_products, menu);
         MenuItem categoryItem = menu.findItem(R.id.mspProductCategories);
-        databaseReference.child("Category").child(id).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Category").child("XVFeFqfq9jb4UYhjX8ZNXEOkxhm1").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

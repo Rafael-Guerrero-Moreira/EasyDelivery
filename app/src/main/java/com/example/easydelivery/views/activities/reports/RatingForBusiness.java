@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Rating;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.example.easydelivery.R;
 import com.example.easydelivery.helpers.FireBaseRealtime;
 import com.example.easydelivery.model.Business;
 import com.example.easydelivery.model.RatingBusiness;
+import com.example.easydelivery.views.activities.MainActivity;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
@@ -88,6 +90,7 @@ public class RatingForBusiness extends AppCompatActivity {
             }
         });
     }
+
     private void setupFirebase(){
         // firebaseDatabase.setPersistenceEnabled(true);
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -128,10 +131,12 @@ public class RatingForBusiness extends AppCompatActivity {
     }
 
 
-    public void goToHomeActivity(View view) {
+    public void goToPreviousActivity(View v) {
+        finish();
     }
 
-    public void goToPreviousActivity(View view) {
+    public void goToHomeActivity(View v) {
+        startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
     }
     private void buildDataForReport() {
         pieEntries.clear();

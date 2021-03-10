@@ -77,7 +77,6 @@ public class RegisterClientScreenActivity extends AppCompatActivity {
         setupFirebase();
     }
     public void goToPreviousActivity(View view) {
-        startActivity(new Intent(this, UserTypeScreenActivity.class));
         finish();
     }
     public void goToLoginActivity(View view)

@@ -24,7 +24,7 @@ public class MenuOptions {
     static {
         try {
             PRODUCTS = new JSONObject()
-                    .put("title", "Mis Productos")
+                    .put("title", "Productos")
                     .put("image", "https://img.icons8.com/dusk/344/product.png")
                     .put("activity", ProductsListScreenActivity.class);
             ORDERS = new JSONObject()
@@ -60,9 +60,9 @@ public class MenuOptions {
         JSONArray result = new JSONArray();
         switch (userType) {
             case "Business":
-                return result.put(PRODUCTS).put(ORDERS).put(REPORTS).put(RATINGS);
+                return result.put(PRODUCTS).put(ORDERS).put(REPORTS);
             case "Client":
-                return result.put(BUSINESS).put(MYCAR).put(ORDERS).put(RATINGS);
+                return result.put(PRODUCTS).put(MYCAR).put(ORDERS);
             case "Delivery":
                 return result.put(ORDERS).put(RATINGS);
         }
